@@ -1,8 +1,8 @@
 <?php
 	const SERVER="localhost";
-	const DB="soswebstore";
-	const USER="root";
-	const PASS="";
+	const DB="apliticn_sos";
+	const USER="apliticn_sos";
+	const PASS="sos.2018";
 
 
 	const SGBD="mysql:host=".SERVER.";dbname=".DB;
