@@ -45,7 +45,7 @@ if ($_SESSION['id'] != 1){
 						<small>Manejo de usuarios administradores</small>
 					</div>
 					<div class="card-body">
-						<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Todos los usuarios</button>
+						<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Todos los usuario</button>
 						<button type="button" class="btn btn-success" role="link" onclick="window.location='<?php echo SERVERURL; ?>nuevo-usuario/'">Agregar nuevo</button>
 						<button type="button" class="btn btn-info" role="link" onclick="window.location='<?php echo SERVERURL; ?>buscar-usuarios/'">Buscar usuario</button>
 					</div>

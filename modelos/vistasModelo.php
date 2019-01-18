@@ -1,7 +1,16 @@
 <?php 
 	class vistasModelo{
 		protected function obtener_vistas_modelo($vistas){
-			$listaBlanca=["inicio","usuarios","nuevo-usuario","buscar-usuarios","perfil-usuario","editar-usuario","noticias","buscar-noticia","nueva-noticia","editar-noticia"];
+			$listaBlanca=
+			[
+				"inicio",
+				"usuarios","nuevo-usuario","buscar-usuarios","perfil-usuario","editar-usuario",
+				"productos","buscar-productos","nuevo-producto","editar-producto",
+				"categorias","buscar-categorias","nueva-categoria","editar-categoria",
+				"atributos","buscar-atributos","nuevo-atributo","editar-atributo",
+				"etiquetas","buscar-etiquetas","nueva-etiqueta","editar-etiqueta",
+				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento"
+			];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-vista.php")){
 					$contenido="./vistas/contenidos/".$vistas."-vista.php";

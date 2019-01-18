@@ -12,17 +12,45 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
                 <li class="active">
                     <a href="<?php echo SERVERURL; ?>inicio/"><i class="menu-icon fas fa-home"></i>Escritorio</a>
                 </li>
-                <li class="menu-title">Ejemplos</li>
+                <li class="menu-title">Tienda</li>
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Ejemplo</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-boxes"></i>Productos</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="#">Ejemplo</a></li>
+                        <li><i class="fas fa-boxes"></i><a href="<?php echo SERVERURL; ?>productos/">Todos los productos</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-producto/">Agregar productos</a></li>
+                        <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-productos/">Buscar productos</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-list-ul"></i>Categorías</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fas fa-list-ul"></i><a href="<?php echo SERVERURL; ?>categorias/">Todas las categorías</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nueva-categoria/">Agregar categoría</a></li>
+                        <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-categorias/">Buscar categorías</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-tags"></i>Etiquetas</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fas fa-tags"></i><a href="<?php echo SERVERURL; ?>etiquetas/">Todas las etiquetas</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nueva-etiqueta/">Agregar etiqueta</a></li>
+                        <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-etiquetas/">Buscar etiquetas</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-thumbtack"></i>Atributos</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fas fa-thumbtack"></i><a href="<?php echo SERVERURL; ?>atributos/">Todos los atributos</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-atributo/">Agregar atributos</a></li>
+                        <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-atributos/">Buscar atributos</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cart-arrow-down"></i>Descuentos</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fas fa-cart-arrow-down"></i><a href="<?php echo SERVERURL; ?>descuentos/">Todos los descuentos</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-descuento/">Agregar descuentos</a></li>
+                        <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-descuentos/">Buscar descuentos</a></li>
                     </ul>
                 </li>
                 <?php if ($_SESSION['id'] == 1): ?>
