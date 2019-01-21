@@ -9,7 +9,7 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
     <nav class="navbar navbar-expand-sm navbar-default">
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li>
                     <a href="<?php echo SERVERURL; ?>inicio/"><i class="menu-icon fas fa-home"></i>Escritorio</a>
                 </li>
                 <li class="menu-title">Tienda</li>
