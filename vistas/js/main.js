@@ -178,4 +178,10 @@ jQuery(document).ready(function($) {
         });
 
     });
+
+    //SCRIPT PARA CREACION DE SLUG
+    $("#entrada-titulo").stringToSlug();
+    $("#entrada-slug").stringToSlug({
+        setEvents: 'blur'
+    });
 });

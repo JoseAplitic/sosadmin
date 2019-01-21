@@ -74,13 +74,13 @@ if ($_SESSION['id'] != 1){
 								<div class="col-6">
 									<div class="form-group">
 										<label for="company" class=" form-control-label">Nombres *</label>
-										<input type="text" name="usuario-nombre-nuevo" placeholder="" class="form-control" required="">
+										<input id="entrada-titulo" type="text" name="usuario-nombre-nuevo" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
 										<label for="company" class=" form-control-label">Apellidos *</label>
-										<input type="text" name="usuario-apellido-nuevo" placeholder="" class="form-control" required="">
+										<input id="entrada-slug" type="text" name="usuario-apellido-nuevo" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 							</div>
