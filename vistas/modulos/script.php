@@ -5,4 +5,5 @@
 <script src="<?php echo SERVERURL; ?>vistas/js/sweetalert2.min.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/js/speakingurl.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/js/jquery.stringtoslug.min.js"></script>
+<script src="<?php echo SERVERURL; ?>vistas/js/chosen.jquery.min.js"></script>
 <script src="<?php echo SERVERURL; ?>vistas/js/main.js"></script>
