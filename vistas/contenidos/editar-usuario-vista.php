@@ -79,42 +79,42 @@ if ($_SESSION['id'] != 1){
 										<div class="row">
 											<div class="col-6">
 												<div class="form-group">
-													<label for="company" class=" form-control-label">Nombres *</label>
-													<input type="text" name="usuario-nombre-editar" placeholder="" class="form-control" value="<?php echo $nombre; ?>" required="">
+													<label for="usuario-nombre-editar" class=" form-control-label">Nombres *</label>
+													<input id="usuario-nombre-editar" type="text" name="usuario-nombre-editar" placeholder="" class="form-control" value="<?php echo $nombre; ?>" required="">
 												</div>
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-													<label for="company" class=" form-control-label">Apellidos *</label>
-													<input type="text" name="usuario-apellido-editar" placeholder="" class="form-control" value="<?php echo $apellido; ?>" required="">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Usuario *</label>
-													<input type="text" name="usuario-usuario-editar" placeholder="" class="form-control" value="<?php echo $usuario; ?>" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Correo *</label>
-													<input type="email" name="usuario-correo-editar" placeholder="" class="form-control" value="<?php echo $correo; ?>" required="">
+													<label for="usuario-apellido-editar" class=" form-control-label">Apellidos *</label>
+													<input id="usuario-apellido-editar" type="text" name="usuario-apellido-editar" placeholder="" class="form-control" value="<?php echo $apellido; ?>" required="">
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-6">
 												<div class="form-group">
-													<label for="company" class=" form-control-label">Contraseña *</label>
-													<input type="password" name="usuario-contra1-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
+													<label for="usuario-usuario-editar" class=" form-control-label">Usuario *</label>
+													<input id="usuario-usuario-editar" type="text" name="usuario-usuario-editar" placeholder="" class="form-control" value="<?php echo $usuario; ?>" required="">
 												</div>
 											</div>
 											<div class="col-6">
 												<div class="form-group">
-													<label for="company" class=" form-control-label">Repetir contraseña *</label>
-													<input type="password" name="usuario-contra2-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
+													<label for="usuario-correo-editar" class=" form-control-label">Correo *</label>
+													<input id="usuario-correo-editar" type="email" name="usuario-correo-editar" placeholder="" class="form-control" value="<?php echo $correo; ?>" required="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-6">
+												<div class="form-group">
+													<label for="usuario-contra1-editar" class=" form-control-label">Contraseña *</label>
+													<input id="usuario-contra1-editar" type="password" name="usuario-contra1-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-group">
+													<label for="usuario-contra2-editar" class=" form-control-label">Repetir contraseña *</label>
+													<input id="usuario-contra2-editar" type="password" name="usuario-contra2-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
 												</div>
 											</div>
 										</div>
