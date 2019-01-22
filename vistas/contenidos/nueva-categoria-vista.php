@@ -1,9 +1,3 @@
-<?php
-if ($_SESSION['id'] != 1){
-    $url = SERVERURL;
-    echo '<script>location.href="'.$url.'"</script>';
-}
-?>
 <div class="breadcrumbs animated fadeIn">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -60,55 +54,77 @@ if ($_SESSION['id'] != 1){
 		$insAdmin= new administradorControlador();
 	?>
 
-	<!-- Lista de usuarios -->
+	<!-- Agregar usuario -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Agregar nuevo usuario</strong>
+						<strong class="card-title">Agregar nueva categoría</strong>
 					</div>
 					<div class="card-body">
 						<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="save" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Nombres *</label>
-										<input id="entrada-titulo" type="text" name="usuario-nombre-nuevo" placeholder="" class="form-control" required="">
+										<label for="entrada-titulo" class="form-control-label">Nombre *</label>
+										<input id="entrada-titulo" type="text" name="categoria-nombre-nueva" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Apellidos *</label>
-										<input id="entrada-slug" type="text" name="usuario-apellido-nuevo" placeholder="" class="form-control" required="">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-6">
-									<div class="form-group">
-										<label for="company" class=" form-control-label">Usuario *</label>
-										<input type="text" name="usuario-usuario-nuevo" placeholder="" class="form-control" required="">
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group">
-										<label for="company" class=" form-control-label">Correo *</label>
-										<input type="email" name="usuario-correo-nuevo" placeholder="" class="form-control" required="">
+										<label for="entrada-slug" class=" form-control-label">Slug *</label>
+										<input id="entrada-slug" type="text" name="categoria-slug-nueva" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-6">
+								<div class="col-12">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Contraseña *</label>
-										<input type="password" name="usuario-contra1-nuevo" placeholder="" class="form-control" required="">
+										<label for="categoria-descripcion-nueva" class=" form-control-label">Descripción</label>
+										<input id="categoria-descripcion-nueva" type="text" name="categoria-descripcion-nueva" placeholder="" class="form-control">
 									</div>
 								</div>
-								<div class="col-6">
+							</div>
+							<div class="row">
+								<div class="col-12">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Repetir contraseña *</label>
-										<input type="password" name="usuario-contra2-nuevo" placeholder="" class="form-control" required="">
+										<label for="categoria-padre-nueva" class=" form-control-label">Categoría superior</label>
+										<select id="categoria-padre-nueva" name="categoria-padre-nueva" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
+											<option value="" label="default"></option>
+											<option value="United States">United States</option>
+											<option value="United Kingdom">United Kingdom</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Aland Islands">Aland Islands</option>
+											<option value="Albania">Albania</option>
+											<option value="Algeria">Algeria</option>
+											<option value="American Samoa">American Samoa</option>
+											<option value="Andorra">Andorra</option>
+											<option value="Angola">Angola</option>
+											<option value="Anguilla">Anguilla</option>
+											<option value="Antarctica">Antarctica</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="categoria-icono-nueva" class=" form-control-label">Icono</label>
+										<select id="categoria-icono-nueva" name="categoria-icono-nueva" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
+											<option value="" label="default"></option>
+											<option value="United States">United States</option>
+											<option value="United Kingdom">United Kingdom</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Aland Islands">Aland Islands</option>
+											<option value="Albania">Albania</option>
+											<option value="Algeria">Algeria</option>
+											<option value="American Samoa">American Samoa</option>
+											<option value="Andorra">Andorra</option>
+											<option value="Angola">Angola</option>
+											<option value="Anguilla">Anguilla</option>
+											<option value="Antarctica">Antarctica</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -123,3 +139,14 @@ if ($_SESSION['id'] != 1){
 </div>
 
 <div class="clearfix"></div>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+			width: "100%",
+			height: "200px"
+        });
+    });
+</script>
