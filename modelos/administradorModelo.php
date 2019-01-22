@@ -53,4 +53,30 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		protected function verificar_categoria_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function agregar_categoria_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre,icono) VALUES(:Nombre,:Slug,'categoria',:Descripcion,:Padre,:Icono)");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Padre",$datos['Padre']);
+			$sql->bindParam(":Icono",$datos['Icono']);
+			$sql->execute();
+			return $sql;
+		}
+		
+		protected function eliminar_taxonomia_modelo($codigo)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM taxonomias WHERE id=:Codigo");
+			$query->bindParam(":Codigo",$codigo);
+			$query->execute();
+			return $query;
+		}
 	}
