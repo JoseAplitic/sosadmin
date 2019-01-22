@@ -1,9 +1,3 @@
-<?php
-if ($_SESSION['id'] != 1){
-    $url = SERVERURL;
-    echo '<script>location.href="'.$url.'"</script>';
-}
-?>
 <div class="breadcrumbs animated fadeIn">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -62,18 +56,18 @@ if ($_SESSION['id'] != 1){
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Editar usuario</strong>
+						<strong class="card-title">Editar categoría</strong>
 					</div>
 					<div class="card-body">
-						<?php if (isset($_POST['usuario-id-editar'])):
-							$sql = $insAdmin->obtener_info_usuarios_controlador($_POST['usuario-id-editar']);
+						<?php if (isset($_POST['categoria-id-editar'])):
+							$sql = $insAdmin->obtener_info_categorias_controlador($_POST['categoria-id-editar']);
 							if($sql->rowCount()>=1):
 								$datos=$sql->fetch();
 								$nombre = $datos['nombre'];
 								$apellido = $datos['apellido'];
 								$usuario = $datos['usuario'];
 								$correo = $datos['correo'];
-								$clave = $insAdmin->desencriptar($datos['clave']);
+								$clave = $datos['clave'];
 								?>
 									<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
 										<input type="hidden" name="usuario-id-editar" value="<?php echo $_POST['usuario-id-editar']; ?>">
