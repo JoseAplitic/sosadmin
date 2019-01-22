@@ -72,42 +72,42 @@ if ($_SESSION['id'] != 1){
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Nombres *</label>
-										<input type="text" name="usuario-nombre-nuevo" placeholder="" class="form-control" required="">
+										<label for="usuario-nombre-nuevo" class=" form-control-label">Nombres *</label>
+										<input id="usuario-nombre-nuevo" type="text" name="usuario-nombre-nuevo" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Apellidos *</label>
-										<input type="text" name="usuario-apellido-nuevo" placeholder="" class="form-control" required="">
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-6">
-									<div class="form-group">
-										<label for="company" class=" form-control-label">Usuario *</label>
-										<input type="text" name="usuario-usuario-nuevo" placeholder="" class="form-control" required="">
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group">
-										<label for="company" class=" form-control-label">Correo *</label>
-										<input type="email" name="usuario-correo-nuevo" placeholder="" class="form-control" required="">
+										<label for="usuario-apellido-nuevo" class=" form-control-label">Apellidos *</label>
+										<input id="usuario-apellido-nuevo" type="text" name="usuario-apellido-nuevo" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Contraseña *</label>
-										<input type="password" name="usuario-contra1-nuevo" placeholder="" class="form-control" required="">
+										<label for="usuario-usuario-nuevo" class=" form-control-label">Usuario *</label>
+										<input id="usuario-usuario-nuevo" type="text" name="usuario-usuario-nuevo" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="form-group">
-										<label for="company" class=" form-control-label">Repetir contraseña *</label>
-										<input type="password" name="usuario-contra2-nuevo" placeholder="" class="form-control" required="">
+										<label for="usuario-correo-nuevo" class=" form-control-label">Correo *</label>
+										<input id="usuario-correo-nuevo" type="email" name="usuario-correo-nuevo" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label for="usuario-contra1-nuevo" class=" form-control-label">Contraseña *</label>
+										<input id="usuario-contra1-nuevo" type="password" name="usuario-contra1-nuevo" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label for="usuario-contra2-nuevo" class=" form-control-label">Repetir contraseña *</label>
+										<input id="usuario-contra2-nuevo" type="password" name="usuario-contra2-nuevo" placeholder="" class="form-control" required="">
 									</div>
 								</div>
 							</div>
