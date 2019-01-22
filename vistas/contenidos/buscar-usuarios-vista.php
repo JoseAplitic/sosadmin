@@ -105,7 +105,7 @@ if ($_SESSION['id'] != 1){
 					<div class="table-stats order-table ov-h">
 						<?php 
 							$pagina = explode("/", $_GET['views']);
-							echo $insAdmin->paginador_administrador_controlador($pagina[1],100,$_SESSION['busqueda_admin_cache']);
+							echo $insAdmin->paginador_administrador_controlador($pagina[1],10,$_SESSION['busqueda_admin_cache']);
 						?>
 					</div>
 				</div>
