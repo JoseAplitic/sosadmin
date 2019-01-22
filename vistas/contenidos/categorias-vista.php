@@ -1,9 +1,3 @@
-<?php
-if ($_SESSION['id'] != 1){
-    $url = SERVERURL;
-    echo '<script>location.href="'.$url.'"</script>';
-}
-?>
 <div class="breadcrumbs animated fadeIn">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
@@ -61,13 +55,13 @@ if ($_SESSION['id'] != 1){
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Todos los usuarios</strong>
+						<strong class="card-title">Todos las categorías</strong>
 					</div>
 					<div class="card-body">
 						<div class="table-stats order-table ov-h">
 							<?php 
 								$pagina = explode("/", $_GET['views']);
-								echo $insAdmin->paginador_administrador_controlador($pagina[1],10,"");
+								echo $insAdmin->paginador_categorias_controlador($pagina[1],10,"");
 							?>
 						</div>
 					</div>
