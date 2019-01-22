@@ -110,7 +110,6 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
-
 		//editar info mi perfil
 		public function editar_perfil_controlador()
 		{
@@ -683,9 +682,6 @@
 
 			return $tabla;
 		}
-
-
-
 		//Controlador para agregar administrador
 		public function agregar_noticia_controlador()
 		{
@@ -847,7 +843,6 @@
 			}
 			return mainModel::sweet_alert($alerta);
 		}
-
 		//eliminar noticia
 		public function eliminar_noticia_controlador(){
 			$codigo=mainModel::decryption($_POST['noticia-id-eliminar']);
@@ -883,7 +878,6 @@
 			}
 			return mainModel::sweet_alert($alerta);
 		}
-
 		//Obtener info de una noticia
 		public function obtener_info_noticias_controlador($codigo)
 		{
@@ -893,7 +887,6 @@
 			$sql->execute();
 			return $sql;
 		}
-
 		//editar info noticia
 		public function editar_noticia_controlador()
 		{
@@ -928,8 +921,6 @@
 			}
 			return mainModel::sweet_alert($alerta);
 		}
-
-
 		//editar foto administradores
 		public function editar_noticia_imagen_controlador()
 		{
@@ -1081,4 +1072,194 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
+		public function agregar_categoria_controlador()
+		{
+			$nombre=mainModel::limpiar_cadena($_POST['categoria-nombre-nueva']);
+			$slug=mainModel::limpiar_cadena($_POST['categoria-slug-nueva']);
+			$descripcion=mainModel::limpiar_cadena($_POST['categoria-descripcion-nueva']);
+			$padre=mainModel::limpiar_cadena($_POST['categoria-padre-nueva']);
+			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-nueva']);
+
+			$verificar=administradorModelo::verificar_categoria_slug_disponible($slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				$dataAC=[
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Padre"=>$padre,
+					"Icono"=>$icono
+				];
+				$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
+				if($guardarCategoria->rowCount()>=1)
+				{
+					$alerta=[
+						"Alerta"=>"limpiar",
+						"Titulo"=>"Categoria añadida",
+						"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se ha podido guardar la categoría",
+						"Tipo"=>"error"
+					];
+				}
+			}
+
+			return mainModel::sweet_alert($alerta);
+		}
+
+		// Controlador para paginar administradores
+		public function paginador_categorias_controlador($pagina,$registros,$busqueda){
+
+			$pagina=mainModel::limpiar_cadena($pagina);
+			$registros=mainModel::limpiar_cadena($registros);
+			$busqueda=mainModel::limpiar_cadena($busqueda);
+			$tabla="";
+
+			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
+			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
+
+			if(isset($busqueda) && $busqueda!=""){
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE (nombre LIKE '%$busqueda%' OR slug LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%') AND taxonomia = 'categoria' ORDER BY id ASC LIMIT $inicio,$registros";
+				$paginaurl="buscar-categorias";
+			}else{
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE taxonomia = 'categoria' ORDER BY id DESC LIMIT $inicio,$registros";
+				$paginaurl="categorias";
+			}
+
+			$conexion = mainModel::conectar();
+
+			$datos = $conexion->query($consulta);
+			$datos= $datos->fetchAll();
+
+			$total= $conexion->query("SELECT FOUND_ROWS()");
+			$total= (int) $total->fetchColumn();
+
+			$Npaginas= ceil($total/$registros);
+
+			$tabla.='
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Slug</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+				';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$contador=$inicio+1;
+				foreach($datos as $rows){
+					$tabla.='
+						<tr>
+							<td>'.$rows['id'].'</td>
+							<td>'.$rows['nombre'].'</td>
+							<td>'.$rows['slug'].'</td>
+							<td>
+								<form action="'.SERVERURL.'editar-categoria/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+									<input type="hidden" name="categoria-id-editar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-info">
+										<i class="fas fa-pencil-alt"></i>
+									</button>
+								</form>
+							</td>
+							<td>
+								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
+									<input type="hidden" name="categoria-id-eliminar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-danger">
+										<i class="fas fa-times"></i>
+									</button>
+									<div class="RespuestaAjax"></div>
+								</form>
+							</td>';
+							$tabla.='</tr>';
+							$contador++;
+						}
+			}else{
+				if($total>=1){
+					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
+				}else{
+					$tabla.='
+						<tr>
+							<td></td>
+							<td>No hay registros en el sistema</td>
+							<td></td>
+							<td></td>
+						</tr>
+					';	
+				}
+			}
+
+			$tabla.='</tbody></table>';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+
+				if($pagina==1){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
+				}
+
+				for($i=1; $i<=$Npaginas; $i++){
+					if($pagina==$i){
+						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}else{
+						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}
+				}
+
+				if($pagina==$Npaginas){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/">Siguiente</a></li>';
+				}
+				$tabla.='</ul></nav>';
+			}
+
+			return $tabla;
+		}
+
+		public function eliminar_categoria_controlador(){
+			$codigo=mainModel::limpiar_cadena($_POST['categoria-id-eliminar']);
+			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
+			if($DelCat->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Categoría eliminada",
+					"Texto"=>"La categoría fue eliminada del sistema con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se ha podido eliminar esta categoría en este momento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
 	}
