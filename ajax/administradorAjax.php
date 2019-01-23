@@ -37,6 +37,12 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_categoria_controlador();
 	}
+	elseif(isset($_POST['categoria-id-editar']) && isset($_POST['categoria-nombre-editar']) && isset($_POST['categoria-slug-editar']) && isset($_POST['categoria-descripcion-editar']) && isset($_POST['categoria-padre-editar']) && isset($_POST['categoria-icono-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_categoria_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);

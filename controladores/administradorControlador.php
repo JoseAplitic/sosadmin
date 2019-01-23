@@ -16,14 +16,6 @@
 			return $num;
 		}
 
-		//Obtener cantidad de registros de noticias
-		public function obtener_numero_noticias_controlador()
-		{
-			$noticias=mainModel::ejecutar_consulta_simple("SELECT * FROM noticias;");
-			$num = $noticias->rowCount();
-			return $num;
-		}
-
 		//Obtener info de un usuarios
 		public function obtener_info_usuarios_controlador($codigo)
 		{
@@ -1072,6 +1064,7 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
+		// CONTROLADORES PARA CATEGORIAS
 		public function agregar_categoria_controlador()
 		{
 			$nombre=mainModel::limpiar_cadena($_POST['categoria-nombre-nueva']);
@@ -1123,7 +1116,6 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
-		// Controlador para paginar administradores
 		public function paginador_categorias_controlador($pagina,$registros,$busqueda){
 
 			$pagina=mainModel::limpiar_cadena($pagina);
@@ -1261,5 +1253,303 @@
 				];
 			}
 			return mainModel::sweet_alert($alerta);
+		}
+
+		public function editar_categoria_controlador()
+		{
+			$codigo=mainModel::limpiar_cadena($_POST['categoria-id-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['categoria-nombre-editar']);
+			$slug=mainModel::limpiar_cadena($_POST['categoria-slug-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['categoria-descripcion-editar']);
+			$padre=mainModel::limpiar_cadena($_POST['categoria-padre-editar']);
+			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-editar']);
+			$verificar=administradorModelo::verificar_categoria_editar_slug_disponible($codigo, $slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible, escoge otra por favor.",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				$datosEditar =
+				[
+					"Codigo"=>$codigo,
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Padre"=>$padre,
+					"Icono"=>$icono
+				];
+				$ActAdmin=administradorModelo::editar_taxonomia_modelo($datosEditar);
+				if($ActAdmin->rowCount()>=1)
+				{
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Datos Actualizados",
+						"Texto"=>"Los datos fueron editados con éxito",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se puede editar en este momento, esto puede ser un error del sistema pero te recomendamos revisar la información que proporcionaste.",
+						"Tipo"=>"error"
+					];
+				}
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		// CONTROLADORES PARA ETIQUETAS
+		public function agregar_etiqueta_controlador()
+		{
+			$nombre=mainModel::limpiar_cadena($_POST['etiqueta-nombre-nueva']);
+			$slug=mainModel::limpiar_cadena($_POST['etiqueta-slug-nueva']);
+			$descripcion=mainModel::limpiar_cadena($_POST['etiqueta-descripcion-nueva']);
+
+			$verificar=administradorModelo::verificar_etiqueta_slug_disponible($slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				$dataAC=[
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion
+				];
+				$guardarEtiqueta=administradorModelo::agregar_etiqueta_modelo($dataAC);
+				if($guardarEtiqueta->rowCount()>=1)
+				{
+					$alerta=[
+						"Alerta"=>"limpiar",
+						"Titulo"=>"Etiqueta añadida",
+						"Texto"=>"Se ha guardado correctamente la etiqueta en la tienda",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se ha podido guardar la etiqueta",
+						"Tipo"=>"error"
+					];
+				}
+			}
+
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function paginador_etiquetas_controlador($pagina,$registros,$busqueda){
+
+			$pagina=mainModel::limpiar_cadena($pagina);
+			$registros=mainModel::limpiar_cadena($registros);
+			$busqueda=mainModel::limpiar_cadena($busqueda);
+			$tabla="";
+
+			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
+			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
+
+			if(isset($busqueda) && $busqueda!=""){
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE (nombre LIKE '%$busqueda%' OR slug LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%') AND taxonomia = 'etiqueta' ORDER BY id ASC LIMIT $inicio,$registros";
+				$paginaurl="buscar-etiquetas";
+			}else{
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE taxonomia = 'etiqueta' ORDER BY id DESC LIMIT $inicio,$registros";
+				$paginaurl="etiquetas";
+			}
+
+			$conexion = mainModel::conectar();
+
+			$datos = $conexion->query($consulta);
+			$datos= $datos->fetchAll();
+
+			$total= $conexion->query("SELECT FOUND_ROWS()");
+			$total= (int) $total->fetchColumn();
+
+			$Npaginas= ceil($total/$registros);
+
+			$tabla.='
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Slug</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+				';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$contador=$inicio+1;
+				foreach($datos as $rows){
+					$tabla.='
+						<tr>
+							<td>'.$rows['id'].'</td>
+							<td>'.$rows['nombre'].'</td>
+							<td>'.$rows['slug'].'</td>
+							<td>
+								<form action="'.SERVERURL.'editar-etiqueta/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+									<input type="hidden" name="etiqueta-id-editar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-info">
+										<i class="fas fa-pencil-alt"></i>
+									</button>
+								</form>
+							</td>
+							<td>
+								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
+									<input type="hidden" name="etiqueta-id-eliminar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-danger">
+										<i class="fas fa-times"></i>
+									</button>
+									<div class="RespuestaAjax"></div>
+								</form>
+							</td>';
+							$tabla.='</tr>';
+							$contador++;
+						}
+			}else{
+				if($total>=1){
+					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
+				}else{
+					$tabla.='
+						<tr>
+							<td></td>
+							<td>No hay registros en el sistema</td>
+							<td></td>
+							<td></td>
+						</tr>
+					';	
+				}
+			}
+
+			$tabla.='</tbody></table>';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+
+				if($pagina==1){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
+				}
+
+				for($i=1; $i<=$Npaginas; $i++){
+					if($pagina==$i){
+						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}else{
+						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}
+				}
+
+				if($pagina==$Npaginas){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/">Siguiente</a></li>';
+				}
+				$tabla.='</ul></nav>';
+			}
+
+			return $tabla;
+		}
+
+		public function eliminar_etiqueta_controlador(){
+			$codigo=mainModel::limpiar_cadena($_POST['etiqueta-id-eliminar']);
+			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
+			if($DelCat->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Etiqueta eliminada",
+					"Texto"=>"La etiqueta fue eliminada del sistema con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se ha podido eliminar esta etiqueta en este momento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function editar_etiqueta_controlador()
+		{
+			$codigo=mainModel::limpiar_cadena($_POST['etiqueta-id-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['etiqueta-nombre-editar']);
+			$slug=mainModel::limpiar_cadena($_POST['etiqueta-slug-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['etiqueta-descripcion-editar']);
+			$verificar=administradorModelo::verificar_etiqueta_editar_slug_disponible($codigo, $slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible, escoge otra por favor.",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				$datosEditar =
+				[
+					"Codigo"=>$codigo,
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion
+				];
+				$ActAdmin=administradorModelo::editar_taxonomia_modelo($datosEditar);
+				if($ActAdmin->rowCount()>=1)
+				{
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Datos Actualizados",
+						"Texto"=>"Los datos fueron editados con éxito",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se puede editar en este momento, esto puede ser un error del sistema pero te recomendamos revisar la información que proporcionaste.",
+						"Tipo"=>"error"
+					];
+				}
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+
+		
+		// CONTROLADORES PARA TAXONOMIAS
+		public function obtener_info_taxonomia_controlador($codigo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE id=:Codigo");
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
 		}
 	}

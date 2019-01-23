@@ -60,61 +60,85 @@
 					</div>
 					<div class="card-body">
 						<?php if (isset($_POST['categoria-id-editar'])):
-							$sql = $insAdmin->obtener_info_categorias_controlador($_POST['categoria-id-editar']);
+							$sql = $insAdmin->obtener_info_taxonomia_controlador($_POST['categoria-id-editar']);
 							if($sql->rowCount()>=1):
 								$datos=$sql->fetch();
 								$nombre = $datos['nombre'];
-								$apellido = $datos['apellido'];
-								$usuario = $datos['usuario'];
-								$correo = $datos['correo'];
-								$clave = $datos['clave'];
+								$slug = $datos['slug'];
+								$descripcion = $datos['descripcion'];
+								$padre = $datos['padre'];
+								$icono = $datos['icono'];
 								?>
-									<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-										<input type="hidden" name="usuario-id-editar" value="<?php echo $_POST['usuario-id-editar']; ?>">
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Nombres *</label>
-													<input type="text" name="usuario-nombre-editar" placeholder="" class="form-control" value="<?php echo $nombre; ?>" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Apellidos *</label>
-													<input type="text" name="usuario-apellido-editar" placeholder="" class="form-control" value="<?php echo $apellido; ?>" required="">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Usuario *</label>
-													<input type="text" name="usuario-usuario-editar" placeholder="" class="form-control" value="<?php echo $usuario; ?>" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Correo *</label>
-													<input type="email" name="usuario-correo-editar" placeholder="" class="form-control" value="<?php echo $correo; ?>" required="">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Contraseña *</label>
-													<input type="password" name="usuario-contra1-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="company" class=" form-control-label">Repetir contraseña *</label>
-													<input type="password" name="usuario-contra2-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
-												</div>
-											</div>
-										</div>
-										<input class="btn btn-outline-info btn-block" type="submit" value="Guardar cambios" style="margin: 20px 0px;">
-										<div class="RespuestaAjax"></div>
+						<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
+							<input type="hidden" name="categoria-id-editar" value="<?php echo $_POST['categoria-id-editar']; ?>">
+							<div class="row">
+								<div class="col-6">
+									<div class="form-group">
+										<label for="entrada-titulo" class="form-control-label">Nombre *</label>
+										<input id="entrada-titulo" type="text" name="categoria-nombre-editar" placeholder="" class="form-control" value="<?php echo $nombre; ?>" required="">
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="form-group">
+										<label for="entrada-slug" class=" form-control-label">Slug *</label>
+										<input id="entrada-slug" type="text" name="categoria-slug-editar" placeholder="" class="form-control" value="<?php echo $slug; ?>" required="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="categoria-descripcion-editar" class=" form-control-label">Descripción</label>
+										<input id="categoria-descripcion-editar" type="text" name="categoria-descripcion-editar" placeholder="" value="<?php echo $descripcion; ?>" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="categoria-padre-editar" class=" form-control-label">Categoría superior</label>
+										<select id="categoria-padre-editar" name="categoria-padre-editar" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
+											<option value="<?php echo $padre; ?>" label="default"><?php echo $padre; ?></option>
+											<option value="0">Ninguna</option>
+											<option value="United States">United States</option>
+											<option value="United Kingdom">United Kingdom</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Aland Islands">Aland Islands</option>
+											<option value="Albania">Albania</option>
+											<option value="Algeria">Algeria</option>
+											<option value="American Samoa">American Samoa</option>
+											<option value="Andorra">Andorra</option>
+											<option value="Angola">Angola</option>
+											<option value="Anguilla">Anguilla</option>
+											<option value="Antarctica">Antarctica</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="categoria-icono-editar" class=" form-control-label">Icono</label>
+										<select id="categoria-icono-editar" name="categoria-icono-editar" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
+											<option value="<?php echo $icono; ?>" label="default"><?php echo $icono; ?></option>
+											<option value="" label="default"></option>
+											<option value="United States">United States</option>
+											<option value="United Kingdom">United Kingdom</option>
+											<option value="Afghanistan">Afghanistan</option>
+											<option value="Aland Islands">Aland Islands</option>
+											<option value="Albania">Albania</option>
+											<option value="Algeria">Algeria</option>
+											<option value="American Samoa">American Samoa</option>
+											<option value="Andorra">Andorra</option>
+											<option value="Angola">Angola</option>
+											<option value="Anguilla">Anguilla</option>
+											<option value="Antarctica">Antarctica</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<input class="btn btn-outline-info btn-block" type="submit" value="Guardar cambios" style="margin: 20px 0px;">
+							<div class="RespuestaAjax"></div>
 									</form>
 							<?php else: ?>
 								<p>Ha ocurrido un error al intentar cargar la información de este administrador</p>
@@ -132,3 +156,14 @@
 </div>
 
 <div class="clearfix"></div>
+
+<script>
+    jQuery(document).ready(function() {
+        jQuery(".standardSelect").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+			width: "100%",
+			height: "200px"
+        });
+    });
+</script>

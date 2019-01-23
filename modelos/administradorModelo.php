@@ -5,8 +5,9 @@
 		require_once "./core/mainModel.php";
 	}
 
-	class administradorModelo extends mainModel{
-
+	class administradorModelo extends mainModel
+	{
+		//MODELOS PARA USUARIOS
 		protected function verificar_usuario_disponible($usuario){
 			$sql=mainModel::conectar()->prepare("SELECT * FROM usuarios WHERE usuario = :Usuario");
 			$sql->bindParam(":Usuario",$usuario);
@@ -54,13 +55,7 @@
 			return $sql;
 		}
 
-		protected function verificar_categoria_slug_disponible($slug){
-			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND slug = :Slug");
-			$sql->bindParam(":Slug",$slug);
-			$sql->execute();
-			return $sql;
-		}
-
+		//MODELOS PARA CATEGORIAS
 		protected function agregar_categoria_modelo($datos){
 			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre,icono) VALUES(:Nombre,:Slug,'categoria',:Descripcion,:Padre,:Icono)");
 			$sql->bindParam(":Nombre",$datos['Nombre']);
@@ -71,7 +66,110 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		protected function verificar_categoria_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_categoria_editar_slug_disponible($codigo, $slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND slug = :Slug AND id != :Codigo");
+			$sql->bindParam(":Slug",$slug);
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
 		
+		//MODELOS PARA ETIQUETAS
+		protected function agregar_etiqueta_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre) VALUES(:Nombre,:Slug,'etiqueta',:Descripcion,:Padre,:Icono)");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Padre",$datos['Padre']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_etiqueta_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'etiqueta' AND slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+		
+		protected function verificar_etiqueta_editar_slug_disponible($codigo, $slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'etiqueta' AND slug = :Slug AND id != :Codigo");
+			$sql->bindParam(":Slug",$slug);
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
+		
+		protected function editar_etiqueta_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE taxonomias SET nombre = :Nombre, slug = :Slug, descripcion = :Descripcion WHERE id = :Codigo");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Codigo",$datos['Codigo']);
+			$sql->execute();
+			return $sql;
+		}
+		
+		//MODELOS PARA ATRIBUTOS
+		protected function agregar_atributo_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre) VALUES(:Nombre,:Slug,'atributo',:Descripcion,:Padre,:Icono)");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Padre",$datos['Padre']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_atributo_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'atributo' AND slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+		
+		protected function verificar_atributo_editar_slug_disponible($codigo, $slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'atributo' AND slug = :Slug AND id != :Codigo");
+			$sql->bindParam(":Slug",$slug);
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function editar_atributo_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE taxonomias SET nombre = :Nombre, slug = :Slug, descripcion = :Descripcion WHERE id = :Codigo");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Codigo",$datos['Codigo']);
+			$sql->execute();
+			return $sql;
+		}
+
+		//MODELOS PARA TAXONOMIAS
+		protected function editar_taxonomia_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE taxonomias SET nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, padre = :Padre, icono = :Icono WHERE id = :Codigo");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Padre",$datos['Padre']);
+			$sql->bindParam(":Icono",$datos['Icono']);
+			$sql->bindParam(":Codigo",$datos['Codigo']);
+			$sql->execute();
+			return $sql;
+		}
+
 		protected function eliminar_taxonomia_modelo($codigo)
 		{
 			$query=mainModel::conectar()->prepare("DELETE FROM taxonomias WHERE id=:Codigo");
