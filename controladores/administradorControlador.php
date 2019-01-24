@@ -1625,6 +1625,8 @@
 								<th>ID</th>
 								<th>Nombre</th>
 								<th>Slug</th>
+								<th>Ver términos</th>
+								<th>Agregar términos</th>
 								<th>Editar</th>
 								<th>Eliminar</th>
 							</tr>
@@ -1640,6 +1642,8 @@
 							<td>'.$rows['id'].'</td>
 							<td>'.$rows['nombre'].'</td>
 							<td>'.$rows['slug'].'</td>
+							<td><a href="'.SERVERURL.'terminos/'.$rows['id'].'/" class="btn btn-warning"><i class="far fa-eye"></i></a></td>
+							<td><a href="'.SERVERURL.'nuevo-termino/'.$rows['id'].'/" class="btn btn-success"><i class="fas fa-plus"></i></a></td>
 							<td>
 								<form action="'.SERVERURL.'editar-atributo/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
 									<input type="hidden" name="atributo-id-editar" value="'.$rows['id'].'">
