@@ -84,11 +84,10 @@
 		
 		//MODELOS PARA ETIQUETAS
 		protected function agregar_etiqueta_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre) VALUES(:Nombre,:Slug,'etiqueta',:Descripcion,:Padre,:Icono)");
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion) VALUES(:Nombre,:Slug,'etiqueta',:Descripcion)");
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
 			$sql->bindParam(":Descripcion",$datos['Descripcion']);
-			$sql->bindParam(":Padre",$datos['Padre']);
 			$sql->execute();
 			return $sql;
 		}

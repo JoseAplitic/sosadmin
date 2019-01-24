@@ -89,7 +89,7 @@
 			
 	?>
 
-	<!-- Lista de usuarios -->
+	<!-- Lista de categorias -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-lg-12">

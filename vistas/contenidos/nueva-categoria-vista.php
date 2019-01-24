@@ -128,7 +128,7 @@
 									</div>
 								</div>
 							</div>
-							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nuevo usuario" style="margin: 20px 0px;">
+							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nueva categoría" style="margin: 20px 0px;">
 							<div class="RespuestaAjax"></div>
 						</form>
 					</div>

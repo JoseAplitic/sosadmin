@@ -8,7 +8,7 @@
 				"productos","buscar-productos","nuevo-producto","editar-producto",
 				"categorias","buscar-categorias","nueva-categoria","editar-categoria",
 				"atributos","buscar-atributos","nuevo-atributo","editar-atributo",
-				"terminos","buscar-terminos","nuevo-termino","editar-termino",
+				"terminos","nuevo-termino","editar-termino",
 				"etiquetas","buscar-etiquetas","nueva-etiqueta","editar-etiqueta",
 				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento"
 			];
