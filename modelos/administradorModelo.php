@@ -120,11 +120,10 @@
 		
 		//MODELOS PARA ATRIBUTOS
 		protected function agregar_atributo_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre) VALUES(:Nombre,:Slug,'atributo',:Descripcion,:Padre,:Icono)");
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion) VALUES(:Nombre,:Slug,'atributo',:Descripcion)");
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
 			$sql->bindParam(":Descripcion",$datos['Descripcion']);
-			$sql->bindParam(":Padre",$datos['Padre']);
 			$sql->execute();
 			return $sql;
 		}

@@ -50,13 +50,12 @@
 		$insAdmin= new administradorControlador();
 	?>
 
-	<!-- Lista de usuarios -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Editar usuario</strong>
+						<strong class="card-title">Editar etiqueta</strong>
 					</div>
 					<div class="card-body">
 						<?php if (isset($_POST['etiqueta-id-editar'])):
@@ -96,11 +95,11 @@
 									</form>
 							<?php else: ?>
 								<p>Ha ocurrido un error al intentar cargar la información de este administrador</p>
-								<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Ver todos los usuario</button>
+								<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>etiquetas/'">Ver todos los usuario</button>
 							<?php endif ?>
 						<?php else: ?>
 							<p>No ha seleccionado ningun administardor para editar</p>
-							<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Ver todos los usuario</button>
+							<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>etiquetas/'">Ver todos los usuario</button>
 						<?php endif ?>
 					</div>
 				</div>

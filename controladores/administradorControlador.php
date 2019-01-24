@@ -1641,8 +1641,8 @@
 							<td>'.$rows['nombre'].'</td>
 							<td>'.$rows['slug'].'</td>
 							<td>
-								<form action="'.SERVERURL.'editar-etiqueta/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
-									<input type="hidden" name="etiqueta-id-editar" value="'.$rows['id'].'">
+								<form action="'.SERVERURL.'editar-atributo/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+									<input type="hidden" name="atributo-id-editar" value="'.$rows['id'].'">
 									<button type="submit" class="btn btn-info">
 										<i class="fas fa-pencil-alt"></i>
 									</button>
@@ -1650,7 +1650,7 @@
 							</td>
 							<td>
 								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
-									<input type="hidden" name="etiqueta-id-eliminar" value="'.$rows['id'].'">
+									<input type="hidden" name="atributo-id-eliminar" value="'.$rows['id'].'">
 									<button type="submit" class="btn btn-danger">
 										<i class="fas fa-times"></i>
 									</button>

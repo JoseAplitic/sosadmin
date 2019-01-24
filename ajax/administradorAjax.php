@@ -66,7 +66,7 @@
 		echo $insAdmin->editar_etiqueta_controlador();
 	}
 	//AJAX PARA ATRIBUTOS
-	elseif(isset($_POST['atributo-nombre-nueva']) && isset($_POST['atributo-slug-nueva']) && isset($_POST['atributo-descripcion-nueva']) && isset($_POST['atributo-padre-nueva']) && isset($_POST['atributo-icono-nueva']))
+	elseif(isset($_POST['atributo-nombre-nueva']) && isset($_POST['atributo-slug-nueva']) && isset($_POST['atributo-descripcion-nueva']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
@@ -78,7 +78,7 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_atributo_controlador();
 	}
-	elseif(isset($_POST['atributo-id-editar']) && isset($_POST['atributo-nombre-editar']) && isset($_POST['atributo-slug-editar']) && isset($_POST['atributo-descripcion-editar']) && isset($_POST['atributo-padre-editar']) && isset($_POST['atributo-icono-editar']))
+	elseif(isset($_POST['atributo-id-editar']) && isset($_POST['atributo-nombre-editar']) && isset($_POST['atributo-slug-editar']) && isset($_POST['atributo-descripcion-editar']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
