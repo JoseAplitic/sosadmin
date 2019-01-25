@@ -1571,7 +1571,7 @@
 				{
 					$alerta=[
 						"Alerta"=>"limpiar",
-						"Titulo"=>"Etiqueta añadida",
+						"Titulo"=>"Atributo añadido",
 						"Texto"=>"Se ha guardado correctamente el atributo en la tienda",
 						"Tipo"=>"success"
 					];
@@ -1777,6 +1777,270 @@
 						"Tipo"=>"error"
 					];
 				}
+			}
+			return mainModel::sweet_alert($alerta);
+        }
+
+        // CONTROLADORES PARA TÉRMINOS
+		public function agregar_termino_controlador()
+		{
+			$nombre=mainModel::limpiar_cadena($_POST['termino-nombre-nueva']);
+			$slug=mainModel::limpiar_cadena($_POST['termino-slug-nueva']);
+			$descripcion=mainModel::limpiar_cadena($_POST['termino-descripcion-nueva']);
+			$padre=mainModel::limpiar_cadena($_POST['termino-padre-nueva']);
+
+            $verificarPadre = administradorModelo::verificar_termino_padre_modelo($padre);
+            if ($verificarPadre->rowCount() > 0)
+			{
+                $verificar=administradorModelo::verificar_termino_slug_disponible($slug);
+                if ($verificar->rowCount() > 0)
+                {
+                    $alerta=[
+                        "Alerta"=>"simple",
+                        "Titulo"=>"Ocurrió un error",
+                        "Texto"=>"El slug que ingresaste no esta disponible",
+                        "Tipo"=>"error"
+                    ];
+                }
+                else
+                {
+                    $dataAC=[
+                        "Nombre"=>$nombre,
+                        "Slug"=>$slug,
+                        "Descripcion"=>$descripcion,
+                        "Padre"=>$padre
+                    ];
+                    $guardarTermino=administradorModelo::agregar_termino_modelo($dataAC);
+                    if($guardarTermino->rowCount()>=1)
+                    {
+                        $alerta=[
+                            "Alerta"=>"limpiar",
+                            "Titulo"=>"Término añadido",
+                            "Texto"=>"Se ha guardado correctamente el término en la tienda",
+                            "Tipo"=>"success"
+                        ];
+                    }
+                    else
+                    {
+                        $alerta=[
+                            "Alerta"=>"simple",
+                            "Titulo"=>"Ocurrió un error inesperado",
+                            "Texto"=>"No se ha podido guardar el término",
+                            "Tipo"=>"error"
+                        ];
+                    }
+                }
+
+			}
+			else
+			{
+                $alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"No se ha encontrado la información del atributo al que estas intentando añadir este término",
+					"Tipo"=>"error"
+				];
+            }
+
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function paginador_terminos_controlador($pagina,$registros,$padre){
+
+			$pagina=mainModel::limpiar_cadena($pagina);
+			$registros=mainModel::limpiar_cadena($registros);
+			$padre=mainModel::limpiar_cadena($padre);
+			$tabla="";
+
+			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
+			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
+
+            $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE taxonomia = 'termino' AND padre = $padre ORDER BY id DESC LIMIT $inicio,$registros";
+            
+            $paginaurl="terminos/".$padre."/";
+
+			$conexion = mainModel::conectar();
+
+            $datos = $conexion->query($consulta);
+
+			$datos= $datos->fetchAll();
+
+			$total= $conexion->query("SELECT FOUND_ROWS()");
+			$total= (int) $total->fetchColumn();
+
+			$Npaginas= ceil($total/$registros);
+
+			$tabla.='
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Slug</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+				';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$contador=$inicio+1;
+				foreach($datos as $rows){
+					$tabla.='
+						<tr>
+							<td>'.$rows['id'].'</td>
+							<td>'.$rows['nombre'].'</td>
+							<td>'.$rows['slug'].'</td>
+							<td>
+								<form action="'.SERVERURL.'editar-termino/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+								<input type="hidden" name="termino-id-editar" value="'.$rows['id'].'">
+								<input type="hidden" name="termino-padre-editar" value="'.$rows['padre'].'">
+									<button type="submit" class="btn btn-info">
+										<i class="fas fa-pencil-alt"></i>
+									</button>
+								</form>
+							</td>
+							<td>
+								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
+									<input type="hidden" name="termino-id-eliminar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-danger">
+										<i class="fas fa-times"></i>
+									</button>
+									<div class="RespuestaAjax"></div>
+								</form>
+							</td>';
+							$tabla.='</tr>';
+							$contador++;
+						}
+			}else{
+				if($total>=1){
+					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
+				}else{
+					$tabla.='
+						<tr>
+							<td></td>
+							<td>No hay registros en el sistema</td>
+							<td></td>
+							<td></td>
+						</tr>
+					';	
+				}
+			}
+
+			$tabla.='</tbody></table>';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+
+				if($pagina==1){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
+				}
+
+				for($i=1; $i<=$Npaginas; $i++){
+					if($pagina==$i){
+						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.$i.'/">'.$i.'</a></li>';
+					}else{
+						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.$i.'/">'.$i.'</a></li>';
+					}
+				}
+
+				if($pagina==$Npaginas){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/">Siguiente</a></li>';
+				}
+				$tabla.='</ul></nav>';
+			}
+
+			return $tabla;
+		}
+
+		public function eliminar_termino_controlador(){
+			$codigo=mainModel::limpiar_cadena($_POST['termino-id-eliminar']);
+			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
+			if($DelCat->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Término eliminado",
+					"Texto"=>"La término fue eliminado del sistema con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se ha podido eliminar este término en este momento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function editar_termino_controlador()
+		{
+			$codigo=mainModel::limpiar_cadena($_POST['termino-id-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['termino-nombre-editar']);
+			$slug=mainModel::limpiar_cadena($_POST['termino-slug-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['termino-descripcion-editar']);
+			$padre=mainModel::limpiar_cadena($_POST['termino-padre-editar']);
+			$verificar=administradorModelo::verificar_termino_editar_slug_disponible($codigo, $slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible, escoge otra por favor.",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+                $verificarPadre = administradorModelo::verificar_termino_padre_modelo($padre);
+                if ($verificarPadre->rowCount() > 0)
+                {
+                    $datosEditar =
+                    [
+                        "Codigo"=>$codigo,
+                        "Nombre"=>$nombre,
+                        "Slug"=>$slug,
+                        "Descripcion"=>$descripcion,
+                        "Padre"=>$padre
+                    ];
+                    $ActAdmin=administradorModelo::editar_termino_modelo($datosEditar);
+                    if($ActAdmin->rowCount()>=1)
+                    {
+                        $alerta=[
+                            "Alerta"=>"recargar",
+                            "Titulo"=>"Datos Actualizados",
+                            "Texto"=>"Los datos fueron editados con éxito",
+                            "Tipo"=>"success"
+                        ];
+                    }
+                    else
+                    {
+                        $alerta=[
+                            "Alerta"=>"simple",
+                            "Titulo"=>"Ocurrió un error inesperado",
+                            "Texto"=>"No se puede editar en este momento, esto puede ser un error del sistema pero te recomendamos revisar la información que proporcionaste.",
+                            "Tipo"=>"error"
+                        ];
+                    }
+                }
+                else
+                {
+                    $alerta=[
+                        "Alerta"=>"simple",
+                        "Titulo"=>"Ocurrió un error",
+                        "Texto"=>"No se ha encontrado la información del atributo al que estas intentando añadir este término",
+                        "Tipo"=>"error"
+                    ];
+                }
 			}
 			return mainModel::sweet_alert($alerta);
         }

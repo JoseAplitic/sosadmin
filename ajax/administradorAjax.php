@@ -84,6 +84,25 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_atributo_controlador();
 	}
+	//AJAX PARA TÉRMINOS
+	elseif(isset($_POST['termino-nombre-nueva']) && isset($_POST['termino-slug-nueva']) && isset($_POST['termino-descripcion-nueva']) && isset($_POST['termino-padre-nueva']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->agregar_termino_controlador();
+	}
+	elseif(isset($_POST['termino-id-eliminar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->eliminar_termino_controlador();
+	}
+	elseif(isset($_POST['termino-id-editar']) && isset($_POST['termino-nombre-editar']) && isset($_POST['termino-slug-editar']) && isset($_POST['termino-descripcion-editar']) && isset($_POST['termino-padre-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_termino_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);

@@ -154,6 +154,51 @@
 			return $sql;
 		}
 
+        //MODELOS PARA TÉRMINOS
+		protected function agregar_termino_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre) VALUES(:Nombre,:Slug,'termino',:Descripcion,:Padre)");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Padre",$datos['Padre']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_termino_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'termino' AND slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+		
+		protected function verificar_termino_padre_modelo($id){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'atributo' AND id = :Id");
+			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_termino_editar_slug_disponible($codigo, $slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'termino' AND slug = :Slug AND id != :Codigo");
+			$sql->bindParam(":Slug",$slug);
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function editar_termino_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE taxonomias SET nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, padre = :Padre WHERE id = :Codigo");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Padre",$datos['Padre']);
+			$sql->bindParam(":Codigo",$datos['Codigo']);
+			$sql->execute();
+			return $sql;
+		}
+
 		//MODELOS PARA TAXONOMIAS
 		protected function editar_taxonomia_modelo($datos)
 		{
