@@ -409,45 +409,55 @@
 			$descripcion=mainModel::limpiar_cadena($_POST['categoria-descripcion-nueva']);
 			$padre=mainModel::limpiar_cadena($_POST['categoria-padre-nueva']);
 			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-nueva']);
-
-			$verificar=administradorModelo::verificar_categoria_slug_disponible($slug);
-			if ($verificar->rowCount() > 0)
-			{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error",
-					"Texto"=>"El slug que ingresaste no esta disponible",
-					"Tipo"=>"error"
-				];
-			}
-			else
-			{
-				$dataAC=[
-					"Nombre"=>$nombre,
-					"Slug"=>$slug,
-					"Descripcion"=>$descripcion,
-					"Padre"=>$padre,
-					"Icono"=>$icono
-				];
-				$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
-				if($guardarCategoria->rowCount()>=1)
+			$verificarPadre = administradorModelo::verificar_categoria_nuevo_padre_modelo($padre);
+			if ($verificarPadre->rowCount() > 0){
+				$verificar=administradorModelo::verificar_categoria_slug_disponible($slug);
+				if ($verificar->rowCount() > 0)
 				{
 					$alerta=[
-						"Alerta"=>"limpiar",
-						"Titulo"=>"Categoria añadida",
-						"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
-						"Tipo"=>"success"
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error",
+						"Texto"=>"El slug que ingresaste no esta disponible",
+						"Tipo"=>"error"
 					];
 				}
 				else
 				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"No se ha podido guardar la categoría",
-						"Tipo"=>"error"
+					$dataAC=[
+						"Nombre"=>$nombre,
+						"Slug"=>$slug,
+						"Descripcion"=>$descripcion,
+						"Padre"=>$padre,
+						"Icono"=>$icono
 					];
+					$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
+					if($guardarCategoria->rowCount()>=1)
+					{
+						$alerta=[
+							"Alerta"=>"recargar",
+							"Titulo"=>"Categoria añadida",
+							"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
+							"Tipo"=>"success"
+						];
+					}
+					else
+					{
+						$alerta=[
+							"Alerta"=>"simple",
+							"Titulo"=>"Ocurrió un error inesperado",
+							"Texto"=>"No se ha podido guardar la categoría",
+							"Tipo"=>"error"
+						];
+					}
 				}
+			}
+			else{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"No se ha podido obtener la información de la categoría padre seleccionado",
+					"Tipo"=>"error"
+				];
 			}
 
 			return mainModel::sweet_alert($alerta);
@@ -1728,5 +1738,78 @@
 
 			return mainModel::sweet_alert($alerta);
 		}
+
+		//CONTROLADORES PARA CARGA DE LISTAS
+		
+		public function cargar_taxonomias_controlador($taxonomia)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+			}
+			return $lista;
+		}
+		
+		public function cargar_medios_controlador()
+		{
+			$lista="";
+			$consulta="SELECT id, titulo, url FROM medios;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
+			}
+			return $lista;
+		}
+		
+		public function cargar_taxonomias_editar_controlador($taxonomia, $id)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' AND id != $id;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+			}
+			return $lista;
+		}
+
+		public function cargar_taxonomias_editar2_controlador($taxonomia, $id, $padre)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' AND id != $id AND id != $padre;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+			}
+			return $lista;
+		}
+		
+		public function cargar_medios_editar_controlador($id)
+		{
+			$lista="";
+			$consulta="SELECT * FROM medios WHERE id != $id;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
+			}
+			return $lista;
+		}
+
 
 	}

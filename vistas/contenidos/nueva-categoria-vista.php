@@ -49,11 +49,6 @@
 		</div>
 	</div>
 
-	<?php 
-		require_once "./controladores/administradorControlador.php";
-		$insAdmin= new administradorControlador();
-	?>
-
 	<!-- Agregar usuario -->
 	<div class="animated fadeIn">
 		<div class="row">
@@ -90,42 +85,25 @@
 								<div class="col-12">
 									<div class="form-group">
 										<label for="categoria-padre-nueva" class=" form-control-label">Categoría superior</label>
-										<select id="categoria-padre-nueva" name="categoria-padre-nueva" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
-											<option value="" label="default"></option>
-											<option value="United States">United States</option>
-											<option value="United Kingdom">United Kingdom</option>
-											<option value="Afghanistan">Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
+										<select id="categoria-padre-nueva" name="categoria-padre-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+											<option value="" label="default">Ninguna</option>
+											<?php echo $insAdmin->cargar_taxonomias_controlador("categoria"); ?>
 										</select>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-12">
+								<div class="col-sm-9">
 									<div class="form-group">
 										<label for="categoria-icono-nueva" class=" form-control-label">Icono</label>
-										<select id="categoria-icono-nueva" name="categoria-icono-nueva" data-placeholder="Choose a Country..." class="standardSelect" tabindex="1">
-											<option value="" label="default"></option>
-											<option value="United States">United States</option>
-											<option value="United Kingdom">United Kingdom</option>
-											<option value="Afghanistan">Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="American Samoa">American Samoa</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-											<option value="Anguilla">Anguilla</option>
-											<option value="Antarctica">Antarctica</option>
+										<select id="categoria-icono-nueva" name="categoria-icono-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											<?php echo $insAdmin->cargar_medios_controlador(); ?>
 										</select>
 									</div>
+								</div>
+								<div class="col-sm-3">
+									<img id="imagen-cambiar" src="" class="sombra">
 								</div>
 							</div>
 							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nueva categoría" style="margin: 20px 0px;">

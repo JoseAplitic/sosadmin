@@ -2575,5 +2575,36 @@ footer.site-footer {
   box-shadow: 0px 0px 10px rgba(133,133,133,1);
 }
 
+
+/* 404 */
+.full-box{
+	margin: 0;
+	padding: 0;
+  width: 100vw;
+  height: 100vh;
+	box-sizing: border-box;
+}
+.cover{
+	background: 50% 50% no-repeat;
+	background-size: cover;
+}
+.container-404{
+  background: rgba(0,0,0,0.6);
+  background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0,0,0,0.6)), color-stop(50%, rgba(0,0,0,0.2)), color-stop(100%, rgba(0,0,0,0)));
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=1 );
+	color: #FFF;
+	display: flex;
+	align-items: center;
+  justify-content: center;
+}
+.page-404{
+  background-image: url(../assets/img/404-page.jpg);
+}
+
 /*# sourceMappingURL=style.css.map */
 

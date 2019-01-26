@@ -81,6 +81,21 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		protected function verificar_categoria_nuevo_padre_modelo($id){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND id = :Id");
+			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_categoria_editar_padre_modelo($idPadre, $id){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND id = :IdPadre AND id != :Id");
+			$sql->bindParam(":IdPadre",$idPadre);
+			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
+		}
 		
 		//MODELOS PARA ETIQUETAS
 		protected function agregar_etiqueta_modelo($datos){

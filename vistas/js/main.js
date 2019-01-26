@@ -190,4 +190,16 @@ jQuery(document).ready(function($) {
         e.preventDefault();
         $('#area-agregar-medio').toggle("fast");
     });
+
+    //MOSTRAR FOTO NUEVA CATEGORIA
+    $('#categoria-icono-nueva').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar').attr("src", url);
+    });
+
+    //MOSTRAR FOTO EDITAR CATEGORIA
+    $('#categoria-icono-editar').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar').attr("src", url);
+    });
 });
