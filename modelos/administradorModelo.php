@@ -231,4 +231,43 @@
 			return $sql;
 		}
 
+		protected function eliminar_imagen_modelo($codigo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM medios WHERE id=:Codigo");
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			if($sql->rowCount()>=1)
+			{
+				$datos=$sql->fetch();
+				$foto=$datos['url'];
+				$foto = str_replace(SERVERURL, "", $foto);
+				$foto = "../".$foto;
+				$resultado = @unlink($foto);
+				return $resultado;
+			}
+			else
+			{
+				$resultado = false;
+				return $resultado;
+			}
+
+		}
+
+		protected function eliminar_medio_modelo($codigo)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM medios WHERE id=:Codigo");
+			$query->bindParam(":Codigo",$codigo);
+			$query->execute();
+			return $query;
+		}
+
+		protected function editar_medio_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE medios SET titulo = :Titulo WHERE id = :Codigo");
+			$sql->bindParam(":Titulo",$datos['Titulo']);
+			$sql->bindParam(":Codigo",$datos['Codigo']);
+			$sql->execute();
+			return $sql;
+		}
+
 	}

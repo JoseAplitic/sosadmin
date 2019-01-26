@@ -116,7 +116,7 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_medio_controlador();
 	}
-	elseif(isset($_POST['medio-id-editar']) && isset($_POST['medio-titulo-editar']) && isset($_FILES['medio-imagen-editar']))
+	elseif(isset($_POST['medio-id-editar']) && isset($_POST['medio-titulo-editar']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();

@@ -22,6 +22,11 @@
     </div>
 </div>
 
+<?php 
+	require_once "./controladores/administradorControlador.php";
+	$insAdmin= new administradorControlador();
+?>
+
 <div class="content">
 
 	<!-- Menu medios -->
@@ -40,7 +45,7 @@
 						<div id="area-agregar-medio" style="display:none;padding-top:20px;">
 							<div class="row">
 								<div class="col-12">
-									<h2 style="margin-bottom: 20px;">Agregar nuevo medio</h2>
+									<h3 style="margin-bottom: 20px;">Agregar nuevo medio</h3>
 								</div>
 							</div>
 							<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="save" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
@@ -74,28 +79,19 @@
 		</div>
 	</div>
 
-<style>
-
-	</style>
-
-	<?php 
-		require_once "./controladores/administradorControlador.php";
-		$insAdmin= new administradorControlador();
-	?>
-
 	<!-- Lista de usuarios -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Todos los usuarios</strong>
+						<strong class="card-title">Todos los medios</strong>
 					</div>
 					<div class="card-body">
 						<div class="table-stats order-table ov-h">
 							<?php 
 								$pagina = explode("/", $_GET['views']);
-								echo $insAdmin->paginador_administrador_controlador($pagina[1],10,"");
+								echo $insAdmin->paginador_medios_controlador($pagina[1],12,"");
 							?>
 						</div>
 					</div>

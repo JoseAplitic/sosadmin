@@ -36,6 +36,7 @@
 					</div>
 					<div class="card-body">
 						<button type="button" class="btn btn-success" role="link" onclick="window.location='<?php echo SERVERURL; ?>medios/'">Regresar a medios</button>
+						<button type="button" class="btn btn-info" role="link" onclick="window.location='<?php echo SERVERURL; ?>buscar-medios/'">Buscar medio</button>
 					</div>
 				</div>
 			</div>
@@ -53,73 +54,42 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Editar usuario</strong>
+						<strong class="card-title">Editar medio</strong>
 					</div>
 					<div class="card-body">
-						<?php if (isset($_POST['usuario-id-editar'])):
-							$sql = $insAdmin->obtener_info_usuarios_controlador($_POST['usuario-id-editar']);
+						<?php if (isset($_POST['medio-id-editar'])):
+							$sql = $insAdmin->obtener_info_medios_controlador($_POST['medio-id-editar']);
 							if($sql->rowCount()>=1):
 								$datos=$sql->fetch();
-								$nombre = $datos['nombre'];
-								$apellido = $datos['apellido'];
-								$usuario = $datos['usuario'];
-								$correo = $datos['correo'];
-								$clave = $insAdmin->desencriptar($datos['clave']);
+								$titulo = $datos['titulo'];
+								$url = $datos['url'];
+								$fecha = $datos['fecha'];
 								?>
 									<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-										<input type="hidden" name="usuario-id-editar" value="<?php echo $_POST['usuario-id-editar']; ?>">
+										<input type="hidden" name="medio-id-editar" value="<?php echo $_POST['medio-id-editar']; ?>">
 										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="usuario-nombre-editar" class=" form-control-label">Nombres *</label>
-													<input id="usuario-nombre-editar" type="text" name="usuario-nombre-editar" placeholder="" class="form-control" value="<?php echo $nombre; ?>" required="">
-												</div>
+											<div class="col-lg-6">
+												<img src="<?php echo $url; ?>" class="sombra" style="margin-bottom: 20px;">
 											</div>
-											<div class="col-6">
+											<div class="col-lg-6">
 												<div class="form-group">
-													<label for="usuario-apellido-editar" class=" form-control-label">Apellidos *</label>
-													<input id="usuario-apellido-editar" type="text" name="usuario-apellido-editar" placeholder="" class="form-control" value="<?php echo $apellido; ?>" required="">
+													<label for="medio-titulo-editar" class=" form-control-label">Título *</label>
+													<input id="medio-titulo-editar" type="text" name="medio-titulo-editar" placeholder="" class="form-control" value="<?php echo $titulo; ?>" required="">
 												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="usuario-usuario-editar" class=" form-control-label">Usuario *</label>
-													<input id="usuario-usuario-editar" type="text" name="usuario-usuario-editar" placeholder="" class="form-control" value="<?php echo $usuario; ?>" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="usuario-correo-editar" class=" form-control-label">Correo *</label>
-													<input id="usuario-correo-editar" type="email" name="usuario-correo-editar" placeholder="" class="form-control" value="<?php echo $correo; ?>" required="">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="usuario-contra1-editar" class=" form-control-label">Contraseña *</label>
-													<input id="usuario-contra1-editar" type="password" name="usuario-contra1-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="usuario-contra2-editar" class=" form-control-label">Repetir contraseña *</label>
-													<input id="usuario-contra2-editar" type="password" name="usuario-contra2-editar" placeholder="" class="form-control" value="<?php echo $clave; ?>" required="">
-												</div>
+												<p><b>Url:</b> <?php echo $url; ?></p>
+												<p><b>Fecha:</b> <?php echo $fecha; ?></p>
 											</div>
 										</div>
 										<input class="btn btn-outline-info btn-block" type="submit" value="Guardar cambios" style="margin: 20px 0px;">
 										<div class="RespuestaAjax"></div>
 									</form>
 							<?php else: ?>
-								<p>Ha ocurrido un error al intentar cargar la información de este administrador</p>
-								<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Ver todos los usuario</button>
+								<p>Ha ocurrido un error al intentar cargar la información de este medio</p>
+								<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>medios/'">Ver todos los medios</button>
 							<?php endif ?>
 						<?php else: ?>
-							<p>No ha seleccionado ningun administardor para editar</p>
-							<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Ver todos los usuario</button>
+							<p>No ha seleccionado ningun medio para editar</p>
+							<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>medios/'">Ver todos los medios</button>
 						<?php endif ?>
 					</div>
 				</div>

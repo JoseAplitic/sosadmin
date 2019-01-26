@@ -1054,7 +1054,7 @@
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Atributo eliminado",
-					"Texto"=>"La atributo fue eliminado del sistema con éxito",
+					"Texto"=>"El atributo fue eliminado del sistema con éxito",
 					"Tipo"=>"success"
 				];
 			}
@@ -1303,7 +1303,7 @@
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Término eliminado",
-					"Texto"=>"La término fue eliminado del sistema con éxito",
+					"Texto"=>"El término fue eliminado del sistema con éxito",
 					"Tipo"=>"success"
 				];
 			}
@@ -1539,6 +1539,193 @@
 					];
 				}
 			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function paginador_medios_controlador($pagina,$registros,$busqueda){
+
+			$pagina=mainModel::limpiar_cadena($pagina);
+			$registros=mainModel::limpiar_cadena($registros);
+			$busqueda=mainModel::limpiar_cadena($busqueda);
+			$tabla="";
+		
+			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
+			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
+		
+			if(isset($busqueda) && $busqueda!=""){
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM medios WHERE titulo LIKE '%$busqueda%' OR url LIKE '%$busqueda%' ORDER BY id ASC LIMIT $inicio,$registros";
+				$paginaurl="buscar-medios";
+			}else{
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM medios ORDER BY id DESC LIMIT $inicio,$registros";
+				$paginaurl="medios";
+			}
+		
+			$conexion = mainModel::conectar();
+		
+			$datos = $conexion->query($consulta);
+			$datos= $datos->fetchAll();
+		
+			$total= $conexion->query("SELECT FOUND_ROWS()");
+			$total= (int) $total->fetchColumn();
+		
+			$Npaginas= ceil($total/$registros);
+		
+			$tabla.='<div class="row">';
+		
+			if($total>=1 && $pagina<=$Npaginas){
+				$contador=$inicio+1;
+				foreach($datos as $rows){
+					$tabla.='
+						<div class="col-md-4">
+							<div class="card" style="width: 100%;">
+								<div class="medios-img-contenedor">
+									<img src="'.$rows['url'].'">
+									</div>
+									<div class="card-body">
+										<h4 class="card-title">'.$rows['titulo'].'</h4>
+										<hr>
+										<p class="card-text"><b>URL:</b> '.$rows['url'].'</p>
+										<p class="card-text"><b>Fecha:</b> '.$rows['fecha'].'</p>
+		
+										<form action="'.SERVERURL.'editar-medio/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inline-block;">
+											<input type="hidden" name="medio-id-editar" value="'.$rows['id'].'">
+											<button type="submit" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></button>
+											<div class="RespuestaAjax"></div>
+										</form>
+		
+										<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="display: inline-block;">
+											<input type="hidden" name="medio-id-eliminar" value="'.$rows['id'].'">
+											<button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+											<div class="RespuestaAjax"></div>
+										</form>
+									</div>
+								</div>
+							</div>';
+							$contador++;
+						}
+			}else{
+				if($total>=1){
+					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
+				}else{
+					$tabla.='
+						<div class="col-12">
+							<h3 style="margin-bottom: 20px;">No se ha encontrado ningun medio</h3>
+						</div>
+					';	
+				}
+			}
+		
+			$tabla.='</div>';
+		
+			if($total>=1 && $pagina<=$Npaginas){
+				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+		
+				if($pagina==1){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
+				}
+		
+				for($i=1; $i<=$Npaginas; $i++){
+					if($pagina==$i){
+						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}else{
+						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}
+				}
+		
+				if($pagina==$Npaginas){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/">Siguiente</a></li>';
+				}
+				$tabla.='</ul></nav>';
+			}
+		
+			return $tabla;
+		}
+
+		public function eliminar_medio_controlador(){
+			$codigo=mainModel::limpiar_cadena($_POST['medio-id-eliminar']);
+			$BorrarFoto=administradorModelo::eliminar_imagen_modelo($codigo);
+			if ($BorrarFoto == false)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrio un error inesperado",
+					"Texto"=>"La imagen no se ha podido eliminado en el sistema de archivos, para evitar archivos basura eliminela manualmente",
+					"Tipo"=>"success"
+				];
+			}
+			else{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"si un error inesperado",
+					"Texto"=>"La imagen no se ha podido eliminado en el sistema de archivos, para evitar archivos basura eliminela manualmente",
+					"Tipo"=>"success"
+				];
+			}
+			$DelCat=administradorModelo::eliminar_medio_modelo($codigo);
+			if($DelCat->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Medio eliminado",
+					"Texto"=>"El medio fue eliminado del sistema con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se ha podido eliminar este medio en este momento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function obtener_info_medios_controlador($codigo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM medios WHERE id=:Codigo");
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
+
+		public function editar_medio_controlador()
+		{
+			$codigo=mainModel::limpiar_cadena($_POST['medio-id-editar']);
+			$titulo=mainModel::limpiar_cadena($_POST['medio-titulo-editar']);
+
+			$datosEditar =
+			[
+				"Codigo"=>$codigo,
+				"Titulo"=>$titulo
+			];
+
+			$ActAdmin=administradorModelo::editar_medio_modelo($datosEditar);
+			if($ActAdmin->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Datos Actualizados",
+					"Texto"=>"Los datos fueron editados con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se puede editar en este momento, esto puede ser un error del sistema pero te recomendamos revisar la información que proporcionaste.",
+					"Tipo"=>"error"
+				];
+			}
+
 			return mainModel::sweet_alert($alerta);
 		}
 

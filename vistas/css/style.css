@@ -2562,5 +2562,18 @@ footer.site-footer {
   cursor: pointer;
 }
 
+.medios-img-contenedor{
+  width: 100%;
+}
+.medios-img-contenedor img{
+  width: 100%;
+}
+
+.sombra{
+  -webkit-box-shadow: 0px 0px 10px rgba(133,133,133,1);
+  -moz-box-shadow: 0px 0px 10px rgba(133,133,133,1);
+  box-shadow: 0px 0px 10px rgba(133,133,133,1);
+}
+
 /*# sourceMappingURL=style.css.map */
 
