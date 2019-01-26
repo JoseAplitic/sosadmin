@@ -41,7 +41,7 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-thumbtack"></i>Atributos</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fas fa-thumbtack"></i><a href="<?php echo SERVERURL; ?>atributos/">Todos los atributos</a></li>
-                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-atributo/">Agregar atributos</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-atributo/">Agregar atributo</a></li>
                         <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-atributos/">Buscar atributos</a></li>
                     </ul>
                 </li>
@@ -49,14 +49,19 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cart-arrow-down"></i>Descuentos</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fas fa-cart-arrow-down"></i><a href="<?php echo SERVERURL; ?>descuentos/">Todos los descuentos</a></li>
-                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-descuento/">Agregar descuentos</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nuevo-descuento/">Agregar descuento</a></li>
                         <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-descuentos/">Buscar descuentos</a></li>
                     </ul>
+                </li>
+                <li class="menu-title">Medios</li>
+                <li>
+                    <a href="<?php echo SERVERURL; ?>medios/"> <i class="menu-icon far fa-images"></i>Medios</a>
+                    <a href="<?php echo SERVERURL; ?>buscar-medios/"> <i class="menu-icon fas fa-search"></i>Buscar medios</a>
                 </li>
                 <?php if ($_SESSION['id'] == 1): ?>
                 <li class="menu-title">Usuarios</li>
                 <li>
-                    <a href="<?php echo SERVERURL; ?>usuarios/"> <i class="menu-icon fas fa-users"></i>Todos los usuario</a>
+                    <a href="<?php echo SERVERURL; ?>usuarios/"> <i class="menu-icon fas fa-users"></i>Todos los usuarios</a>
                 </li>
                 <li>
                     <a href="<?php echo SERVERURL; ?>nuevo-usuario/"> <i class="menu-icon fas fa-user-plus"></i>Añadir nuevo</a>
@@ -66,6 +71,6 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
                 </li>
                 <?php endif; ?>
             </ul>
-        </div><!-- /.navbar-collapse -->
+        </div>
     </nav>
 </aside>

@@ -103,6 +103,25 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_termino_controlador();
 	}
+	//AJAX PARA MEDIOS
+	elseif(isset($_POST['medio-titulo-nuevo']) && isset($_FILES['medio-imagen-nuevo']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->agregar_medio_controlador();
+	}
+	elseif(isset($_POST['medio-id-eliminar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->eliminar_medio_controlador();
+	}
+	elseif(isset($_POST['medio-id-editar']) && isset($_POST['medio-titulo-editar']) && isset($_FILES['medio-imagen-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_medio_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);

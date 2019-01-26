@@ -220,4 +220,15 @@
 			$query->execute();
 			return $query;
 		}
+
+		//MODELOS PARA MEDIOS
+		protected function agregar_medio_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO medios(titulo,url,fecha) VALUES(:Titulo,:Url,:Fecha)");
+			$sql->bindParam(":Titulo",$datos['Titulo']);
+			$sql->bindParam(":Url",$datos['Url']);
+			$sql->bindParam(":Fecha",$datos['Fecha']);
+			$sql->execute();
+			return $sql;
+		}
+
 	}

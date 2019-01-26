@@ -10,7 +10,8 @@
 				"atributos","buscar-atributos","nuevo-atributo","editar-atributo",
 				"terminos","nuevo-termino","editar-termino",
 				"etiquetas","buscar-etiquetas","nueva-etiqueta","editar-etiqueta",
-				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento"
+				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento",
+				"medios","editar-medio","buscar-medios"
 			];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-vista.php")){

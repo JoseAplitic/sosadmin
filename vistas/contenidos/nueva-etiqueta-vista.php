@@ -88,8 +88,6 @@
 							</div>
 							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nueva etiqueta" style="margin: 20px 0px;">
 							<div class="RespuestaAjax"></div>
-							
-							<div class="RespuestaAjax"></div>
 						</form>
 					</div>
 				</div>

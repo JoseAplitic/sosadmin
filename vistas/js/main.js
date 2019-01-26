@@ -184,4 +184,10 @@ jQuery(document).ready(function($) {
     $("#entrada-slug").stringToSlug({
         setEvents: 'blur'
     });
+
+    //MOSTRAR/OCULTAR OPCIÓN PARA AGREGAR MEDIOS
+    $('#boton-agregar-medio').on('click', function(e){
+        e.preventDefault();
+        $('#area-agregar-medio').toggle("fast");
+    });
 });

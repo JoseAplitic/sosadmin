@@ -401,669 +401,6 @@
 			return $desencriptado;
 		}
 
-
-
-
-		//editar foto administradores
-		public function editar_administrador_foto_controlador()
-		{
-			$codigo=mainModel::decryption($_POST['usuario-id-editar']);
-			$codigo=mainModel::limpiar_cadena($codigo);
-			$BorrarFoto=administradorModelo::eliminar_foto_modelo($codigo);
-			$foto=$_FILES['usuario-foto-editar'];
-			if ($foto["error"] > 0)
-			{
-				if ($foto["error"] == 1)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El servidor ha rechazado la imagen por que excede el tamaño admitido",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 2)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen se ha rechazado por que excede el tamaño admitido",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 3)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 4)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 6)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"Error al encontrar el archivo temporal",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 7)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 8)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
-						"Tipo"=>"error"
-					];
-				}
-			}
-			else
-			{
-				$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/PNG");
-				if (in_array($foto['type'], $permitidos))
-				{
-					$hora = getdate();
-					$fechaactual  = date("dmY");
-					$no_aleatorio  = rand(10, 999);
-					$extension = str_replace("image/", "", $foto['type']);
-					$ruta = "../vistas/assets/fotos/foto-".$hora['hours'].$hora['minutes'].$hora['seconds'].'-'.$fechaactual.'-'.$no_aleatorio.'.'.$extension;
-					if (!file_exists($ruta))
-					{
-						$resultado = @move_uploaded_file($foto["tmp_name"], $ruta);
-						if ($resultado)
-						{
-							$fotobd = "foto-".$hora['hours'].$hora['minutes'].$hora['seconds'].'-'.$fechaactual.'-'.$no_aleatorio.'.'.$extension;
-							$cambiar=administradorModelo::editar_foto_modelo($codigo, $fotobd);
-							if($cambiar->rowCount()>=1)
-							{
-								session_start(['name'=>'adminsoswebstore']);
-								$_SESSION['foto']=$fotobd;
-								$alerta=[
-									"Alerta"=>"recargar",
-									"Titulo"=>"¡Administrador Actualizado!",
-									"Texto"=>"La foto se actualizo correctamente",
-									"Tipo"=>"success"
-								];
-							}
-							else
-							{
-								$alerta=[
-									"Alerta"=>"simple",
-									"Titulo"=>"Ocurrió un error inesperado",
-									"Texto"=>"No hemos podido actualizar la foto del administrador",
-									"Tipo"=>"error"
-								];
-							}
-						}
-						else
-						{
-							$alerta=[
-								"Alerta"=>"simple",
-								"Titulo"=>"Ocurrió un error inesperado",
-								"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
-								"Tipo"=>"error"
-							];
-						}
-					}
-					else
-					{
-						$alerta=[
-							"Alerta"=>"simple",
-							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"Ya existe la imagen en el sistema, reintente por favor.",
-							"Tipo"=>"error"
-						];
-					}
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El archivo tiene una extension no permitida, las permitidas son:<br>jpg<br>jpeg<br>png<br>gif",
-						"Tipo"=>"error"
-					];
-				}
-			}
-			return mainModel::sweet_alert($alerta);
-		}
-
-
-		// Controlador para paginar noticias
-		public function paginador_noticias_controlador($pagina,$registros,$busqueda){
-
-			$pagina=mainModel::limpiar_cadena($pagina);
-			$registros=mainModel::limpiar_cadena($registros);
-			$busqueda=mainModel::limpiar_cadena($busqueda);
-			$tabla="";
-
-			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
-			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
-
-			if(isset($busqueda) && $busqueda!=""){
-				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM noticias WHERE titulo LIKE '%$busqueda%' OR contenido LIKE '%$busqueda%' OR fecha LIKE '%$busqueda%' ORDER BY fecha DESC LIMIT $inicio,$registros";
-				$paginaurl="buscar-noticia";
-			}else{
-				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM noticias ORDER BY id DESC LIMIT $inicio,$registros";
-				$paginaurl="noticias";
-			}
-
-			$conexion = mainModel::conectar();
-
-			$datos = $conexion->query($consulta);
-			$datos= $datos->fetchAll();
-
-			$total= $conexion->query("SELECT FOUND_ROWS()");
-			$total= (int) $total->fetchColumn();
-
-			$Npaginas= ceil($total/$registros);
-
-			$tabla.='
-			<div class="table-responsive">
-				<table class="table table-hover text-center">
-					<thead>
-						<tr>
-							<th class="text-center">#</th>
-							<th class="text-center">TITULO</th>
-							<th class="text-center">Fecha</th>
-							<th class="text-center">EDITAR</th>
-							<th class="text-center">ELIMINAR</th>
-							';
-							
-			$tabla.='</tr>
-					</thead>
-					<tbody>
-			';
-
-			if($total>=1 && $pagina<=$Npaginas){
-				$contador=$inicio+1;
-				foreach($datos as $rows){
-					$tabla.='
-						<tr>
-							<td>'.$contador.'</td>
-							<td>'.$rows['titulo'].'</td>
-							<td>'.$rows['fecha'].'</td>
-							<td>
-								<form action="'.SERVERURL.'editar-noticia/" method="POST"  entype="multipart/form-data" autocomplete="off">
-									<input type="hidden" name="noticia-id-editar" value="'.mainModel::encryption($rows['id']).'">
-									<button type="submit" class="btn btn-success">
-										<i class="zmdi zmdi-refresh"></i>
-									</button>
-								</form>
-							</td>
-							<td>
-								<form action="'.SERVERURL.'ajax/noticiaAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off">
-									<input type="hidden" name="noticia-id-eliminar" value="'.mainModel::encryption($rows['id']).'">
-									<input type="hidden" name="privilegio-admin" value="asd">
-									<button type="submit" class="btn btn-danger">
-										<i class="zmdi zmdi-delete"></i>
-									</button>
-									<div class="RespuestaAjax"></div>
-								</form>
-							</td>';
-							$tabla.='</tr>';
-							$contador++;
-						}
-			}else{
-				if($total>=1){
-					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
-				}else{
-					$tabla.='
-						<tr>
-							<td colspan="5">No hay registros en el sistema</td>
-						</tr>
-					';	
-				}
-			}
-
-			$tabla.='</tbody></table></div>';
-
-			if($total>=1 && $pagina<=$Npaginas){
-				$tabla.='<nav class="text-center"><ul class="pagination pagination-sm">';
-
-				if($pagina==1){
-					$tabla.='<li class="disabled"><a><i class="zmdi zmdi-arrow-left"></i></a></li>';
-				}else{
-					$tabla.='<li><a href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/"><i class="zmdi zmdi-arrow-left"></i></a></li>';
-				}
-
-				for($i=1; $i<=$Npaginas; $i++){
-					if($pagina==$i){
-						$tabla.='<li class="active"><a href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
-					}else{
-						$tabla.='<li><a href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
-					}
-				}
-
-				if($pagina==$Npaginas){
-					$tabla.='<li class="disabled"><a><i class="zmdi zmdi-arrow-right"></i></a></li>';
-				}else{
-					$tabla.='<li><a href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/"><i class="zmdi zmdi-arrow-right"></i></a></li>';
-				}
-				$tabla.='</ul></nav>';
-			}
-
-			return $tabla;
-		}
-		//Controlador para agregar administrador
-		public function agregar_noticia_controlador()
-		{
-			$titulo=mainModel::limpiar_cadena($_POST['noticia-titulo-nueva']);
-			$contenido=$_POST['noticia-contenido-nueva'];
-			$foto=$_FILES['noticia-imagen-nueva'];
-			if ($foto["error"] > 0)
-			{
-				if ($foto["error"] == 1)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El servidor ha rechazado la imagen por que excede el tamaño admitido",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 2)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen se ha rechazado por que excede el tamaño admitido",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 3)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 4)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 6)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"Error al encontrar el archivo temporal",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 7)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 8)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
-						"Tipo"=>"error"
-					];
-				}
-			}
-			else
-			{
-				$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/PNG");
-				if (in_array($foto['type'], $permitidos))
-				{
-					$hora = getdate();
-					$fechaactual  = date("dmY");
-					$no_aleatorio  = rand(10, 999);
-					$extension = str_replace("image/", "", $foto['type']);
-					$ruta = "../noticias/imagen-".$hora['hours'].$hora['minutes'].$hora['seconds'].'-'.$fechaactual.'-'.$no_aleatorio.'.'.$extension;
-					if (!file_exists($ruta))
-					{
-						$resultado = @move_uploaded_file($foto["tmp_name"], $ruta);
-						if ($resultado)
-						{
-							$fotobd = "imagen-".$hora['hours'].$hora['minutes'].$hora['seconds'].'-'.$fechaactual.'-'.$no_aleatorio.'.'.$extension;
-							$fechahoy = date("d/m/Y");
-							$horaactual = $hora['hours'].':'.$hora['minutes'];
-							$fechaNoticia = $fechahoy.' a las '.$horaactual;
-							session_start(['name'=>'adminsoswebstore']);
-							$autor = $_SESSION['id'];
-							$dataAN=[
-								"Titulo"=>$titulo,
-								"Contenido"=>$contenido,
-								"Imagen"=>$fotobd,
-								"Autor"=>$autor,
-								"Fecha"=>$fechaNoticia
-							];
-							$guardarNoticia=administradorModelo::agregar_noticia_modelo($dataAN);
-							if($guardarNoticia->rowCount()>=1)
-							{
-								$alerta=[
-									"Alerta"=>"recargar",
-									"Titulo"=>"¡Noticia registrada!",
-									"Texto"=>"La noticia se registró con éxito en el sistema",
-									"Tipo"=>"success"
-								];
-							}
-							else
-							{
-								$alerta=[
-									"Alerta"=>"simple",
-									"Titulo"=>"Ocurrió un error inesperado",
-									"Texto"=>"No hemos podido registrar la noticia",
-									"Tipo"=>"error"
-								];
-							}
-						}
-						else
-						{
-							$alerta=[
-								"Alerta"=>"simple",
-								"Titulo"=>"Ocurrió un error inesperado",
-								"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
-								"Tipo"=>"error"
-							];
-						}
-					}
-					else
-					{
-						$alerta=[
-							"Alerta"=>"simple",
-							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"Ya existe la imagen en el sistema, reintente por favor.",
-							"Tipo"=>"error"
-						];
-					}
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El archivo tiene una extension no permitida, las permitidas son:<br>jpg<br>jpeg<br>png<br>gif",
-						"Tipo"=>"error"
-					];
-				}
-			}
-			return mainModel::sweet_alert($alerta);
-		}
-		//eliminar noticia
-		public function eliminar_noticia_controlador(){
-			$codigo=mainModel::decryption($_POST['noticia-id-eliminar']);
-			$codigo=mainModel::limpiar_cadena($codigo);
-			$BorrarFoto=administradorModelo::eliminar_foto_noticia_modelo($codigo);
-			if ($BorrarFoto == false)
-			{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrio un error inesperado",
-					"Texto"=>"La iamgen de la noticia no se ha eliminado, para evitar archivos basura eliminela manualmente",
-					"Tipo"=>"success"
-				];
-			}
-			$DelNoticia=administradorModelo::eliminar_noticia_modelo($codigo);
-			if($DelNoticia->rowCount()>=1)
-			{
-				$alerta=[
-					"Alerta"=>"recargar",
-					"Titulo"=>"Noticia eliminada",
-					"Texto"=>"La noticia fue eliminada del sistema con éxito",
-					"Tipo"=>"success"
-				];
-			}
-			else
-			{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No podemos eliminar esta noticia en este momento",
-					"Tipo"=>"error"
-				];
-			}
-			return mainModel::sweet_alert($alerta);
-		}
-		//Obtener info de una noticia
-		public function obtener_info_noticias_controlador($codigo)
-		{
-			$sql=mainModel::conectar()->prepare("SELECT * FROM noticias WHERE id=:Codigo");
-			$clave=mainModel::decryption($codigo);
-			$sql->bindParam(":Codigo",$clave);
-			$sql->execute();
-			return $sql;
-		}
-		//editar info noticia
-		public function editar_noticia_controlador()
-		{
-			$codigo=mainModel::decryption($_POST['noticia-id-editar']);
-			$codigo=mainModel::limpiar_cadena($codigo);
-			$titulo=mainModel::limpiar_cadena($_POST['noticia-titulo-editar']);
-			$contenido=($_POST['noticia-contenido-editar']);
-			$datosEditar =
-			[
-				"Clave"=>$codigo,
-				"Titulo"=>$titulo,
-				"Contenido"=>$contenido
-			];
-			$ActNoticia=administradorModelo::editar_noticia_modelo($datosEditar);
-			if($ActNoticia->rowCount()>=1)
-			{
-				$alerta=[
-					"Alerta"=>"recargar",
-					"Titulo"=>"Noticia Actualizada",
-					"Texto"=>"La noticia fue editada con éxito",
-					"Tipo"=>"success"
-				];
-			}
-			else
-			{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No se puede actualizar esta noticia en este momento, esto puede ser un error del sistema pero te recomendamos revisar la información que proporcionaste.",
-					"Tipo"=>"error"
-				];
-			}
-			return mainModel::sweet_alert($alerta);
-		}
-		//editar foto administradores
-		public function editar_noticia_imagen_controlador()
-		{
-			$codigo=mainModel::decryption($_POST['noticia-id-editar']);
-			$codigo=mainModel::limpiar_cadena($codigo);
-			$BorrarFoto=administradorModelo::eliminar_foto_noticia_modelo($codigo);
-			$foto=$_FILES['noticia-imagen-editar'];
-			if ($foto["error"] > 0)
-			{
-				if ($foto["error"] == 1)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El servidor ha rechazado la imagen por que excede el tamaño admitido",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 2)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen se ha rechazado por que excede el tamaño admitido",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 3)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 4)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 6)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"Error al encontrar el archivo temporal",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 7)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				elseif ($foto["error"] == 8)
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La imagen no se ha logrado subir correctamente",
-						"Tipo"=>"error"
-					];
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
-						"Tipo"=>"error"
-					];
-				}
-			}
-			else
-			{
-				$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/PNG");
-				if (in_array($foto['type'], $permitidos))
-				{
-					$hora = getdate();
-					$fechaactual  = date("dmY");
-					$no_aleatorio  = rand(10, 999);
-					$extension = str_replace("image/", "", $foto['type']);
-					$ruta = "../noticias/imagen-".$hora['hours'].$hora['minutes'].$hora['seconds'].'-'.$fechaactual.'-'.$no_aleatorio.'.'.$extension;
-					if (!file_exists($ruta))
-					{
-						$resultado = @move_uploaded_file($foto["tmp_name"], $ruta);
-						if ($resultado)
-						{
-							$fotobd = "imagen-".$hora['hours'].$hora['minutes'].$hora['seconds'].'-'.$fechaactual.'-'.$no_aleatorio.'.'.$extension;
-							$cambiar=administradorModelo::editar_imagen_modelo($codigo, $fotobd);
-							if($cambiar->rowCount()>=1)
-							{
-								$alerta=[
-									"Alerta"=>"recargar",
-									"Titulo"=>"¡Noticia Actualizada!",
-									"Texto"=>"La imagen se actualizo correctamente",
-									"Tipo"=>"success"
-								];
-							}
-							else
-							{
-								$alerta=[
-									"Alerta"=>"simple",
-									"Titulo"=>"Ocurrió un error inesperado",
-									"Texto"=>"No hemos podido actualizar la imagen de la noticia",
-									"Tipo"=>"error"
-								];
-							}
-						}
-						else
-						{
-							$alerta=[
-								"Alerta"=>"simple",
-								"Titulo"=>"Ocurrió un error inesperado",
-								"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
-								"Tipo"=>"error"
-							];
-						}
-					}
-					else
-					{
-						$alerta=[
-							"Alerta"=>"simple",
-							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"Ya existe la imagen en el sistema, reintente por favor.",
-							"Tipo"=>"error"
-						];
-					}
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El archivo tiene una extension no permitida, las permitidas son:<br>jpg<br>jpeg<br>png<br>gif",
-						"Tipo"=>"error"
-					];
-				}
-			}
-			return mainModel::sweet_alert($alerta);
-		}
-
 		// CONTROLADORES PARA CATEGORIAS
 		public function agregar_categoria_controlador()
 		{
@@ -2053,4 +1390,156 @@
 			$sql->execute();
 			return $sql;
 		}
+
+		//CONTROLADORES PARA MEDIOS
+		public function agregar_medio_controlador()
+		{
+			$titulo=mainModel::limpiar_cadena($_POST['medio-titulo-nuevo']);
+			$imagen=$_FILES['medio-imagen-nuevo'];
+			if ($imagen["error"] > 0)
+			{
+				if ($imagen["error"] == 1)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"El servidor ha rechazado la imagen por que excede el tamaño admitido",
+						"Tipo"=>"error"
+					];
+				}
+				elseif ($imagen["error"] == 2)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"La imagen se ha rechazado por que excede el tamaño admitido",
+						"Tipo"=>"error"
+					];
+				}
+				elseif ($imagen["error"] == 3)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"La imagen no se ha logrado subir correctamente",
+						"Tipo"=>"error"
+					];
+				}
+				elseif ($imagen["error"] == 4)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"La imagen no se ha logrado subir correctamente",
+						"Tipo"=>"error"
+					];
+				}
+				elseif ($imagen["error"] == 6)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"Error al encontrar el archivo temporal",
+						"Tipo"=>"error"
+					];
+				}
+				elseif ($imagen["error"] == 7)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"La imagen no se ha logrado subir correctamente",
+						"Tipo"=>"error"
+					];
+				}
+				elseif ($imagen["error"] == 8)
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"La imagen no se ha logrado subir correctamente",
+						"Tipo"=>"error"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"Ha ocurrido un error desconocido al subir el archivo la imagen",
+						"Tipo"=>"error"
+					];
+				}
+			}
+			else
+			{
+				$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/PNG");
+				if (in_array($imagen['type'], $permitidos))
+				{
+                    $ruta = "../productos/".$imagen['name'];
+                    if (!file_exists($ruta))
+                    {
+                        $resultado = @move_uploaded_file($imagen["tmp_name"], $ruta);
+                        if ($resultado)
+                        {
+							$ruta = SERVERURL."productos/".$imagen['name'];
+                            $fecha  = date("d/m/Y");
+                            $dataAC=[
+                                "Titulo"=>$titulo,
+                                "Url"=>$ruta,
+                                "Fecha"=>$fecha
+                            ];
+                            $guardarMedio=administradorModelo::agregar_medio_modelo($dataAC);
+                            if($guardarMedio->rowCount()>=1)
+                            {
+                                $alerta=[
+                                    "Alerta"=>"recargar",
+                                    "Titulo"=>"Medio añadido",
+                                    "Texto"=>"El medio se ha añadido con éxito en el sistema",
+                                    "Tipo"=>"success"
+                                ];
+                            }
+                            else
+                            {
+                                $alerta=[
+                                    "Alerta"=>"simple",
+                                    "Titulo"=>"Ocurrió un error inesperado",
+                                    "Texto"=>"No hemos podido añadir el medio",
+                                    "Tipo"=>"error"
+                                ];
+                            }
+                        }
+                        else
+                        {
+                            $alerta=[
+                                "Alerta"=>"simple",
+                                "Titulo"=>"Ocurrió un error inesperado",
+                                "Texto"=>"Ha ocurrido un error desconocido al subir la imagen",
+                                "Tipo"=>"error"
+                            ];
+                        }
+                    }
+                    else
+                    {
+                        $alerta=[
+                            "Alerta"=>"simple",
+                            "Titulo"=>"Ocurrió un error inesperado",
+                            "Texto"=>"Ya existe la imagen en el sistema, reintente por favor.",
+                            "Tipo"=>"error"
+                        ];
+                    }
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"El archivo tiene una extension no permitida, las permitidas son:<br>jpg<br>jpeg<br>png<br>gif",
+						"Tipo"=>"error"
+					];
+				}
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
 	}
