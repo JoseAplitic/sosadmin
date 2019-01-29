@@ -870,6 +870,7 @@
 			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$limpiar=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Etiqueta eliminada",
