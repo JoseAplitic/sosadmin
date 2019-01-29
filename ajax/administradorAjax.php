@@ -122,6 +122,12 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_medio_controlador();
 	}
+	elseif(isset($_POST['producto-sku-nuevo']) && isset($_POST['producto-nombre-nuevo']) && isset($_POST['producto-slug-nuevo']) && isset($_POST['producto-precio-nuevo']) && isset($_POST['producto-precio-nuevo']) && isset($_POST['producto-visitantes-nuevo']) && isset($_POST['producto-usuarios-nuevo']) && isset($_POST['producto-empresas-nuevo']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->agregar_producto_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);

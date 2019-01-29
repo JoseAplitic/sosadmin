@@ -284,5 +284,42 @@
 			$sql->execute();
 			return $sql;
 		}
+		
+		//MODELOS PARA PRODUCTOS
+		protected function agregar_producto_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,mpn,fabricante,tipo,nuevo,precio,precio_visitantes,precio_usuarios,precio_empresas,stock,oferta,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Visitantes,:Usuarios,:Empresas,:Stock,:Oferta,:Fecha);");
+			$sql->bindParam(":Sku",$datos['Sku']);
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Mpn",$datos['Mpn']);
+			$sql->bindParam(":Fabricante",$datos['Fabricante']);
+			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->bindParam(":Nuevo",$datos['Nuevo']);
+			$sql->bindParam(":Precio",$datos['Precio']);
+			$sql->bindParam(":Visitantes",$datos['Visitantes']);
+			$sql->bindParam(":Usuarios",$datos['Usuarios']);
+			$sql->bindParam(":Empresas",$datos['Empresas']);
+			$sql->bindParam(":Stock",$datos['Stock']);
+			$sql->bindParam(":Oferta",$datos['Oferta']);
+			$sql->bindParam(":Fecha",$datos['Fecha']);
+			$sql->execute();
+			return $sql;
+		}
 
+		protected function agregar_galeria_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO galerias(producto,medio) VALUES (:Producto,:Medio);");
+			$sql->bindParam(":Producto",$datos['Producto']);
+			$sql->bindParam(":Medio",$datos['Medio']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function agregar_relaciones_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO relaciones(sku,id_taxonomia) VALUES (:Sku,:Taxonomia);");
+			$sql->bindParam(":Sku",$datos['Sku']);
+			$sql->bindParam(":Taxonomia",$datos['Taxonomia']);
+			$sql->execute();
+			return $sql;
+		}
 	}

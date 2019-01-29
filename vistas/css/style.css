@@ -1564,13 +1564,13 @@ header .form-inline {
 .custom-tab .nav-tabs > .active > a:focus,
 .custom-tab .nav-tabs > li.active > a:hover {
   border-color: transparent transparent;
-  color: #ff2e44;
+  color: #017bff;
   position: relative; }
 
 .custom-tab .nav-tabs > a.active:after,
 .custom-tab .nav-tabs > li.active > a:focus:after,
 .custom-tab .nav-tabs > li.active > a:hover:after {
-  background: #ff2e44;
+  background: #017bff;
   bottom: -1px;
   content: "";
   height: 2px;
@@ -1784,7 +1784,7 @@ header .form-inline {
   text-transform: uppercase; }
 
 .login-form label a {
-  color: #ff2e44; }
+  color: #017bff; }
 
 .social-login-content {
   margin: 0px -30px;
@@ -1810,7 +1810,7 @@ header .form-inline {
   padding: 19px; }
 
 .register-link a {
-  color: #ff2e44; }
+  color: #017bff; }
 
 .cpu-load {
   width: 100%;
@@ -2604,6 +2604,61 @@ footer.site-footer {
 }
 .page-404{
   background-image: url(../assets/img/404-page.jpg);
+}
+
+/* ESTILOS PARA CHECKBOX */
+
+label.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+label.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+label.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+label.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+label.container input:checked ~ .checkmark:after {
+  display: block;
+}
+label.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 /*# sourceMappingURL=style.css.map */

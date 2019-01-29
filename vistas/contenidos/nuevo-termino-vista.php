@@ -68,7 +68,7 @@
 					</div>
 					<div class="card-body">
 						<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="save" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-						<div class="row">
+							<div class="row">
 								<div class="col-6">
 									<div class="form-group">
 										<label for="entrada-titulo" class="form-control-label">Nombre *</label>

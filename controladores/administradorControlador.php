@@ -409,8 +409,61 @@
 			$descripcion=mainModel::limpiar_cadena($_POST['categoria-descripcion-nueva']);
 			$padre=mainModel::limpiar_cadena($_POST['categoria-padre-nueva']);
 			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-nueva']);
-			$verificarPadre = administradorModelo::verificar_categoria_nuevo_padre_modelo($padre);
-			if ($verificarPadre->rowCount() > 0){
+			if($padre>0)
+			{
+				$verificarPadre = administradorModelo::verificar_categoria_nuevo_padre_modelo($padre);
+				if ($verificarPadre->rowCount() > 0){
+					$verificar=administradorModelo::verificar_categoria_slug_disponible($slug);
+					if ($verificar->rowCount() > 0)
+					{
+						$alerta=[
+							"Alerta"=>"simple",
+							"Titulo"=>"Ocurrió un error",
+							"Texto"=>"El slug que ingresaste no esta disponible",
+							"Tipo"=>"error"
+						];
+					}
+					else
+					{
+						$dataAC=[
+							"Nombre"=>$nombre,
+							"Slug"=>$slug,
+							"Descripcion"=>$descripcion,
+							"Padre"=>$padre,
+							"Icono"=>$icono
+						];
+						$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
+						if($guardarCategoria->rowCount()>=1)
+						{
+							$alerta=[
+								"Alerta"=>"recargar",
+								"Titulo"=>"Categoria añadida",
+								"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
+								"Tipo"=>"success"
+							];
+						}
+						else
+						{
+							$alerta=[
+								"Alerta"=>"simple",
+								"Titulo"=>"Ocurrió un error inesperado",
+								"Texto"=>"No se ha podido guardar la categoría",
+								"Tipo"=>"error"
+							];
+						}
+					}
+				}
+				else{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error",
+						"Texto"=>"No se ha podido obtener la información de la categoría padre seleccionado",
+						"Tipo"=>"error"
+					];
+				}
+			}
+			else
+			{
 				$verificar=administradorModelo::verificar_categoria_slug_disponible($slug);
 				if ($verificar->rowCount() > 0)
 				{
@@ -451,14 +504,7 @@
 					}
 				}
 			}
-			else{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error",
-					"Texto"=>"No se ha podido obtener la información de la categoría padre seleccionado",
-					"Tipo"=>"error"
-				];
-			}
+
 
 			return mainModel::sweet_alert($alerta);
 		}
@@ -1744,7 +1790,7 @@
 		public function cargar_taxonomias_controlador($taxonomia)
 		{
 			$lista="";
-			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia';";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' ORDER BY nombre;";
 			$conexion = mainModel::conectar();
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
@@ -1772,7 +1818,7 @@
 		public function cargar_taxonomias_editar_controlador($taxonomia, $id)
 		{
 			$lista="";
-			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' AND id != $id;";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' AND id != $id ORDER BY nombre;";
 			$conexion = mainModel::conectar();
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
@@ -1786,7 +1832,7 @@
 		public function cargar_taxonomias_editar2_controlador($taxonomia, $id, $padre)
 		{
 			$lista="";
-			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' AND id != $id AND id != $padre;";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' AND id != $id AND id != $padre ORDER BY nombre;";
 			$conexion = mainModel::conectar();
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
@@ -1811,5 +1857,254 @@
 			return $lista;
 		}
 
+		//CONTROLADORES PARA PRODUCTOS
+		public function cargar_atributos_controlador()
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = 'atributo' ORDER BY nombre;";
+			$conexion = mainModel::conectar();
+			$atributos = $conexion->query($consulta);
+			$atributos = $atributos->fetchAll();
+			$atributo = "";
+			foreach($atributos as $rows)
+			{
+				$atributo = $rows['id'];
+				$lista.='<optgroup label="'.$rows['nombre'].'">';
+				$consulta_termino="SELECT * FROM taxonomias WHERE taxonomia = 'termino' AND padre = $atributo ORDER BY nombre;";
+				$conexion_termino = mainModel::conectar();
+				$terminos = $conexion_termino->query($consulta_termino);
+				$terminos = $terminos->fetchAll();
+				foreach($terminos as $term)
+				{
+					$lista.='<option value="'.$term['id'].'">'.$term['nombre'].'</option>';
+				}
+				$lista.='</optgroup>';
+			}
+			return $lista;
+		}
+
+		public function agregar_producto_controlador()
+		{
+			$sku=mainModel::limpiar_cadena($_POST['producto-sku-nuevo']);
+			$nombre=mainModel::limpiar_cadena($_POST['producto-nombre-nuevo']);
+			$slug=mainModel::limpiar_cadena($_POST['producto-slug-nuevo']);
+			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-nuevo']);
+			$precio=mainModel::limpiar_cadena($_POST['producto-precio-nuevo']);
+			$visitantes=mainModel::limpiar_cadena($_POST['producto-visitantes-nuevo']);
+			$usuarios=mainModel::limpiar_cadena($_POST['producto-usuarios-nuevo']);
+			$empresas=mainModel::limpiar_cadena($_POST['producto-empresas-nuevo']);
+			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-nuevo']);
+			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-nuevo']);
+			$tipo=mainModel::limpiar_cadena($_POST['producto-tipo-nuevo']);
+			$stock=mainModel::limpiar_cadena($_POST['producto-stock-nuevo']);
+			$nuevo = "no";
+			$oferta = "no";
+			echo "$sku";
+			if(isset($_POST['producto-nuevo-nuevo']))
+			{
+				$nuevo = "si";
+			}
+			if(isset($_POST['producto-oferta-nuevo']))
+			{
+				$oferta = "si";
+			}
+			$fecha = date("Y/m/d")." ".date("H:i:s");
+			$dataAC=[
+				"Sku"=>$sku,
+				"Nombre"=>$nombre,
+				"Slug"=>$slug,
+				"Descripcion"=>$descripcion,
+				"Precio"=>$precio,
+				"Visitantes"=>$visitantes,
+				"Usuarios"=>$usuarios,
+				"Empresas"=>$empresas,
+				"Mpn"=>$mpn,
+				"Fabricante"=>$fabricante,
+				"Tipo"=>$tipo,
+				"Stock"=>$stock,
+				"Nuevo"=>$nuevo,
+				"Oferta"=>$oferta,
+				"Fecha"=>$fecha
+			];
+            $guardarProducto=administradorModelo::agregar_producto_modelo($dataAC);
+			if($guardarProducto->rowCount()>=1)
+			{
+				if(isset($_POST['producto-imagenes-nuevo']))
+				{
+					$imagenes=$_POST["producto-imagenes-nuevo"];
+					foreach($imagenes as $imagen)
+					{
+						$dataGaleria=[
+							"Producto"=>$sku,
+							"Medio"=>$imagen
+						];
+						$guardarGaleria=administradorModelo::agregar_galeria_modelo($dataGaleria);
+					}
+				}
+				if(isset($_POST['producto-categoria-nuevo']) && $_POST['producto-categoria-nuevo']>0)
+				{
+					$dataTaxonomia=[
+						"Sku"=>$sku,
+						"Taxonomia"=>$_POST['producto-categoria-nuevo']
+					];
+					$guardarTaxonomia=administradorModelo::agregar_relaciones_modelo($dataTaxonomia);
+				}
+				if(isset($_POST['producto-etiqueta-nuevo']))
+				{
+					$etiquetas=$_POST["producto-etiqueta-nuevo"];
+					foreach($etiquetas as $etiqueta)
+					{
+						$dataEtiqueta=[
+							"Sku"=>$sku,
+							"Taxonomia"=>$etiqueta
+						];
+						$guardarEtiqueta=administradorModelo::agregar_relaciones_modelo($dataEtiqueta);
+					}
+				}
+				if(isset($_POST['producto-atributo-nuevo']))
+				{
+					$atributos=$_POST["producto-atributo-nuevo"];
+					foreach($atributos as $atributo)
+					{
+						$dataAtributo=[
+							"Sku"=>$sku,
+							"Taxonomia"=>$atributo
+						];
+						$guardarAtributo=administradorModelo::agregar_relaciones_modelo($dataAtributo);
+					}
+				}
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Producto añadido",
+					"Texto"=>"El producto se ha añadido con éxito en el sistema",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido añadir el producto",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function paginador_categorias_controlador($pagina,$registros,$busqueda){
+
+			$pagina=mainModel::limpiar_cadena($pagina);
+			$registros=mainModel::limpiar_cadena($registros);
+			$busqueda=mainModel::limpiar_cadena($busqueda);
+			$tabla="";
+
+			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
+			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
+
+			if(isset($busqueda) && $busqueda!=""){
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE (nombre LIKE '%$busqueda%' OR slug LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%') AND taxonomia = 'categoria' ORDER BY id ASC LIMIT $inicio,$registros";
+				$paginaurl="buscar-categorias";
+			}else{
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE taxonomia = 'categoria' ORDER BY id DESC LIMIT $inicio,$registros";
+				$paginaurl="categorias";
+			}
+
+			$conexion = mainModel::conectar();
+
+			$datos = $conexion->query($consulta);
+			$datos= $datos->fetchAll();
+
+			$total= $conexion->query("SELECT FOUND_ROWS()");
+			$total= (int) $total->fetchColumn();
+
+			$Npaginas= ceil($total/$registros);
+
+			$tabla.='
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Slug</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+				';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$contador=$inicio+1;
+				foreach($datos as $rows){
+					$tabla.='
+						<tr>
+							<td>'.$rows['id'].'</td>
+							<td>'.$rows['nombre'].'</td>
+							<td>'.$rows['slug'].'</td>
+							<td>
+								<form action="'.SERVERURL.'editar-categoria/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+									<input type="hidden" name="categoria-id-editar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-info">
+										<i class="fas fa-pencil-alt"></i>
+									</button>
+								</form>
+							</td>
+							<td>
+								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
+									<input type="hidden" name="categoria-id-eliminar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-danger">
+										<i class="fas fa-times"></i>
+									</button>
+									<div class="RespuestaAjax"></div>
+								</form>
+							</td>';
+							$tabla.='</tr>';
+							$contador++;
+						}
+			}else{
+				if($total>=1){
+					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
+				}else{
+					$tabla.='
+						<tr>
+							<td></td>
+							<td>No hay registros en el sistema</td>
+							<td></td>
+							<td></td>
+						</tr>
+					';	
+				}
+			}
+
+			$tabla.='</tbody></table>';
+
+			if($total>=1 && $pagina<=$Npaginas){
+				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+
+				if($pagina==1){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
+				}
+
+				for($i=1; $i<=$Npaginas; $i++){
+					if($pagina==$i){
+						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}else{
+						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}
+				}
+
+				if($pagina==$Npaginas){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/">Siguiente</a></li>';
+				}
+				$tabla.='</ul></nav>';
+			}
+
+			return $tabla;
+		}
 
 	}

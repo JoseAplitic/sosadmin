@@ -1,16 +1,10 @@
-<?php
-if ($_SESSION['id'] != 1){
-    $url = SERVERURL;
-    echo '<script>location.href="'.$url.'"</script>';
-}
-?>
 <div class="breadcrumbs animated fadeIn">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>TODOS LOS USUARIOS</h1>
+                        <h1>TODOS LOS PRODUCTOS</h1>
                     </div>
                 </div>
             </div>
@@ -19,7 +13,7 @@ if ($_SESSION['id'] != 1){
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="<?php echo SERVERURL; ?>inicio/">Escritorio</a></li>
-                            <li class="active">Usuarios</li>
+                            <li class="active">Productos</li>
                         </ol>
                     </div>
                 </div>
@@ -37,12 +31,12 @@ if ($_SESSION['id'] != 1){
 				<div class="card">
 					<div class="card-header">
 						<strong>Opciones</strong>
-						<small>Manejo de usuarios administradores</small>
+						<small>Manejo de productos</small>
 					</div>
 					<div class="card-body">
-						<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Todos los usuario</button>
-						<button type="button" class="btn btn-success" role="link" onclick="window.location='<?php echo SERVERURL; ?>nuevo-usuario/'">Agregar nuevo</button>
-						<button type="button" class="btn btn-info" role="link" onclick="window.location='<?php echo SERVERURL; ?>buscar-usuarios/'">Buscar usuario</button>
+						<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>productos/'">Todos los productos</button>
+						<button type="button" class="btn btn-success" role="link" onclick="window.location='<?php echo SERVERURL; ?>nuevo-producto/'">Agregar nuevo</button>
+						<button type="button" class="btn btn-info" role="link" onclick="window.location='<?php echo SERVERURL; ?>buscar-productos/'">Buscar productos</button>
 					</div>
 				</div>
 			</div>
@@ -66,7 +60,7 @@ if ($_SESSION['id'] != 1){
 						<div class="table-stats order-table ov-h">
 							<?php 
 								$pagina = explode("/", $_GET['views']);
-								echo $insAdmin->paginador_administrador_controlador($pagina[1],10,"");
+								echo $insAdmin->paginador_administrador_controlador($pagina[1],20,"");
 							?>
 						</div>
 					</div>

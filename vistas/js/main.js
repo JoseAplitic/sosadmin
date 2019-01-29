@@ -202,4 +202,10 @@ jQuery(document).ready(function($) {
         var url = $('option:selected',this).attr("data-url-image");
         $('#imagen-cambiar').attr("src", url);
     });
+
+    //MOSTRAR FOTO NUEVO PRODUCTO
+    $('#producto-imagenes-nuevo').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar').attr("src", url);
+    });
 });
