@@ -330,4 +330,36 @@
 			$query->execute();
 			return $query;
 		}
+
+		//MODELOS LIMPIAR REGISTROS DE BASE DE DATOS
+		protected function limpiar_galeria_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM galerias WHERE producto=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
+		
+		protected function limpiar_atributos_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM taxonomias WHERE padre=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
+		
+		protected function limpiar_categorias_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM taxonomias WHERE padre=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
+
+		protected function verificar_producto_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM productos WHERE slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
 	}

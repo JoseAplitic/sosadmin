@@ -629,6 +629,7 @@
 			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$limpiar=administradorModelo::limpiar_categorias_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Categoría eliminada",
@@ -1107,6 +1108,7 @@
 			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$limpiar=administradorModelo::limpiar_atributos_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Atributo eliminado",
@@ -1899,96 +1901,109 @@
 			$stock=mainModel::limpiar_cadena($_POST['producto-stock-nuevo']);
 			$nuevo = "no";
 			$oferta = "no";
-			echo "$sku";
-			if(isset($_POST['producto-nuevo-nuevo']))
+			$verificar=administradorModelo::verificar_producto_slug_disponible($slug);
+			if ($verificar->rowCount() > 0)
 			{
-				$nuevo = "si";
-			}
-			if(isset($_POST['producto-oferta-nuevo']))
-			{
-				$oferta = "si";
-			}
-			$fecha = date("Y/m/d")." ".date("H:i:s");
-			$dataAC=[
-				"Sku"=>$sku,
-				"Nombre"=>$nombre,
-				"Slug"=>$slug,
-				"Descripcion"=>$descripcion,
-				"Precio"=>$precio,
-				"Visitantes"=>$visitantes,
-				"Usuarios"=>$usuarios,
-				"Empresas"=>$empresas,
-				"Mpn"=>$mpn,
-				"Fabricante"=>$fabricante,
-				"Tipo"=>$tipo,
-				"Stock"=>$stock,
-				"Nuevo"=>$nuevo,
-				"Oferta"=>$oferta,
-				"Fecha"=>$fecha
-			];
-            $guardarProducto=administradorModelo::agregar_producto_modelo($dataAC);
-			if($guardarProducto->rowCount()>=1)
-			{
-				if(isset($_POST['producto-imagenes-nuevo']))
-				{
-					$imagenes=$_POST["producto-imagenes-nuevo"];
-					foreach($imagenes as $imagen)
-					{
-						$dataGaleria=[
-							"Producto"=>$sku,
-							"Medio"=>$imagen
-						];
-						$guardarGaleria=administradorModelo::agregar_galeria_modelo($dataGaleria);
-					}
-				}
-				if(isset($_POST['producto-categoria-nuevo']) && $_POST['producto-categoria-nuevo']>0)
-				{
-					$dataTaxonomia=[
-						"Sku"=>$sku,
-						"Taxonomia"=>$_POST['producto-categoria-nuevo']
-					];
-					$guardarTaxonomia=administradorModelo::agregar_relaciones_modelo($dataTaxonomia);
-				}
-				if(isset($_POST['producto-etiqueta-nuevo']))
-				{
-					$etiquetas=$_POST["producto-etiqueta-nuevo"];
-					foreach($etiquetas as $etiqueta)
-					{
-						$dataEtiqueta=[
-							"Sku"=>$sku,
-							"Taxonomia"=>$etiqueta
-						];
-						$guardarEtiqueta=administradorModelo::agregar_relaciones_modelo($dataEtiqueta);
-					}
-				}
-				if(isset($_POST['producto-atributo-nuevo']))
-				{
-					$atributos=$_POST["producto-atributo-nuevo"];
-					foreach($atributos as $atributo)
-					{
-						$dataAtributo=[
-							"Sku"=>$sku,
-							"Taxonomia"=>$atributo
-						];
-						$guardarAtributo=administradorModelo::agregar_relaciones_modelo($dataAtributo);
-					}
-				}
 				$alerta=[
-					"Alerta"=>"recargar",
-					"Titulo"=>"Producto añadido",
-					"Texto"=>"El producto se ha añadido con éxito en el sistema",
-					"Tipo"=>"success"
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible",
+					"Tipo"=>"error"
 				];
 			}
 			else
 			{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido añadir el producto",
-					"Tipo"=>"error"
+				if(isset($_POST['producto-nuevo-nuevo']))
+				{
+					$nuevo = "si";
+				}
+				if(isset($_POST['producto-oferta-nuevo']))
+				{
+					$oferta = "si";
+				}
+				$fecha = date("Y/m/d")." ".date("H:i:s");
+				$dataAC=[
+					"Sku"=>$sku,
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Precio"=>$precio,
+					"Visitantes"=>$visitantes,
+					"Usuarios"=>$usuarios,
+					"Empresas"=>$empresas,
+					"Mpn"=>$mpn,
+					"Fabricante"=>$fabricante,
+					"Tipo"=>$tipo,
+					"Stock"=>$stock,
+					"Nuevo"=>$nuevo,
+					"Oferta"=>$oferta,
+					"Fecha"=>$fecha
 				];
+				$guardarProducto=administradorModelo::agregar_producto_modelo($dataAC);
+				if($guardarProducto->rowCount()>=1)
+				{
+					if(isset($_POST['producto-imagenes-nuevo']))
+					{
+						$imagenes=$_POST["producto-imagenes-nuevo"];
+						foreach($imagenes as $imagen)
+						{
+							$dataGaleria=[
+								"Producto"=>$sku,
+								"Medio"=>$imagen
+							];
+							$guardarGaleria=administradorModelo::agregar_galeria_modelo($dataGaleria);
+						}
+					}
+					if(isset($_POST['producto-categoria-nuevo']) && $_POST['producto-categoria-nuevo']>0)
+					{
+						$dataTaxonomia=[
+							"Sku"=>$sku,
+							"Taxonomia"=>$_POST['producto-categoria-nuevo']
+						];
+						$guardarTaxonomia=administradorModelo::agregar_relaciones_modelo($dataTaxonomia);
+					}
+					if(isset($_POST['producto-etiqueta-nuevo']))
+					{
+						$etiquetas=$_POST["producto-etiqueta-nuevo"];
+						foreach($etiquetas as $etiqueta)
+						{
+							$dataEtiqueta=[
+								"Sku"=>$sku,
+								"Taxonomia"=>$etiqueta
+							];
+							$guardarEtiqueta=administradorModelo::agregar_relaciones_modelo($dataEtiqueta);
+						}
+					}
+					if(isset($_POST['producto-atributo-nuevo']))
+					{
+						$atributos=$_POST["producto-atributo-nuevo"];
+						foreach($atributos as $atributo)
+						{
+							$dataAtributo=[
+								"Sku"=>$sku,
+								"Taxonomia"=>$atributo
+							];
+							$guardarAtributo=administradorModelo::agregar_relaciones_modelo($dataAtributo);
+						}
+					}
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Producto añadido",
+						"Texto"=>"El producto se ha añadido con éxito en el sistema",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No hemos podido añadir el producto",
+						"Tipo"=>"error"
+					];
+				}
 			}
+
 			return mainModel::sweet_alert($alerta);
 		}
 
@@ -2130,6 +2145,7 @@
 			$DelCat=administradorModelo::eliminar_producto_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$limpieza=administradorModelo::limpiar_galeria_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Producto eliminado",
@@ -2148,5 +2164,11 @@
 			}
 			return mainModel::sweet_alert($alerta);
 		}
+
+		//CONTROLADORES LIMPIAR REGISTROS DE BASE DE DATOS
+
+		public function limpiar_registros_atributos($identificador){}
+		
+		public function limpiar_registros_categorias($identificador){}
 
 	}
