@@ -24,7 +24,7 @@
 
 <div class="content">
 
-	<!-- Menu usuarios -->
+	<!-- Menu productos -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-md-12">
@@ -48,19 +48,19 @@
 		$insAdmin= new administradorControlador();
 	?>
 
-	<!-- Lista de usuarios -->
+	<!-- Lista de productos -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Todos los usuarios</strong>
+						<strong class="card-title">Todos los productos</strong>
 					</div>
 					<div class="card-body">
 						<div class="table-stats order-table ov-h">
 							<?php 
 								$pagina = explode("/", $_GET['views']);
-								echo $insAdmin->paginador_administrador_controlador($pagina[1],20,"");
+								echo $insAdmin->paginador_productos_controlador($pagina[1],20,"");
 							?>
 						</div>
 					</div>

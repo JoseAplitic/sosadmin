@@ -1992,59 +1992,77 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
-		public function paginador_categorias_controlador($pagina,$registros,$busqueda){
+		public function paginador_productos_controlador($pagina,$registros,$busqueda){
 
 			$pagina=mainModel::limpiar_cadena($pagina);
 			$registros=mainModel::limpiar_cadena($registros);
 			$busqueda=mainModel::limpiar_cadena($busqueda);
 			$tabla="";
-
+		
 			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
 			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
-
+		
 			if(isset($busqueda) && $busqueda!=""){
-				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE (nombre LIKE '%$busqueda%' OR slug LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%') AND taxonomia = 'categoria' ORDER BY id ASC LIMIT $inicio,$registros";
-				$paginaurl="buscar-categorias";
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM productos WHERE 
+				nombre LIKE '%$busqueda%' OR 
+				slug LIKE '%$busqueda%' OR 
+				descripcion LIKE '%$busqueda%' OR 
+				sku LIKE '%$busqueda%' OR 
+				mpn LIKE '%$busqueda%' OR 
+				fabricante LIKE '%$busqueda%' OR 
+				tipo LIKE '%$busqueda%' OR 
+				nuevo LIKE '%$busqueda%' OR 
+				precio LIKE '%$busqueda%' OR 
+				precio_visitantes LIKE '%$busqueda%' OR 
+				precio_usuarios LIKE '%$busqueda%' OR 
+				precio_empresas LIKE '%$busqueda%' OR 
+				stock LIKE '%$busqueda%' OR 
+				oferta LIKE '%$busqueda%' OR 
+				fecha LIKE '%$busqueda%' 
+				ORDER BY fecha DESC LIMIT $inicio,$registros";
+				$paginaurl="buscar-productos";
 			}else{
-				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE taxonomia = 'categoria' ORDER BY id DESC LIMIT $inicio,$registros";
-				$paginaurl="categorias";
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM productos ORDER BY fecha DESC LIMIT $inicio,$registros";
+				$paginaurl="productos";
 			}
-
+		
 			$conexion = mainModel::conectar();
-
+		
 			$datos = $conexion->query($consulta);
 			$datos= $datos->fetchAll();
-
+		
 			$total= $conexion->query("SELECT FOUND_ROWS()");
 			$total= (int) $total->fetchColumn();
-
+		
 			$Npaginas= ceil($total/$registros);
-
+		
 			$tabla.='
 					<table class="table">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>SKU</th>
 								<th>Nombre</th>
 								<th>Slug</th>
+								<th>Fecha</th>
 								<th>Editar</th>
 								<th>Eliminar</th>
 							</tr>
 						</thead>
 						<tbody>
 				';
-
+		
 			if($total>=1 && $pagina<=$Npaginas){
 				$contador=$inicio+1;
 				foreach($datos as $rows){
 					$tabla.='
 						<tr>
-							<td>'.$rows['id'].'</td>
+							<td>'.$rows['sku'].'</td>
 							<td>'.$rows['nombre'].'</td>
 							<td>'.$rows['slug'].'</td>
+							<td>'.$rows['fecha'].'</td>
 							<td>
-								<form action="'.SERVERURL.'editar-categoria/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
-									<input type="hidden" name="categoria-id-editar" value="'.$rows['id'].'">
+								<form action="'.SERVERURL.'editar-producto/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+									<input type="hidden" name="producto-sku-editar" value="'.$rows['sku'].'">
 									<button type="submit" class="btn btn-info">
 										<i class="fas fa-pencil-alt"></i>
 									</button>
@@ -2052,7 +2070,7 @@
 							</td>
 							<td>
 								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
-									<input type="hidden" name="categoria-id-eliminar" value="'.$rows['id'].'">
+									<input type="hidden" name="producto-sku-eliminar" value="'.$rows['sku'].'">
 									<button type="submit" class="btn btn-danger">
 										<i class="fas fa-times"></i>
 									</button>
@@ -2076,18 +2094,18 @@
 					';	
 				}
 			}
-
+		
 			$tabla.='</tbody></table>';
-
+		
 			if($total>=1 && $pagina<=$Npaginas){
 				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
-
+		
 				if($pagina==1){
 					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
 				}else{
 					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
 				}
-
+		
 				for($i=1; $i<=$Npaginas; $i++){
 					if($pagina==$i){
 						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
@@ -2095,7 +2113,7 @@
 						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
 					}
 				}
-
+		
 				if($pagina==$Npaginas){
 					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
 				}else{
@@ -2103,8 +2121,32 @@
 				}
 				$tabla.='</ul></nav>';
 			}
-
+		
 			return $tabla;
+		}
+
+		public function eliminar_producto_controlador(){
+			$codigo=mainModel::limpiar_cadena($_POST['producto-sku-eliminar']);
+			$DelCat=administradorModelo::eliminar_producto_modelo($codigo);
+			if($DelCat->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Producto eliminado",
+					"Texto"=>"El producto fue eliminado del sistema con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se ha podido eliminar este producto en este momento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
 		}
 
 	}

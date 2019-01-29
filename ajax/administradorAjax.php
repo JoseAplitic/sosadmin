@@ -128,6 +128,12 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->agregar_producto_controlador();
 	}
+	elseif(isset($_POST['producto-sku-eliminar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->eliminar_producto_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);

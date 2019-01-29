@@ -322,4 +322,12 @@
 			$sql->execute();
 			return $sql;
 		}
+		
+		protected function eliminar_producto_modelo($codigo)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM productos WHERE sku=:Codigo");
+			$query->bindParam(":Codigo",$codigo);
+			$query->execute();
+			return $query;
+		}
 	}

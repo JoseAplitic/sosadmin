@@ -24,7 +24,7 @@
 
 <div class="content">
 
-	<!-- Menu usuarios -->
+	<!-- Menu productos -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-md-12">
@@ -54,14 +54,14 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">¿A quién estas buscando?</strong>
+						<strong class="card-title">¿Que producto estas buscando?</strong>
 					</div>
 					<div class="card-body card-block">
 						<form action="" method="POST" class="form-horizontal" autocomplete="off">
 							<div class="row form-group">
 								<div class="col col-md-12">
 									<div class="input-group">
-											<input type="text" id="input1-group2" name="busqueda_admin" placeholder="Ingresa tu filtro" class="form-control"><div class="input-group-btn">
+											<input type="text" id="input1-group2" name="busqueda_producto" placeholder="Ingresa tu filtro" class="form-control"><div class="input-group-btn">
 											<button class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
 										</div>
 									</div>
@@ -77,16 +77,16 @@
 	<?php
 		require_once "./controladores/administradorControlador.php";
 		$insAdmin= new administradorControlador();
-		if(isset($_POST['busqueda_admin']))
+		if(isset($_POST['busqueda_producto']))
 		{
-			unset($_SESSION['busqueda_admin_cache']);
-			$_SESSION['busqueda_admin_cache']=$_POST['busqueda_admin'];
+			unset($_SESSION['busqueda_producto_cache']);
+			$_SESSION['busqueda_producto_cache']=$_POST['busqueda_producto'];
 		}
-		if (isset($_SESSION['busqueda_admin_cache'])):
+		if (isset($_SESSION['busqueda_producto_cache'])):
 			
 	?>
 
-	<!-- Lista de usuarios -->
+	<!-- Lista de productos -->
 	<div class="animated fadeIn">
 		<div class="row">
 			<div class="col-lg-12">
@@ -97,7 +97,7 @@
 					<div class="table-stats order-table ov-h">
 						<?php 
 							$pagina = explode("/", $_GET['views']);
-							echo $insAdmin->paginador_administrador_controlador($pagina[1],100,$_SESSION['busqueda_admin_cache']);
+							echo $insAdmin->paginador_productos_controlador($pagina[1],20,$_SESSION['busqueda_producto_cache']);
 						?>
 					</div>
 				</div>
