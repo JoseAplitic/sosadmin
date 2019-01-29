@@ -1109,6 +1109,15 @@
 			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$consulta="SELECT * FROM taxonomias WHERE padre = $codigo;";
+				$conexion = mainModel::conectar();
+				$datos = $conexion->query($consulta);
+				$datos = $datos->fetchAll();
+				foreach($datos as $rows)
+				{
+					$identificador = $rows['id'];
+					$limpiar=administradorModelo::limpiar_relaciones_taxonomias_modelo($identificador);
+				}
 				$limpiar=administradorModelo::limpiar_atributos_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
