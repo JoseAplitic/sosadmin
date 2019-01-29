@@ -630,6 +630,7 @@
 			if($DelCat->rowCount()>=1)
 			{
 				$limpiar=administradorModelo::limpiar_categorias_modelo($codigo);
+				$limpiarRelaciones=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Categoría eliminada",
@@ -1358,6 +1359,7 @@
 			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$limpiar=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Término eliminado",
@@ -2165,11 +2167,5 @@
 			}
 			return mainModel::sweet_alert($alerta);
 		}
-
-		//CONTROLADORES LIMPIAR REGISTROS DE BASE DE DATOS
-
-		public function limpiar_registros_atributos($identificador){}
-		
-		public function limpiar_registros_categorias($identificador){}
 
 	}

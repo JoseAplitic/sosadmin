@@ -370,5 +370,13 @@
 			$query->execute();
 			return $query;
 		}
+
+		protected function limpiar_relaciones_taxonomias_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM relaciones WHERE id_taxonomia=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
 		
 	}
