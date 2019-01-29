@@ -331,6 +331,13 @@
 			return $query;
 		}
 
+		protected function verificar_producto_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM productos WHERE slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+
 		//MODELOS LIMPIAR REGISTROS DE BASE DE DATOS
 		protected function limpiar_galeria_modelo($identificador)
 		{
@@ -356,10 +363,12 @@
 			return $query;
 		}
 
-		protected function verificar_producto_slug_disponible($slug){
-			$sql=mainModel::conectar()->prepare("SELECT * FROM productos WHERE slug = :Slug");
-			$sql->bindParam(":Slug",$slug);
-			$sql->execute();
-			return $sql;
+		protected function limpiar_relaciones_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM relaciones WHERE sku=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
 		}
+		
 	}

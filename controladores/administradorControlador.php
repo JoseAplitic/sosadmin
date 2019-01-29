@@ -2146,6 +2146,7 @@
 			if($DelCat->rowCount()>=1)
 			{
 				$limpieza=administradorModelo::limpiar_galeria_modelo($codigo);
+				$limpiar=administradorModelo::limpiar_relaciones_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Producto eliminado",
