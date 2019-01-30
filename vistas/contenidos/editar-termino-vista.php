@@ -77,8 +77,7 @@
 								$termino_descripcion = $datos_termino['descripcion'];
 						?>
 						<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-						<div class="row">
-								
+							<div class="row">
 								<input type="hidden" name="termino-id-editar" value="<?php echo $termino_id; ?>">
 								<div class="col-6">
 									<div class="form-group">
@@ -103,8 +102,6 @@
 							</div>
 							<input type="hidden" name="termino-padre-editar" value="<?php echo $datos['id']; ?>">
 							<input class="btn btn-outline-info btn-block" type="submit" value="Guardar cambios" style="margin: 20px 0px;">
-							<div class="RespuestaAjax"></div>
-							
 							<div class="RespuestaAjax"></div>
 						</form>
 						<?php else: ?>

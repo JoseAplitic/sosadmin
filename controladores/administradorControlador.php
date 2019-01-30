@@ -8,7 +8,7 @@
 	class administradorControlador extends administradorModelo
 	{
 
-		//Obtener cantidad de registros de usuarios
+		//CONTROLADORES USUARIOS
 		public function obtener_numero_usuarios_controlador()
 		{
 			$usuarios=mainModel::ejecutar_consulta_simple("SELECT * FROM admin;");
@@ -16,7 +16,6 @@
 			return $num;
 		}
 
-		//Obtener info de un usuarios
 		public function obtener_info_usuarios_controlador($codigo)
 		{
 			$sql=mainModel::conectar()->prepare("SELECT * FROM usuarios WHERE id=:Codigo");
@@ -27,7 +26,6 @@
 		}
 
 
-		//Obtener info de un usuarios
 		public function obtener_info_perfil_controlador($codigo)
 		{
 			$sql=mainModel::conectar()->prepare("SELECT * FROM usuarios WHERE id=:Codigo");
@@ -36,7 +34,6 @@
 			return $sql;
 		}
 
-		//Controlador para agregar administrador
 		public function agregar_administrador_controlador()
 		{
 			$nombre=mainModel::limpiar_cadena($_POST['usuario-nombre-nuevo']);
@@ -102,7 +99,6 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
-		//editar info mi perfil
 		public function editar_perfil_controlador()
 		{
 			$codigo=mainModel::limpiar_cadena($_POST['usuario-id-editar-perfil']);
@@ -169,7 +165,6 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
-		//editar info administradores
 		public function editar_administrador_controlador()
 		{
 			$codigo=mainModel::decryption($_POST['usuario-id-editar']);
@@ -237,8 +232,6 @@
 			return mainModel::sweet_alert($alerta);
 		}
 
-
-		// Controlador para paginar administradores
 		public function paginador_administrador_controlador($pagina,$registros,$busqueda){
 
 			$pagina=mainModel::limpiar_cadena($pagina);
@@ -355,7 +348,6 @@
 			return $tabla;
 		}
 
-		//eliminar administrador
 		public function eliminar_administrador_controlador(){
 			$codigo=mainModel::decryption($_POST['usuario-id-eliminar']);
 			$codigo=mainModel::limpiar_cadena($codigo);
@@ -2176,6 +2168,249 @@
 				];
 			}
 			return mainModel::sweet_alert($alerta);
+		}
+
+		public function obtener_info_productos_controlador($codigo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM productos WHERE sku=:Codigo");
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
+
+		public function editar_producto_controlador()
+		{
+			$sku_original=mainModel::limpiar_cadena($_POST['producto-sku-original-editar']);
+			$sku=mainModel::limpiar_cadena($_POST['producto-sku-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['producto-nombre-editar']);
+			$slug=mainModel::limpiar_cadena($_POST['producto-slug-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-editar']);
+			$precio=mainModel::limpiar_cadena($_POST['producto-precio-editar']);
+			$visitantes=mainModel::limpiar_cadena($_POST['producto-visitantes-editar']);
+			$usuarios=mainModel::limpiar_cadena($_POST['producto-usuarios-editar']);
+			$empresas=mainModel::limpiar_cadena($_POST['producto-empresas-editar']);
+			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-editar']);
+			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-editar']);
+			$tipo=mainModel::limpiar_cadena($_POST['producto-tipo-editar']);
+			$stock=mainModel::limpiar_cadena($_POST['producto-stock-editar']);
+			$nuevo = "no";
+			$oferta = "no";
+			$verificar=administradorModelo::verificar_producto_editar_slug_disponible($slug, $sku_original);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				if(isset($_POST['producto-nuevo-editar']))
+				{
+					$nuevo = "si";
+				}
+				if(isset($_POST['producto-oferta-editar']))
+				{
+					$oferta = "si";
+				}
+				$fecha = date("Y/m/d")." ".date("H:i:s");
+				$dataAC=[
+					"Original"=>$sku_original,
+					"Sku"=>$sku,
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Precio"=>$precio,
+					"Visitantes"=>$visitantes,
+					"Usuarios"=>$usuarios,
+					"Empresas"=>$empresas,
+					"Mpn"=>$mpn,
+					"Fabricante"=>$fabricante,
+					"Tipo"=>$tipo,
+					"Stock"=>$stock,
+					"Nuevo"=>$nuevo,
+					"Oferta"=>$oferta,
+					"Fecha"=>$fecha
+				];
+				$actualizarProducto=administradorModelo::editar_producto_modelo($dataAC);
+				if($actualizarProducto->rowCount()>=1)
+				{	
+					if($sku != $sku_original)
+					{
+						$actualizarGalerias=administradorModelo::producto_cambio_slug_galeria_modelo($sku, $sku_original);
+						$actualizarRelaciones=administradorModelo::producto_cambio_slug_relacion_modelo($sku, $sku_original);
+					}
+					/*
+					$relaciones_galerias = array();
+					if(isset($_POST['producto-imagenes-editar']))
+					{
+						$relacion_galeria = $_POST["producto-imagenes-editar"];
+						$relaciones_galerias = array_merge($relaciones_galerias, $relacion_galeria);
+					}
+					$relaciones_taxonomias = array();
+					if(isset($_POST['producto-categoria-editar']) && $_POST['producto-categoria-editar']>0)
+					{
+						$relacion_categoria = $_POST["producto-categoria-editar"];
+						$relaciones_taxonomias = array_merge($relaciones_taxonomias, $relacion_categoria);
+					}
+					if(isset($_POST['producto-etiqueta-editar']))
+					{
+						$relacion_etiqueta = $_POST["producto-etiqueta-editar"];
+						$relaciones_taxonomias = array_merge($relaciones_taxonomias, $relacion_etiqueta);
+					}
+					if(isset($_POST['producto-atributo-editar']))
+					{
+						$relacion_atributo = $_POST["producto-atributo-editar"];
+						$relaciones_taxonomias = array_merge($relaciones_taxonomias, $relacion_atributo);
+					}
+					print_r($relaciones_galerias);
+					print_r($relaciones_taxonomias);*/
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Producto actualizado",
+						"Texto"=>"El producto se ha actualizado con éxito en el sistema",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No hemos podido actualizar el producto",
+						"Tipo"=>"error"
+					];
+				}
+			}
+
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function cargar_galeria_relaciones_productos_controlador($sku)
+		{
+			$consulta="SELECT medio FROM galerias WHERE producto = '$sku';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			return $datos;
+		}
+		
+		public function cargar_medios_productos_controlador($imagenes)
+		{
+			$lista="";
+			$consulta="SELECT id, titulo, url FROM medios;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $imagenes;
+			foreach($datos as $rows)
+			{
+				if (empty($seleccionar))
+				{
+					$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
+				}
+				else
+				{
+					foreach($seleccionar as $imagen)
+					{
+						if ($imagen[0] == $rows['id'])
+						{
+							$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'" selected="">'.$rows['titulo'].'</option>';
+						}
+						else
+						{
+							$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
+						}
+					}
+				}
+			}
+			return $lista;
+		}
+
+		public function cargar_relaciones_productos_controlador($sku)
+		{
+			$consulta="SELECT id_taxonomia FROM relaciones WHERE sku = '$sku';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			return $datos;
+		}
+
+		public function cargar_taxonomias_productos_controlador($taxonomias, $taxonomia)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = '$taxonomia';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $taxonomias;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['id'])
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function cargar_atributos_productos_controlador($activos)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = 'atributo' ORDER BY nombre;";
+			$conexion = mainModel::conectar();
+			$atributos = $conexion->query($consulta);
+			$atributos = $atributos->fetchAll();
+			$atributo = "";
+			$seleccionar = $activos;
+			$activo = false;
+			foreach($atributos as $rows)
+			{
+				$atributo = $rows['id'];
+				$lista.='<optgroup label="'.$rows['nombre'].'">';
+				$consulta_termino="SELECT * FROM taxonomias WHERE taxonomia = 'termino' AND padre = $atributo ORDER BY nombre;";
+				$conexion_termino = mainModel::conectar();
+				$terminos = $conexion_termino->query($consulta_termino);
+				$terminos = $terminos->fetchAll();
+				foreach($terminos as $term)
+				{
+					if (!empty($seleccionar))
+					{
+						foreach($seleccionar as $tax)
+						{
+							if ($tax[0] == $term['id'])
+							{
+								$lista.='<option value="'.$term['id'].'" selected="">'.$term['nombre'].'</option>';
+								$activo = true;
+							}
+						}
+					}
+					if($activo == false){
+						$lista.='<option value="'.$term['id'].'">'.$term['nombre'].'</option>';
+					}
+					else{
+						$activo = false;
+					}
+				}
+				$lista.='</optgroup>';
+			}
+			return $lista;
 		}
 
 	}

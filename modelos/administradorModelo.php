@@ -338,6 +338,54 @@
 			return $sql;
 		}
 
+		protected function verificar_producto_editar_slug_disponible($slug, $sku){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM productos WHERE slug = :Slug AND sku != :Sku");
+			$sql->bindParam(":Slug",$slug);
+			$sql->bindParam(":Sku",$sku);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function editar_producto_modelo($datos){
+			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, precio_visitantes = :Visitantes, precio_usuarios = :Usuarios, precio_empresas = :Empresas, stock = :Stock, oferta = :Oferta ,fecha = :Fecha WHERE sku = :Original;");
+			$sql->bindParam(":Sku",$datos['Sku']);
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Mpn",$datos['Mpn']);
+			$sql->bindParam(":Fabricante",$datos['Fabricante']);
+			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->bindParam(":Nuevo",$datos['Nuevo']);
+			$sql->bindParam(":Precio",$datos['Precio']);
+			$sql->bindParam(":Visitantes",$datos['Visitantes']);
+			$sql->bindParam(":Usuarios",$datos['Usuarios']);
+			$sql->bindParam(":Empresas",$datos['Empresas']);
+			$sql->bindParam(":Stock",$datos['Stock']);
+			$sql->bindParam(":Oferta",$datos['Oferta']);
+			$sql->bindParam(":Fecha",$datos['Fecha']);
+			$sql->bindParam(":Original",$datos['Original']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function producto_cambio_slug_galeria_modelo($sku, $sku_original)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE galerias SET producto = :Sku WHERE producto = :Original");
+			$sql->bindParam(":Sku",$sku);
+			$sql->bindParam(":Original",$sku_original);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function producto_cambio_slug_relacion_modelo($sku, $sku_original)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE relaciones SET sku = :Sku WHERE sku = :Original");
+			$sql->bindParam(":Sku",$sku);
+			$sql->bindParam(":Original",$sku_original);
+			$sql->execute();
+			return $sql;
+		}
+
 		//MODELOS LIMPIAR REGISTROS DE BASE DE DATOS
 		protected function limpiar_galeria_modelo($identificador)
 		{

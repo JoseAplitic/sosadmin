@@ -128,6 +128,12 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->agregar_producto_controlador();
 	}
+	elseif(isset($_POST['producto-sku-editar']) && isset($_POST['producto-nombre-editar']) && isset($_POST['producto-slug-editar']) && isset($_POST['producto-precio-editar']) && isset($_POST['producto-precio-editar']) && isset($_POST['producto-visitantes-editar']) && isset($_POST['producto-usuarios-editar']) && isset($_POST['producto-empresas-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_producto_controlador();
+	}
 	elseif(isset($_POST['producto-sku-eliminar']))
 	{
 		require_once "../controladores/administradorControlador.php";
