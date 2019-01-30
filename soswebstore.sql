@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2019 a las 04:35:08
+-- Tiempo de generación: 30-01-2019 a las 06:59:20
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -43,7 +43,7 @@ CREATE TABLE `clasificacion` (
 --
 
 CREATE TABLE `galerias` (
-  `producto` int(20) NOT NULL,
+  `producto` varchar(2000) COLLATE utf8_spanish2_ci NOT NULL,
   `medio` int(20) NOT NULL,
   `orden` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -64,11 +64,35 @@ CREATE TABLE `medios` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `sku` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre` varchar(2000) COLLATE utf8_spanish2_ci NOT NULL,
+  `slug` varchar(2000) COLLATE utf8_spanish2_ci NOT NULL,
+  `descripcion` text COLLATE utf8_spanish2_ci,
+  `mpn` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `fabricante` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `tipo` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `nuevo` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `precio` decimal(11,0) NOT NULL,
+  `precio_visitantes` decimal(11,0) NOT NULL,
+  `precio_usuarios` decimal(11,0) NOT NULL,
+  `precio_empresas` decimal(11,0) NOT NULL,
+  `stock` int(20) DEFAULT NULL,
+  `oferta` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `fecha` varchar(20) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `relaciones`
 --
 
 CREATE TABLE `relaciones` (
-  `sku` int(20) NOT NULL,
+  `sku` varchar(2000) COLLATE utf8_spanish2_ci NOT NULL,
   `id_taxonomia` int(20) NOT NULL,
   `orden` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
@@ -122,6 +146,12 @@ ALTER TABLE `medios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`sku`);
+
+--
 -- Indices de la tabla `taxonomias`
 --
 ALTER TABLE `taxonomias`
@@ -141,13 +171,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `medios`
 --
 ALTER TABLE `medios`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `taxonomias`
 --
 ALTER TABLE `taxonomias`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
