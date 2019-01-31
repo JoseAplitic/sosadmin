@@ -425,6 +425,14 @@
 			$query->execute();
 			return $query;
 		}
+
+		protected function limpiar_icono_categoria_modelo($icono)
+		{
+			$query=mainModel::conectar()->prepare("UPDATE taxonomias SET icono = 0 WHERE icono=:Icono");
+			$query->bindParam(":Icono",$icono);
+			$query->execute();
+			return $query;
+		}
 		
 		protected function limpiar_atributos_modelo($identificador)
 		{

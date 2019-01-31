@@ -1731,6 +1731,7 @@
 			if($DelCat->rowCount()>=1)
 			{
 				$borrarGalerias = administradorModelo::limpiar_galeria_elimnar_imagen_modelo($codigo);
+				$borrarIcono = administradorModelo::limpiar_icono_categoria_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Medio eliminado",
