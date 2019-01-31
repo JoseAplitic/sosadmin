@@ -1730,6 +1730,7 @@
 			$DelCat=administradorModelo::eliminar_medio_modelo($codigo);
 			if($DelCat->rowCount()>=1)
 			{
+				$borrarGalerias = administradorModelo::limpiar_galeria_elimnar_imagen_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Medio eliminado",
@@ -2178,119 +2179,18 @@
 			return $sql;
 		}
 
-		public function editar_producto_controlador()
-		{
-			$sku_original=mainModel::limpiar_cadena($_POST['producto-sku-original-editar']);
-			$sku=mainModel::limpiar_cadena($_POST['producto-sku-editar']);
-			$nombre=mainModel::limpiar_cadena($_POST['producto-nombre-editar']);
-			$slug=mainModel::limpiar_cadena($_POST['producto-slug-editar']);
-			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-editar']);
-			$precio=mainModel::limpiar_cadena($_POST['producto-precio-editar']);
-			$visitantes=mainModel::limpiar_cadena($_POST['producto-visitantes-editar']);
-			$usuarios=mainModel::limpiar_cadena($_POST['producto-usuarios-editar']);
-			$empresas=mainModel::limpiar_cadena($_POST['producto-empresas-editar']);
-			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-editar']);
-			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-editar']);
-			$tipo=mainModel::limpiar_cadena($_POST['producto-tipo-editar']);
-			$stock=mainModel::limpiar_cadena($_POST['producto-stock-editar']);
-			$nuevo = "no";
-			$oferta = "no";
-			$verificar=administradorModelo::verificar_producto_editar_slug_disponible($slug, $sku_original);
-			if ($verificar->rowCount() > 0)
-			{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error",
-					"Texto"=>"El slug que ingresaste no esta disponible",
-					"Tipo"=>"error"
-				];
-			}
-			else
-			{
-				if(isset($_POST['producto-nuevo-editar']))
-				{
-					$nuevo = "si";
-				}
-				if(isset($_POST['producto-oferta-editar']))
-				{
-					$oferta = "si";
-				}
-				$fecha = date("Y/m/d")." ".date("H:i:s");
-				$dataAC=[
-					"Original"=>$sku_original,
-					"Sku"=>$sku,
-					"Nombre"=>$nombre,
-					"Slug"=>$slug,
-					"Descripcion"=>$descripcion,
-					"Precio"=>$precio,
-					"Visitantes"=>$visitantes,
-					"Usuarios"=>$usuarios,
-					"Empresas"=>$empresas,
-					"Mpn"=>$mpn,
-					"Fabricante"=>$fabricante,
-					"Tipo"=>$tipo,
-					"Stock"=>$stock,
-					"Nuevo"=>$nuevo,
-					"Oferta"=>$oferta,
-					"Fecha"=>$fecha
-				];
-				$actualizarProducto=administradorModelo::editar_producto_modelo($dataAC);
-				if($actualizarProducto->rowCount()>=1)
-				{	
-					if($sku != $sku_original)
-					{
-						$actualizarGalerias=administradorModelo::producto_cambio_slug_galeria_modelo($sku, $sku_original);
-						$actualizarRelaciones=administradorModelo::producto_cambio_slug_relacion_modelo($sku, $sku_original);
-					}
-					/*
-					$relaciones_galerias = array();
-					if(isset($_POST['producto-imagenes-editar']))
-					{
-						$relacion_galeria = $_POST["producto-imagenes-editar"];
-						$relaciones_galerias = array_merge($relaciones_galerias, $relacion_galeria);
-					}
-					$relaciones_taxonomias = array();
-					if(isset($_POST['producto-categoria-editar']) && $_POST['producto-categoria-editar']>0)
-					{
-						$relacion_categoria = $_POST["producto-categoria-editar"];
-						$relaciones_taxonomias = array_merge($relaciones_taxonomias, $relacion_categoria);
-					}
-					if(isset($_POST['producto-etiqueta-editar']))
-					{
-						$relacion_etiqueta = $_POST["producto-etiqueta-editar"];
-						$relaciones_taxonomias = array_merge($relaciones_taxonomias, $relacion_etiqueta);
-					}
-					if(isset($_POST['producto-atributo-editar']))
-					{
-						$relacion_atributo = $_POST["producto-atributo-editar"];
-						$relaciones_taxonomias = array_merge($relaciones_taxonomias, $relacion_atributo);
-					}
-					print_r($relaciones_galerias);
-					print_r($relaciones_taxonomias);*/
-					$alerta=[
-						"Alerta"=>"recargar",
-						"Titulo"=>"Producto actualizado",
-						"Texto"=>"El producto se ha actualizado con éxito en el sistema",
-						"Tipo"=>"success"
-					];
-				}
-				else
-				{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"No hemos podido actualizar el producto",
-						"Tipo"=>"error"
-					];
-				}
-			}
-
-			return mainModel::sweet_alert($alerta);
-		}
-
 		public function cargar_galeria_relaciones_productos_controlador($sku)
 		{
 			$consulta="SELECT medio FROM galerias WHERE producto = '$sku';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			return $datos;
+		}
+
+		public function cargar_galeria_relaciones_editar_productos_controlador($sku)
+		{
+			$consulta="SELECT producto, medio FROM galerias WHERE producto = '$sku';";
 			$conexion = mainModel::conectar();
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
@@ -2313,16 +2213,18 @@
 				}
 				else
 				{
+					$adicion = false;
 					foreach($seleccionar as $imagen)
 					{
 						if ($imagen[0] == $rows['id'])
 						{
 							$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'" selected="">'.$rows['titulo'].'</option>';
+							$adicion = true;
 						}
-						else
-						{
-							$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
-						}
+					}
+					if($adicion == false)
+					{
+						$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
 					}
 				}
 			}
@@ -2332,6 +2234,15 @@
 		public function cargar_relaciones_productos_controlador($sku)
 		{
 			$consulta="SELECT id_taxonomia FROM relaciones WHERE sku = '$sku';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			return $datos;
+		}
+
+		public function cargar_relaciones_editar_productos_controlador($sku)
+		{
+			$consulta="SELECT sku, id_taxonomia FROM relaciones WHERE sku = '$sku';";
 			$conexion = mainModel::conectar();
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
@@ -2413,4 +2324,237 @@
 			return $lista;
 		}
 
+		public function editar_producto_controlador()
+		{
+			$sku_original=mainModel::limpiar_cadena($_POST['producto-sku-original-editar']);
+			$sku=mainModel::limpiar_cadena($_POST['producto-sku-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['producto-nombre-editar']);
+			$slug=mainModel::limpiar_cadena($_POST['producto-slug-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-editar']);
+			$precio=mainModel::limpiar_cadena($_POST['producto-precio-editar']);
+			$visitantes=mainModel::limpiar_cadena($_POST['producto-visitantes-editar']);
+			$usuarios=mainModel::limpiar_cadena($_POST['producto-usuarios-editar']);
+			$empresas=mainModel::limpiar_cadena($_POST['producto-empresas-editar']);
+			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-editar']);
+			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-editar']);
+			$tipo=mainModel::limpiar_cadena($_POST['producto-tipo-editar']);
+			$stock=mainModel::limpiar_cadena($_POST['producto-stock-editar']);
+			$nuevo = "no";
+			$oferta = "no";
+			$verificar=administradorModelo::verificar_producto_editar_slug_disponible($slug, $sku_original);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				if(isset($_POST['producto-nuevo-editar']))
+				{
+					$nuevo = "si";
+				}
+				if(isset($_POST['producto-oferta-editar']))
+				{
+					$oferta = "si";
+				}
+				$fecha = date("Y/m/d")." ".date("H:i:s");
+				$dataAC=[
+					"Original"=>$sku_original,
+					"Sku"=>$sku,
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Precio"=>$precio,
+					"Visitantes"=>$visitantes,
+					"Usuarios"=>$usuarios,
+					"Empresas"=>$empresas,
+					"Mpn"=>$mpn,
+					"Fabricante"=>$fabricante,
+					"Tipo"=>$tipo,
+					"Stock"=>$stock,
+					"Nuevo"=>$nuevo,
+					"Oferta"=>$oferta,
+					"Fecha"=>$fecha
+				];
+				$actualizarProducto=administradorModelo::editar_producto_modelo($dataAC);
+				if($actualizarProducto->rowCount()>=1)
+				{	
+					if($sku != $sku_original)
+					{
+						$actualizarGalerias=administradorModelo::producto_cambio_slug_galeria_modelo($sku, $sku_original);
+						$actualizarRelaciones=administradorModelo::producto_cambio_slug_relacion_modelo($sku, $sku_original);
+					}
+					if(isset($_POST['producto-imagenes-editar']))
+					{
+						$relaciones_galerias = array();
+						foreach($_POST['producto-imagenes-editar'] as $img)
+						{
+							array_push($relaciones_galerias, array("producto"=>$sku,"medio"=>$img));
+						}
+				
+						$relaciones_galerias_existentes = administradorControlador::cargar_galeria_relaciones_editar_productos_controlador($sku);
+				
+						$nuevasImagenes = array();
+						foreach($relaciones_galerias as $medio)
+						{
+							$agregar = true;
+							foreach($relaciones_galerias_existentes as $medio2)
+							{
+								if ($medio['medio'] == $medio2['medio'])
+								{
+									$agregar = false;
+								}
+							}
+							if ($agregar == true) {
+								array_push($nuevasImagenes, array("producto"=>$sku,"medio"=>$medio['medio']));
+							}
+						}
+				
+						$viejasImagenes = array();
+						foreach($relaciones_galerias_existentes as $medio)
+						{
+							$agregar = true;
+							foreach($relaciones_galerias as $medio2)
+							{
+								if ($medio['medio'] == $medio2['medio'])
+								{
+									$agregar = false;
+								}
+							}
+							if ($agregar == true) {
+								array_push($viejasImagenes, array("producto"=>$sku,"medio"=>$medio['medio']));
+							}
+						}
+				
+						if(count($nuevasImagenes)>0)
+						{
+							foreach($nuevasImagenes as $imagen)
+							{
+								$dataGaleria=[
+									"Producto"=>$sku,
+									"Medio"=>$imagen["medio"]
+								];
+								$guardarGaleria=administradorModelo::agregar_galeria_modelo($dataGaleria);
+							}
+						}
+				
+						if(count($viejasImagenes)>0)
+						{
+							foreach($viejasImagenes as $imagen)
+							{
+								$dataGaleria=[
+									"Producto"=>$sku,
+									"Medio"=>$imagen["medio"]
+								];
+								$eliminarGaleria=administradorModelo::eliminar_galeria_modelo($dataGaleria);
+							}
+						}
+					}
+					else
+					{
+						$eliminarGalerias=administradorModelo::eliminar_galerias_modelo($sku);
+					}			
+					
+					$relaciones_taxonomias = array();
+					if(isset($_POST['producto-categoria-editar']) && $_POST['producto-categoria-editar']>0)
+					{
+						array_push($relaciones_taxonomias, array("sku"=>$sku,"id_taxonomia"=>$_POST['producto-categoria-editar']));
+					}
+					if(isset($_POST['producto-etiqueta-editar']))
+					{
+						foreach($_POST['producto-etiqueta-editar'] as $tax)
+						{
+							array_push($relaciones_taxonomias, array("sku"=>$sku,"id_taxonomia"=>$tax));
+						}
+					}
+					if(isset($_POST['producto-atributo-editar']))
+					{
+						foreach($_POST['producto-atributo-editar'] as $tax)
+						{
+							array_push($relaciones_taxonomias, array("sku"=>$sku,"id_taxonomia"=>$tax));
+						}
+					}
+				
+					$relaciones_taxonomias_existentes = administradorControlador::cargar_relaciones_editar_productos_controlador($sku);
+								
+					$nuevasTaxonomias = array();
+					foreach($relaciones_taxonomias as $tax)
+					{
+						$agregar = true;
+						foreach($relaciones_taxonomias_existentes as $tax2)
+						{
+							if ($tax['id_taxonomia'] == $tax2['id_taxonomia'])
+							{
+								$agregar = false;
+							}
+						}
+						if ($agregar == true) {
+							array_push($nuevasTaxonomias, array("sku"=>$sku,"id_taxonomia"=>$tax['id_taxonomia']));
+						}
+					}
+				
+					$viejasRelaciones = array();
+					foreach($relaciones_taxonomias_existentes as $tax)
+					{
+						$agregar = true;
+						foreach($relaciones_taxonomias as $tax2)
+						{
+							if ($tax['id_taxonomia'] == $tax2['id_taxonomia'])
+							{
+								$agregar = false;
+							}
+						}
+						if ($agregar == true) {
+							array_push($viejasRelaciones, array("sku"=>$sku,"id_taxonomia"=>$tax['id_taxonomia']));
+						}
+					}
+				
+					if(count($nuevasTaxonomias)>0)
+					{
+						foreach($nuevasTaxonomias as $taxonomia)
+						{
+							$dataTaxonomias=[
+								"Sku"=>$sku,
+								"Taxonomia"=>$taxonomia["id_taxonomia"]
+							];
+							$guardarRelacion=administradorModelo::agregar_relaciones_modelo($dataTaxonomias);
+						}
+					}
+				
+					if(count($viejasRelaciones)>0)
+					{
+						foreach($viejasRelaciones as $taxonomia)
+						{
+							$dataTaxonomias=[
+								"Sku"=>$sku,
+								"Taxonomia"=>$taxonomia["id_taxonomia"]
+							];
+							$eliminarRelacion=administradorModelo::eliminar_relaciones_modelo($dataTaxonomias);
+						}
+					}
+
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Producto actualizado",
+						"Texto"=>"El producto se ha actualizado con éxito en el sistema",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No hemos podido actualizar el producto",
+						"Tipo"=>"error"
+					];
+				}
+			}
+
+			return mainModel::sweet_alert($alerta);
+		}
 	}

@@ -315,8 +315,31 @@
 			return $sql;
 		}
 
+		protected function eliminar_galeria_modelo($datos){
+			$sql=mainModel::conectar()->prepare("DELETE FROM galerias WHERE producto = :Producto AND medio = :Medio;");
+			$sql->bindParam(":Producto",$datos['Producto']);
+			$sql->bindParam(":Medio",$datos['Medio']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function eliminar_galerias_modelo($sku){
+			$sql=mainModel::conectar()->prepare("DELETE FROM galerias WHERE producto = :Producto;");
+			$sql->bindParam(":Producto",$sku);
+			$sql->execute();
+			return $sql;
+		}
+
 		protected function agregar_relaciones_modelo($datos){
 			$sql=mainModel::conectar()->prepare("INSERT INTO relaciones(sku,id_taxonomia) VALUES (:Sku,:Taxonomia);");
+			$sql->bindParam(":Sku",$datos['Sku']);
+			$sql->bindParam(":Taxonomia",$datos['Taxonomia']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function eliminar_relaciones_modelo($datos){
+			$sql=mainModel::conectar()->prepare("DELETE FROM relaciones WHERE sku = :Sku AND id_taxonomia = :Taxonomia;");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Taxonomia",$datos['Taxonomia']);
 			$sql->execute();
@@ -391,6 +414,14 @@
 		{
 			$query=mainModel::conectar()->prepare("DELETE FROM galerias WHERE producto=:Codigo");
 			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
+
+		protected function limpiar_galeria_elimnar_imagen_modelo($medio)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM galerias WHERE medio=:Medio");
+			$query->bindParam(":Medio",$medio);
 			$query->execute();
 			return $query;
 		}
