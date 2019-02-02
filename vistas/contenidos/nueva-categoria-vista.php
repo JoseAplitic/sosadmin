@@ -93,6 +93,29 @@
 								</div>
 							</div>
 							<div class="row">
+								<div class="col-12">
+									<p style="margin-top: 10px;"><strong>Reglas de precios</strong></p>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label for="categoria-visitantes-nueva" class="form-control-label">Para visitantes *</label>
+										<input id="categoria-visitantes-nueva" type="number" min="0" value="0" step="any" name="categoria-visitantes-nueva" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label for="categoria-usuarios-nueva" class="form-control-label">Para usuarios registrados *</label>
+										<input id="categoria-usuarios-nueva" type="number" min="0" value="0" step="any" name="categoria-usuarios-nueva" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label for="categoria-empresas-nueva" class="form-control-label">Para empresas *</label>
+										<input id="categoria-empresas-nueva" type="number" min="0" value="0" step="any" name="categoria-empresas-nueva" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
 								<div class="col-sm-9">
 									<div class="form-group">
 										<label for="categoria-icono-nueva" class=" form-control-label">Icono</label>

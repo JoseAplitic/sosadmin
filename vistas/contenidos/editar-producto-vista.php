@@ -66,9 +66,6 @@
 								$slug = $datos['slug'];
 								$descripcion = $datos['descripcion'];
 								$precio = $datos['precio'];
-								$visitantes = $datos['precio_visitantes'];
-								$usuarios = $datos['precio_usuarios'];
-								$empresas = $datos['precio_empresas'];
 								$mpn = $datos['mpn'];
 								$fabricante = $datos['fabricante'];
 								$tipo = $datos['tipo'];
@@ -89,6 +86,19 @@
 											</nav>
 											<div class="tab-content pl-3 pt-2" id="nav-tabContent">
 												<div class="tab-pane fade active show" id="custom-nav-principal" role="tabpanel" aria-labelledby="custom-nav-principal-tab">
+												<?php $relaciones =  $insAdmin->cargar_relaciones_productos_controlador($sku); ?>
+													<div class="row">
+														<div class="col-12">
+															<div class="form-group">
+																<label for="producto-categoria-editar" class=" form-control-label">Categoría *</label>
+																<select id="producto-categoria-editar" name="producto-categoria-editar" data-placeholder="Elije una categoria..." class="standardSelect" tabindex="1" required="">
+																	<?php
+																		echo $insAdmin->cargar_taxonomias_productos_controlador($relaciones, "categoria");
+																	?>
+																</select>
+															</div>
+														</div>
+													</div>
 													<div class="row">
 														<div class="col-12">
 															<div class="form-group">
@@ -120,30 +130,10 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-6">
+														<div class="col-12">
 															<div class="form-group">
 																<label for="producto-precio-editar" class="form-control-label">Precio *</label>
 																<input id="producto-precio-editar" type="number" min="0" value="<?php echo $precio; ?>" step="any" name="producto-precio-editar" placeholder="" class="form-control" required="">
-															</div>
-														</div>
-														<div class="col-6">
-															<div class="form-group">
-																<label for="producto-visitantes-editar" class="form-control-label">Precio Visitantes *</label>
-																<input id="producto-visitantes-editar" type="number" min="0" value="<?php echo $visitantes; ?>" step="any" name="producto-visitantes-editar" placeholder="" class="form-control" required="">
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-6">
-															<div class="form-group">
-																<label for="producto-usuarios-editar" class="form-control-label">Precio Usuarios *</label>
-																<input id="producto-usuarios-editar" type="number" min="0" value="<?php echo $usuarios; ?>" step="any" name="producto-usuarios-editar" placeholder="" class="form-control" required="">
-															</div>
-														</div>
-														<div class="col-6">
-															<div class="form-group">
-																<label for="producto-empresas-editar" class="form-control-label">Precio Empresas *</label>
-																<input id="producto-empresas-editar" type="number" min="0" value="<?php echo $empresas; ?>" step="any" name="producto-empresas-editar" placeholder="" class="form-control" required="">
 															</div>
 														</div>
 													</div>
@@ -166,25 +156,11 @@
 													</div>
 												</div>
 												<div class="tab-pane fade" id="custom-nav-taxonomias" role="tabpanel" aria-labelledby="custom-nav-taxonomias-tab">
-													<?php $relaciones =  $insAdmin->cargar_relaciones_productos_controlador($sku); ?>
-													<div class="row">
-														<div class="col-12">
-															<div class="form-group">
-																<label for="producto-categoria-editar" class=" form-control-label">Categoría</label>
-																<select id="producto-categoria-editar" name="producto-categoria-editar" data-placeholder="Elije una categoria..." class="standardSelect" tabindex="1">
-																	<option value="" label="default">Ninguna</option>
-																	<?php
-																		echo $insAdmin->cargar_taxonomias_productos_controlador($relaciones, "categoria");
-																	?>
-																</select>
-															</div>
-														</div>
-													</div>
 													<div class="row">
 														<div class="col-12">
 															<div class="form-group">
 																<label for="producto-etiqueta-editar" multiple class=" form-control-label">Etiquetas</label>
-																<select id="producto-etiqueta-editar" multiple name="producto-etiqueta-editar[]" data-placeholder="Elije las etiqeutas..." class="standardSelect" tabindex="1">
+																<select id="producto-etiqueta-editar" multiple name="producto-etiqueta-editar[]" data-placeholder="Elije las etiquetas..." class="standardSelect" tabindex="1">
 																	<option value="" label="default"></option>
 																	<?php
 																		echo $insAdmin->cargar_taxonomias_productos_controlador($relaciones, "etiqueta");
@@ -197,7 +173,7 @@
 														<div class="col-12">
 															<div class="form-group">
 																<label for="producto-atributo-editar" class=" form-control-label">Atributos</label>
-																<select id="producto-atributo-editar" name="producto-atributo-editar[]" data-placeholder="Atributos" multiple="" class="standardSelect" tabindex="-1">
+																<select id="producto-atributo-editar" name="producto-atributo-editar[]" data-placeholder="Elije los atributos..." multiple="" class="standardSelect" tabindex="-1">
 																	<option value="" label="default"></option>
 																	<?php echo $insAdmin->cargar_atributos_productos_controlador($relaciones); ?>
 																</select>

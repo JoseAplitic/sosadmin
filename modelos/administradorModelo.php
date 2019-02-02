@@ -66,6 +66,16 @@
 			$sql->execute();
 			return $sql;
 		}
+		
+		protected function agregar_regla_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO reglas(id_categoria,regla_visitantes,regla_usuarios,regla_empresas) VALUES(:Id,:Visitantes,:Usuarios,:Empresas)");
+			$sql->bindParam(":Id",$datos['Id']);
+			$sql->bindParam(":Visitantes",$datos['Visitantes']);
+			$sql->bindParam(":Usuarios",$datos['Usuarios']);
+			$sql->bindParam(":Empresas",$datos['Empresas']);
+			$sql->execute();
+			return $sql;
+		}
 
 		protected function verificar_categoria_slug_disponible($slug){
 			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND slug = :Slug");
@@ -93,6 +103,23 @@
 			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND id = :IdPadre AND id != :Id");
 			$sql->bindParam(":IdPadre",$idPadre);
 			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
+		}
+		protected function obtener_categoria_id_slug_modelo($slug)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'categoria' AND slug = :Slug;");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+		protected function editar_regla_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE reglas SET regla_visitantes = :Visitantes, regla_usuarios = :Usuarios, regla_empresas = :Empresas WHERE id_categoria = :Codigo");
+			$sql->bindParam(":Visitantes",$datos['Visitantes']);
+			$sql->bindParam(":Usuarios",$datos['Usuarios']);
+			$sql->bindParam(":Empresas",$datos['Empresas']);
+			$sql->bindParam(":Codigo",$datos['Id']);
 			$sql->execute();
 			return $sql;
 		}
@@ -287,7 +314,7 @@
 		
 		//MODELOS PARA PRODUCTOS
 		protected function agregar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,mpn,fabricante,tipo,nuevo,precio,precio_visitantes,precio_usuarios,precio_empresas,stock,oferta,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Visitantes,:Usuarios,:Empresas,:Stock,:Oferta,:Fecha);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,mpn,fabricante,tipo,nuevo,precio,stock,oferta,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Stock,:Oferta,:Fecha);");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
@@ -297,9 +324,6 @@
 			$sql->bindParam(":Tipo",$datos['Tipo']);
 			$sql->bindParam(":Nuevo",$datos['Nuevo']);
 			$sql->bindParam(":Precio",$datos['Precio']);
-			$sql->bindParam(":Visitantes",$datos['Visitantes']);
-			$sql->bindParam(":Usuarios",$datos['Usuarios']);
-			$sql->bindParam(":Empresas",$datos['Empresas']);
 			$sql->bindParam(":Stock",$datos['Stock']);
 			$sql->bindParam(":Oferta",$datos['Oferta']);
 			$sql->bindParam(":Fecha",$datos['Fecha']);
@@ -370,7 +394,7 @@
 		}
 
 		protected function editar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, precio_visitantes = :Visitantes, precio_usuarios = :Usuarios, precio_empresas = :Empresas, stock = :Stock, oferta = :Oferta ,fecha = :Fecha WHERE sku = :Original;");
+			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta ,fecha = :Fecha WHERE sku = :Original;");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
@@ -380,9 +404,6 @@
 			$sql->bindParam(":Tipo",$datos['Tipo']);
 			$sql->bindParam(":Nuevo",$datos['Nuevo']);
 			$sql->bindParam(":Precio",$datos['Precio']);
-			$sql->bindParam(":Visitantes",$datos['Visitantes']);
-			$sql->bindParam(":Usuarios",$datos['Usuarios']);
-			$sql->bindParam(":Empresas",$datos['Empresas']);
 			$sql->bindParam(":Stock",$datos['Stock']);
 			$sql->bindParam(":Oferta",$datos['Oferta']);
 			$sql->bindParam(":Fecha",$datos['Fecha']);
@@ -461,6 +482,14 @@
 		protected function limpiar_relaciones_taxonomias_modelo($identificador)
 		{
 			$query=mainModel::conectar()->prepare("DELETE FROM relaciones WHERE id_taxonomia=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
+
+		protected function limpiar_reglas_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM reglas WHERE id_categoria=:Codigo");
 			$query->bindParam(":Codigo",$identificador);
 			$query->execute();
 			return $query;

@@ -124,6 +124,39 @@
 								</div>
 							</div>
 							<div class="row">
+								<div class="col-12">
+									<p style="margin-top: 10px;"><strong>Reglas de precios</strong></p>
+								</div>
+								<?php 
+									$reglas = $insAdmin->obtener_reglas_controlador($_POST['categoria-id-editar']); 
+									if($reglas->rowCount()>=1):
+										$datosReglas=$reglas->fetch();
+								?>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label for="categoria-visitantes-editar" class="form-control-label">Para visitantes *</label>
+										<input id="categoria-visitantes-editar" type="number" min="0" value="<?php echo $datosReglas['regla_visitantes']; ?>" step="any" name="categoria-visitantes-editar" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label for="categoria-usuarios-editar" class="form-control-label">Para usuarios registrados *</label>
+										<input id="categoria-usuarios-editar" type="number" min="0" value="<?php echo $datosReglas['regla_usuarios']; ?>" step="any" name="categoria-usuarios-editar" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label for="categoria-empresas-editar" class="form-control-label">Para empresas *</label>
+										<input id="categoria-empresas-editar" type="number" min="0" value="<?php echo $datosReglas['regla_empresas']; ?>" step="any" name="categoria-empresas-editar" placeholder="" class="form-control" required="">
+									</div>
+								</div>
+									<?php else: ?>
+								<div class="col-12">
+									<p style="margin-top: 10px;">Ocurio un error al cargar las reglas</p>
+								</div>
+									<?php endif; ?>
+							</div>
+							<div class="row">
 								<div class="col-9">
 									<div class="form-group">
 										<label for="categoria-icono-editar" class=" form-control-label">Icono</label>

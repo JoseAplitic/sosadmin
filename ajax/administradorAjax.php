@@ -28,7 +28,7 @@
 		echo $insAdmin->eliminar_administrador_controlador();
 	}
 	//AJAX PARA CATEGORIAS
-	elseif(isset($_POST['categoria-nombre-nueva']) && isset($_POST['categoria-slug-nueva']) && isset($_POST['categoria-descripcion-nueva']) && isset($_POST['categoria-padre-nueva']) && isset($_POST['categoria-icono-nueva']))
+	elseif(isset($_POST['categoria-nombre-nueva']) && isset($_POST['categoria-slug-nueva']) && isset($_POST['categoria-descripcion-nueva']) && isset($_POST['categoria-padre-nueva']) && isset($_POST['categoria-icono-nueva']) && isset($_POST['categoria-visitantes-nueva']) && isset($_POST['categoria-usuarios-nueva']) && isset($_POST['categoria-empresas-nueva']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
@@ -40,7 +40,7 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_categoria_controlador();
 	}
-	elseif(isset($_POST['categoria-id-editar']) && isset($_POST['categoria-nombre-editar']) && isset($_POST['categoria-slug-editar']) && isset($_POST['categoria-descripcion-editar']) && isset($_POST['categoria-padre-editar']) && isset($_POST['categoria-icono-editar']))
+	elseif(isset($_POST['categoria-id-editar']) && isset($_POST['categoria-nombre-editar']) && isset($_POST['categoria-slug-editar']) && isset($_POST['categoria-descripcion-editar']) && isset($_POST['categoria-padre-editar']) && isset($_POST['categoria-icono-editar']) && isset($_POST['categoria-visitantes-editar']) && isset($_POST['categoria-usuarios-editar']) && isset($_POST['categoria-empresas-editar']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
@@ -122,13 +122,13 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_medio_controlador();
 	}
-	elseif(isset($_POST['producto-sku-nuevo']) && isset($_POST['producto-nombre-nuevo']) && isset($_POST['producto-slug-nuevo']) && isset($_POST['producto-precio-nuevo']) && isset($_POST['producto-precio-nuevo']) && isset($_POST['producto-visitantes-nuevo']) && isset($_POST['producto-usuarios-nuevo']) && isset($_POST['producto-empresas-nuevo']))
+	elseif(isset($_POST['producto-sku-nuevo']) && isset($_POST['producto-nombre-nuevo']) && isset($_POST['producto-slug-nuevo']) && isset($_POST['producto-precio-nuevo']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->agregar_producto_controlador();
 	}
-	elseif(isset($_POST['producto-sku-editar']) && isset($_POST['producto-nombre-editar']) && isset($_POST['producto-slug-editar']) && isset($_POST['producto-precio-editar']) && isset($_POST['producto-precio-editar']) && isset($_POST['producto-visitantes-editar']) && isset($_POST['producto-usuarios-editar']) && isset($_POST['producto-empresas-editar']))
+	elseif(isset($_POST['producto-sku-editar']) && isset($_POST['producto-nombre-editar']) && isset($_POST['producto-slug-editar']) && isset($_POST['producto-precio-editar']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();

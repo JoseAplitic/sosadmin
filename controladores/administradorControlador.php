@@ -400,6 +400,9 @@
 			$slug=mainModel::limpiar_cadena($_POST['categoria-slug-nueva']);
 			$descripcion=mainModel::limpiar_cadena($_POST['categoria-descripcion-nueva']);
 			$padre=mainModel::limpiar_cadena($_POST['categoria-padre-nueva']);
+			$visitantes=mainModel::limpiar_cadena($_POST['categoria-visitantes-nueva']);
+			$usuarios=mainModel::limpiar_cadena($_POST['categoria-usuarios-nueva']);
+			$empresas=mainModel::limpiar_cadena($_POST['categoria-empresas-nueva']);
 			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-nueva']);
 			if($padre>0)
 			{
@@ -427,12 +430,46 @@
 						$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
 						if($guardarCategoria->rowCount()>=1)
 						{
-							$alerta=[
-								"Alerta"=>"recargar",
-								"Titulo"=>"Categoria añadida",
-								"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
-								"Tipo"=>"success"
-							];
+							$id_reglas = administradorModelo::obtener_categoria_id_slug_modelo($slug);
+							if($id_reglas->rowCount()>=1)
+							{
+								$datos_categoria=$id_reglas->fetch();
+								$dataReglas = [
+									"Id"=>$datos_categoria['id'],
+									"Visitantes"=>$visitantes,
+									"Usuarios"=>$usuarios,
+									"Empresas"=>$empresas
+								];
+								echo $datos_categoria['id'];
+								$guardarReglas = administradorModelo::agregar_regla_modelo($dataReglas);
+								if($guardarReglas->rowCount()>=1)
+								{
+									$alerta=[
+										"Alerta"=>"recargar",
+										"Titulo"=>"Categoria añadida",
+										"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
+										"Tipo"=>"success"
+									];
+								}
+								else
+								{
+									$alerta=[
+										"Alerta"=>"simple",
+										"Titulo"=>"Ocurrió un error inesperado",
+										"Texto"=>"No se ha podido guardar la categoría",
+										"Tipo"=>"error"
+									];
+								}
+							}
+							else
+							{
+								$alerta=[
+									"Alerta"=>"simple",
+									"Titulo"=>"Ocurrió un error inesperado",
+									"Texto"=>"No se ha podido guardar la categoría",
+									"Tipo"=>"error"
+								];
+							}
 						}
 						else
 						{
@@ -478,12 +515,45 @@
 					$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
 					if($guardarCategoria->rowCount()>=1)
 					{
-						$alerta=[
-							"Alerta"=>"recargar",
-							"Titulo"=>"Categoria añadida",
-							"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
-							"Tipo"=>"success"
-						];
+						$id_reglas = administradorModelo::obtener_categoria_id_slug_modelo($slug);
+						if($id_reglas->rowCount()>=1)
+						{
+							$datos_categoria=$id_reglas->fetch();
+							$dataReglas = [
+								"Id"=>$datos_categoria['id'],
+								"Visitantes"=>$visitantes,
+								"Usuarios"=>$usuarios,
+								"Empresas"=>$empresas
+							];
+							$guardarReglas = administradorModelo::agregar_regla_modelo($dataReglas);
+							if($guardarReglas->rowCount()>=1)
+							{
+								$alerta=[
+									"Alerta"=>"recargar",
+									"Titulo"=>"Categoria añadida",
+									"Texto"=>"Se ha guardado correctamente la categoría en la tienda",
+									"Tipo"=>"success"
+								];
+							}
+							else
+							{
+								$alerta=[
+									"Alerta"=>"simple",
+									"Titulo"=>"Ocurrió un error inesperado",
+									"Texto"=>"No se han podido guardar las reglas pero la categría esta agregada en el sistema.",
+									"Tipo"=>"error"
+								];
+							}
+						}
+						else
+						{
+							$alerta=[
+								"Alerta"=>"simple",
+								"Titulo"=>"Ocurrió un error inesperado",
+								"Texto"=>"No se ha podido guardar la categoría",
+								"Tipo"=>"error"
+							];
+						}
 					}
 					else
 					{
@@ -499,6 +569,14 @@
 
 
 			return mainModel::sweet_alert($alerta);
+		}
+
+		public function obtener_reglas_controlador($id)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM reglas WHERE id_categoria=:Id");
+			$sql->bindParam(":Id",$id);
+			$sql->execute();
+			return $sql;
 		}
 
 		public function paginador_categorias_controlador($pagina,$registros,$busqueda){
@@ -623,6 +701,7 @@
 			{
 				$limpiar=administradorModelo::limpiar_categorias_modelo($codigo);
 				$limpiarRelaciones=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
+				$limpiarReglas=administradorModelo::limpiar_reglas_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Categoría eliminada",
@@ -649,6 +728,9 @@
 			$slug=mainModel::limpiar_cadena($_POST['categoria-slug-editar']);
 			$descripcion=mainModel::limpiar_cadena($_POST['categoria-descripcion-editar']);
 			$padre=mainModel::limpiar_cadena($_POST['categoria-padre-editar']);
+			$visitantes=mainModel::limpiar_cadena($_POST['categoria-visitantes-editar']);
+			$usuarios=mainModel::limpiar_cadena($_POST['categoria-usuarios-editar']);
+			$empresas=mainModel::limpiar_cadena($_POST['categoria-empresas-editar']);
 			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-editar']);
 			$verificar=administradorModelo::verificar_categoria_editar_slug_disponible($codigo, $slug);
 			if ($verificar->rowCount() > 0)
@@ -681,13 +763,20 @@
 						"Tipo"=>"success"
 					];
 				}
-				else
+				$dataReglaEditar=[
+					"Id"=>$codigo,
+					"Visitantes"=>$visitantes,
+					"Usuarios"=>$usuarios,
+					"Empresas"=>$empresas
+				];
+				$ActRegla=administradorModelo::editar_regla_modelo($dataReglaEditar);
+				if($ActRegla->rowCount()>0)
 				{
 					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"No se puede editar en este momento, esto puede ser un error del sistema pero te recomendamos revisar la información que proporcionaste.",
-						"Tipo"=>"error"
+						"Alerta"=>"recargar",
+						"Titulo"=>"Datos Actualizados",
+						"Texto"=>"Los datos fueron editados con éxito",
+						"Tipo"=>"success"
 					];
 				}
 			}
@@ -1898,9 +1987,6 @@
 			$slug=mainModel::limpiar_cadena($_POST['producto-slug-nuevo']);
 			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-nuevo']);
 			$precio=mainModel::limpiar_cadena($_POST['producto-precio-nuevo']);
-			$visitantes=mainModel::limpiar_cadena($_POST['producto-visitantes-nuevo']);
-			$usuarios=mainModel::limpiar_cadena($_POST['producto-usuarios-nuevo']);
-			$empresas=mainModel::limpiar_cadena($_POST['producto-empresas-nuevo']);
 			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-nuevo']);
 			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-nuevo']);
 			$tipo=mainModel::limpiar_cadena($_POST['producto-tipo-nuevo']);
@@ -1934,9 +2020,6 @@
 					"Slug"=>$slug,
 					"Descripcion"=>$descripcion,
 					"Precio"=>$precio,
-					"Visitantes"=>$visitantes,
-					"Usuarios"=>$usuarios,
-					"Empresas"=>$empresas,
 					"Mpn"=>$mpn,
 					"Fabricante"=>$fabricante,
 					"Tipo"=>$tipo,
@@ -2333,9 +2416,6 @@
 			$slug=mainModel::limpiar_cadena($_POST['producto-slug-editar']);
 			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-editar']);
 			$precio=mainModel::limpiar_cadena($_POST['producto-precio-editar']);
-			$visitantes=mainModel::limpiar_cadena($_POST['producto-visitantes-editar']);
-			$usuarios=mainModel::limpiar_cadena($_POST['producto-usuarios-editar']);
-			$empresas=mainModel::limpiar_cadena($_POST['producto-empresas-editar']);
 			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-editar']);
 			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-editar']);
 			$tipo=mainModel::limpiar_cadena($_POST['producto-tipo-editar']);
@@ -2370,9 +2450,6 @@
 					"Slug"=>$slug,
 					"Descripcion"=>$descripcion,
 					"Precio"=>$precio,
-					"Visitantes"=>$visitantes,
-					"Usuarios"=>$usuarios,
-					"Empresas"=>$empresas,
 					"Mpn"=>$mpn,
 					"Fabricante"=>$fabricante,
 					"Tipo"=>$tipo,

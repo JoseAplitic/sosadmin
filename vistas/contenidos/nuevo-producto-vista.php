@@ -72,6 +72,16 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
+													<label for="producto-categoria-nuevo" class=" form-control-label">Categoría *</label>
+													<select id="producto-categoria-nuevo" name="producto-categoria-nuevo" data-placeholder="Elije una categoría..." class="standardSelect" tabindex="1" required="">
+														<?php echo $insAdmin->cargar_taxonomias_controlador("categoria"); ?>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
 													<label for="producto-sku-nuevo" class=" form-control-label">SKU *</label>
 													<input id="producto-sku-nuevo" type="text" name="producto-sku-nuevo" placeholder="" class="form-control" required="">
 												</div>
@@ -100,30 +110,10 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-6">
+											<div class="col-12">
 												<div class="form-group">
 													<label for="producto-precio-nuevo" class="form-control-label">Precio *</label>
 													<input id="producto-precio-nuevo" type="number" min="0" value="0" step="any" name="producto-precio-nuevo" placeholder="" class="form-control" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-visitantes-nuevo" class="form-control-label">Precio Visitantes *</label>
-													<input id="producto-visitantes-nuevo" type="number" min="0" value="0" step="any" name="producto-visitantes-nuevo" placeholder="" class="form-control" required="">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-usuarios-nuevo" class="form-control-label">Precio Usuarios *</label>
-													<input id="producto-usuarios-nuevo" type="number" min="0" value="0" step="any" name="producto-usuarios-nuevo" placeholder="" class="form-control" required="">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-empresas-nuevo" class="form-control-label">Precio Empresas *</label>
-													<input id="producto-empresas-nuevo" type="number" min="0" value="0" step="any" name="producto-empresas-nuevo" placeholder="" class="form-control" required="">
 												</div>
 											</div>
 										</div>
@@ -143,17 +133,6 @@
 										</div>
 									</div>
 									<div class="tab-pane fade" id="custom-nav-taxonomias" role="tabpanel" aria-labelledby="custom-nav-taxonomias-tab">
-										<div class="row">
-											<div class="col-12">
-												<div class="form-group">
-													<label for="producto-categoria-nuevo" class=" form-control-label">Categoría</label>
-													<select id="producto-categoria-nuevo" name="producto-categoria-nuevo" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
-														<option value="" label="default">Ninguna</option>
-														<?php echo $insAdmin->cargar_taxonomias_controlador("categoria"); ?>
-													</select>
-												</div>
-											</div>
-										</div>
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
