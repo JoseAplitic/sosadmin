@@ -214,4 +214,5 @@ jQuery(document).ready(function($) {
         var url = $('option:selected',this).attr("data-url-image");
         $('#imagen-cambiar').attr("src", url);
     });
+    
 });

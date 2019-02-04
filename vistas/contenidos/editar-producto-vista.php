@@ -93,7 +93,7 @@
 																<label for="producto-categoria-editar" class=" form-control-label">Categoría *</label>
 																<select id="producto-categoria-editar" name="producto-categoria-editar" data-placeholder="Elije una categoria..." class="standardSelect" tabindex="1" required="">
 																	<?php
-																		echo $insAdmin->cargar_taxonomias_productos_controlador($relaciones, "categoria");
+																		echo $insAdmin->cargar_taxonomias_categorias_productos_controlador($relaciones, "categoria");
 																	?>
 																</select>
 															</div>
@@ -130,10 +130,28 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-12">
+														<div class="col-3">
 															<div class="form-group">
 																<label for="producto-precio-editar" class="form-control-label">Precio *</label>
 																<input id="producto-precio-editar" type="number" min="0" value="<?php echo $precio; ?>" step="any" name="producto-precio-editar" placeholder="" class="form-control" required="">
+															</div>
+														</div>
+														<div class="col-3">
+															<div class="form-group">
+																<label for="regla-visitantes" class="form-control-label">Visitantes</label>
+																<input id="regla-visitantes" type="text" disabled="" class="form-control">
+															</div>
+														</div>
+														<div class="col-3">
+															<div class="form-group">
+																<label for="regla-usuarios" class="form-control-label">Usuarios</label>
+																<input id="regla-usuarios" type="text" disabled="" class="form-control">
+															</div>
+														</div>
+														<div class="col-3">
+															<div class="form-group">
+																<label for="regla-empresas" class="form-control-label">Empresas</label>
+																<input id="regla-empresas" type="text" disabled="" class="form-control">
 															</div>
 														</div>
 													</div>
@@ -261,5 +279,22 @@
 			width: "100%",
 			height: "200px"
         });
-    });
+	});
+	
+	function cargarPreciosAgregar()
+	{
+		var precio = parseFloat(jQuery('#producto-precio-editar').val());
+		var precioV = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-rv'));
+		var precioU = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-ru'));
+		var precioE = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-re'));
+		precioV = (precio + ((precio*precioV)/100)).toFixed(2);
+		precioU = (precio + ((precio*precioU)/100)).toFixed(2);
+		precioE = (precio + ((precio*precioE)/100)).toFixed(2);
+		jQuery('#regla-visitantes').val(precioV);
+		jQuery('#regla-usuarios').val(precioU);
+		jQuery('#regla-empresas').val(precioE);
+	}
+	jQuery('#producto-precio-editar').change(cargarPreciosAgregar);
+	jQuery('#producto-categoria-editar').on('change',cargarPreciosAgregar);
+	cargarPreciosAgregar();
 </script>

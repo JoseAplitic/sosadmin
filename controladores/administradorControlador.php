@@ -1897,6 +1897,33 @@
 			}
 			return $lista;
 		}
+
+		public function cargar_taxonomias_categorias_controlador($taxonomia)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = '$taxonomia' ORDER BY nombre;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				$consultaRegla="SELECT * FROM reglas WHERE id_categoria = '".$rows['id']."'";
+				$conexionRegla = mainModel::conectar();
+				$datosRegla = $conexionRegla->query($consultaRegla);
+				$datosRegla = $datosRegla->fetchAll();
+				$reglaV;
+				$reglaU;
+				$reglaE;
+				foreach($datosRegla as $rowsRegla)
+				{
+					$reglaV = $rowsRegla[1];
+					$reglaU = $rowsRegla[2];
+					$reglaE = $rowsRegla[3];
+				}
+				$lista.='<option value="'.$rows['id'].'" data-rv="'.$reglaV.'" data-ru="'.$reglaU.'" data-re="'.$reglaE.'">'.$rows['nombre'].'</option>';
+			}
+			return $lista;
+		}
 		
 		public function cargar_medios_controlador()
 		{
@@ -2357,6 +2384,51 @@
 				}
 				if($activo == false){
 					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function cargar_taxonomias_categorias_productos_controlador($taxonomias, $taxonomia)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = '$taxonomia';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $taxonomias;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				$consultaRegla="SELECT * FROM reglas WHERE id_categoria = '".$rows['id']."'";
+				$conexionRegla = mainModel::conectar();
+				$datosRegla = $conexionRegla->query($consultaRegla);
+				$datosRegla = $datosRegla->fetchAll();
+				$reglaV;
+				$reglaU;
+				$reglaE;
+				foreach($datosRegla as $rowsRegla)
+				{
+					$reglaV = $rowsRegla[1];
+					$reglaU = $rowsRegla[2];
+					$reglaE = $rowsRegla[3];
+				}
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['id'])
+						{
+							$lista.='<option value="'.$rows['id'].'" data-rv="'.$reglaV.'" data-ru="'.$reglaU.'" data-re="'.$reglaE.'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'" data-rv="'.$reglaV.'" data-ru="'.$reglaU.'" data-re="'.$reglaE.'">'.$rows['nombre'].'</option>';
 				}
 				else{
 					$activo = false;

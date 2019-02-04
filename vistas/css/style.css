@@ -2281,7 +2281,7 @@ footer.site-footer {
         aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu {
           display: block;
           left: inherit;
-          right: -160px;
+          right: -180px;
           top: 0; }
           aside.left-panel .navbar .navbar-nav li.menu-item-has-children .sub-menu li a {
             display: block;

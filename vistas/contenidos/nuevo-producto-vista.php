@@ -74,7 +74,7 @@
 												<div class="form-group">
 													<label for="producto-categoria-nuevo" class=" form-control-label">Categoría *</label>
 													<select id="producto-categoria-nuevo" name="producto-categoria-nuevo" data-placeholder="Elije una categoría..." class="standardSelect" tabindex="1" required="">
-														<?php echo $insAdmin->cargar_taxonomias_controlador("categoria"); ?>
+														<?php echo $insAdmin->cargar_taxonomias_categorias_controlador("categoria"); ?>
 													</select>
 												</div>
 											</div>
@@ -110,10 +110,28 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-12">
+											<div class="col-3">
 												<div class="form-group">
 													<label for="producto-precio-nuevo" class="form-control-label">Precio *</label>
 													<input id="producto-precio-nuevo" type="number" min="0" value="0" step="any" name="producto-precio-nuevo" placeholder="" class="form-control" required="">
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<label for="regla-visitantes" class="form-control-label">Visitantes</label>
+													<input id="regla-visitantes" type="text" disabled="" class="form-control">
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<label for="regla-usuarios" class="form-control-label">Usuarios</label>
+													<input id="regla-usuarios" type="text" disabled="" class="form-control">
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group">
+													<label for="regla-empresas" class="form-control-label">Empresas</label>
+													<input id="regla-empresas" type="text" disabled="" class="form-control">
 												</div>
 											</div>
 										</div>
@@ -227,6 +245,23 @@
             no_results_text: "Vaya, no se ha encontrado nada!",
 			width: "100%",
 			height: "200px"
-        });
+		});
+		
+		function cargarPreciosAgregar()
+		{
+			var precio = parseFloat(jQuery('#producto-precio-nuevo').val());
+			var precioV = parseFloat(jQuery('#producto-categoria-nuevo option:selected').attr('data-rv'));
+			var precioU = parseFloat(jQuery('#producto-categoria-nuevo option:selected').attr('data-ru'));
+			var precioE = parseFloat(jQuery('#producto-categoria-nuevo option:selected').attr('data-re'));
+			precioV = (precio + ((precio*precioV)/100)).toFixed(2);
+			precioU = (precio + ((precio*precioU)/100)).toFixed(2);
+			precioE = (precio + ((precio*precioE)/100)).toFixed(2);
+			jQuery('#regla-visitantes').val(precioV);
+			jQuery('#regla-usuarios').val(precioU);
+			jQuery('#regla-empresas').val(precioE);
+		}
+		jQuery('#producto-precio-nuevo').change(cargarPreciosAgregar);
+		jQuery('#producto-categoria-nuevo').on('change',cargarPreciosAgregar);
+		cargarPreciosAgregar();
     });
 </script>
