@@ -155,7 +155,7 @@
 											<div class="col-12">
 												<div class="form-group">
 													<label for="producto-etiqueta-nuevo" multiple class=" form-control-label">Etiquetas</label>
-													<select id="producto-etiqueta-nuevo" multiple name="producto-etiqueta-nuevo[]" data-placeholder="Elije las etiqeutas..." class="standardSelect" tabindex="1">
+													<select id="producto-etiqueta-nuevo" multiple name="producto-etiqueta-nuevo[]" data-placeholder="Elije las etiquetas..." class="standardSelect" tabindex="1">
                         								<option value="" label="default"></option>
 														<?php echo $insAdmin->cargar_taxonomias_controlador("etiqueta"); ?>
 													</select>

@@ -122,6 +122,7 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_medio_controlador();
 	}
+	//AJAX PARA PRODUCTOS
 	elseif(isset($_POST['producto-sku-nuevo']) && isset($_POST['producto-nombre-nuevo']) && isset($_POST['producto-slug-nuevo']) && isset($_POST['producto-precio-nuevo']))
 	{
 		require_once "../controladores/administradorControlador.php";
@@ -139,6 +140,19 @@
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_producto_controlador();
+	}
+	//AJAX PARA DESCUENTOS
+	elseif(isset($_POST['descuento-nombre-nuevo']) && isset($_POST['descuento-descripcion-nuevo']) && isset($_POST['descuento-tipo-nuevo']) && isset($_POST['descuento-visitantes-nuevo']) && isset($_POST['descuento-usuarios-nuevo']) && isset($_POST['descuento-empresas-nuevo']) && isset($_POST['descuento-inicio-nuevo']) && isset($_POST['descuento-vencimiento-nuevo']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->agregar_descuento_controlador();
+	}
+	elseif(isset($_POST['descuento-id-eliminar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->eliminar_descuento_controlador();
 	}
 	else
 	{

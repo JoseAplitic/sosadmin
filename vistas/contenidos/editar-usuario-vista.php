@@ -126,7 +126,7 @@ if ($_SESSION['id'] != 1){
 								<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Ver todos los usuario</button>
 							<?php endif ?>
 						<?php else: ?>
-							<p>No ha seleccionado ningun administardor para editar</p>
+							<p>No ha seleccionado ningun administrador para editar</p>
 							<button type="button" class="btn btn-primary" role="link" onclick="window.location='<?php echo SERVERURL; ?>usuarios/'">Ver todos los usuario</button>
 						<?php endif ?>
 					</div>

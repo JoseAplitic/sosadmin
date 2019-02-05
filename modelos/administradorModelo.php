@@ -494,5 +494,61 @@
 			$query->execute();
 			return $query;
 		}
+
+		//MODELOS PARA DESCUENTOS
+		protected function agregar_descuento_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO descuentos(nombre,descripcion,tipo_descuento,regla_visitantes,regla_usuarios,regla_empresas,inicio,vencimiento) VALUES (:Nombre,:Descripcion,:Tipo,:Visitantes,:Usuarios,:Empresas,:Inicio,:Vencimiento);");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->bindParam(":Visitantes",$datos['Visitantes']);
+			$sql->bindParam(":Usuarios",$datos['Usuarios']);
+			$sql->bindParam(":Empresas",$datos['Empresas']);
+			$sql->bindParam(":Inicio",$datos['Inicio']);
+			$sql->bindParam(":Vencimiento",$datos['Vencimiento']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function descuento_max_modelo()
+		{
+			$sql=mainModel::conectar()->prepare("SELECT MAX(id) AS id FROM descuentos");
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function agregar_relaciones_descuento_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO descuentos_relaciones(id_descuento,item,tipo) VALUES (:Id,:Item,:Tipo);");
+			$sql->bindParam(":Id",$datos['Id']);
+			$sql->bindParam(":Item",$datos['Item']);
+			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function eliminar_descuento_modelo($codigo)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM descuentos WHERE id=:Codigo");
+			$query->bindParam(":Codigo",$codigo);
+			$query->execute();
+			return $query;
+		}
+		
+		protected function limpiar_descuento_modelo($identificador)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM descuentos_relaciones WHERE id_descuento=:Codigo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->execute();
+			return $query;
+		}
+		
+		protected function limpiar_descuentos_relaciones_modelo($identificador, $tipo)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM descuentos_relaciones WHERE item=:Codigo AND tipo = :Tipo");
+			$query->bindParam(":Codigo",$identificador);
+			$query->bindParam(":Tipo",$tipo);
+			$query->execute();
+			return $query;
+		}
 		
 	}

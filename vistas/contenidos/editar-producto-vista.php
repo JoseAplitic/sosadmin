@@ -278,23 +278,27 @@
             no_results_text: "Vaya, no se ha encontrado nada!",
 			width: "100%",
 			height: "200px"
-        });
+		});
+		
+		function cargarPreciosAgregar()
+		{
+			var precio = parseFloat(jQuery('#producto-precio-editar').val());
+			var precioV = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-rv'));
+			var precioU = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-ru'));
+			var precioE = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-re'));
+			precioV = (precio + ((precio*precioV)/100)).toFixed(2);
+			precioU = (precio + ((precio*precioU)/100)).toFixed(2);
+			precioE = (precio + ((precio*precioE)/100)).toFixed(2);
+			jQuery('#regla-visitantes').val(precioV);
+			jQuery('#regla-usuarios').val(precioU);
+			jQuery('#regla-empresas').val(precioE);
+		}
+		jQuery('#producto-precio-editar').change(cargarPreciosAgregar);
+		jQuery('#producto-categoria-editar').on('change',cargarPreciosAgregar);
+		cargarPreciosAgregar();
+
+        var url = jQuery('#producto-imagenes-editar option:selected',this).attr("data-url-image");
+        jQuery('#imagen-cambiar').attr("src", url);
+
 	});
-	
-	function cargarPreciosAgregar()
-	{
-		var precio = parseFloat(jQuery('#producto-precio-editar').val());
-		var precioV = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-rv'));
-		var precioU = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-ru'));
-		var precioE = parseFloat(jQuery('#producto-categoria-editar option:selected').attr('data-re'));
-		precioV = (precio + ((precio*precioV)/100)).toFixed(2);
-		precioU = (precio + ((precio*precioU)/100)).toFixed(2);
-		precioE = (precio + ((precio*precioE)/100)).toFixed(2);
-		jQuery('#regla-visitantes').val(precioV);
-		jQuery('#regla-usuarios').val(precioU);
-		jQuery('#regla-empresas').val(precioE);
-	}
-	jQuery('#producto-precio-editar').change(cargarPreciosAgregar);
-	jQuery('#producto-categoria-editar').on('change',cargarPreciosAgregar);
-	cargarPreciosAgregar();
 </script>
