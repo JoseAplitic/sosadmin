@@ -2527,7 +2527,6 @@
 				{
 					$oferta = "si";
 				}
-				$fecha = date("Y/m/d")." ".date("H:i:s");
 				$dataAC=[
 					"Original"=>$sku_original,
 					"Sku"=>$sku,
@@ -2540,16 +2539,16 @@
 					"Tipo"=>$tipo,
 					"Stock"=>$stock,
 					"Nuevo"=>$nuevo,
-					"Oferta"=>$oferta,
-					"Fecha"=>$fecha
+					"Oferta"=>$oferta
 				];
 				$actualizarProducto=administradorModelo::editar_producto_modelo($dataAC);
-				if($actualizarProducto->rowCount()>=1)
+				if($actualizarProducto->rowCount()>=1 || isset($_POST['producto-imagenes-editar']) || isset($_POST['producto-categoria-editar']) || isset($_POST['producto-etiqueta-editar']) || isset($_POST['producto-atributo-editar']))
 				{	
 					if($sku != $sku_original)
 					{
 						$actualizarGalerias=administradorModelo::producto_cambio_slug_galeria_modelo($sku, $sku_original);
 						$actualizarRelaciones=administradorModelo::producto_cambio_slug_relacion_modelo($sku, $sku_original);
+						$actualizarRelacionesDescuentos=administradorModelo::producto_cambio_slug_relacion_descuento_modelo($sku, $sku_original);
 					}
 					if(isset($_POST['producto-imagenes-editar']))
 					{
@@ -2985,5 +2984,281 @@
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
 			return $datos;
+		}
+
+		public function relaciones_categorias_descuentos_controlador($items)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = 'categoria';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $items;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['id'] && $tax[1] == "categoria")
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function relaciones_etiquetas_descuentos_controlador($items)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = 'etiqueta';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $items;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['id'] && $tax[1] == "etiqueta")
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function relaciones_atributos_descuentos_controlador($activos)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = 'atributo' ORDER BY nombre;";
+			$conexion = mainModel::conectar();
+			$atributos = $conexion->query($consulta);
+			$atributos = $atributos->fetchAll();
+			$atributo = "";
+			$seleccionar = $activos;
+			$activo = false;
+			foreach($atributos as $rows)
+			{
+				$atributo = $rows['id'];
+				$lista.='<optgroup label="'.$rows['nombre'].'">';
+				$consulta_termino="SELECT * FROM taxonomias WHERE taxonomia = 'termino' AND padre = $atributo ORDER BY nombre;";
+				$conexion_termino = mainModel::conectar();
+				$terminos = $conexion_termino->query($consulta_termino);
+				$terminos = $terminos->fetchAll();
+				foreach($terminos as $term)
+				{
+					if (!empty($seleccionar))
+					{
+						foreach($seleccionar as $tax)
+						{
+							if ($tax[0] == $term['id'] && $tax[1] == "atributo")
+							{
+								$lista.='<option value="'.$term['id'].'" selected="">'.$term['nombre'].'</option>';
+								$activo = true;
+							}
+						}
+					}
+					if($activo == false){
+						$lista.='<option value="'.$term['id'].'">'.$term['nombre'].'</option>';
+					}
+					else{
+						$activo = false;
+					}
+				}
+				$lista.='</optgroup>';
+			}
+			return $lista;
+		}
+
+		public function relaciones_productos_descuentos_controlador($items)
+		{
+			$lista="";
+			$consulta="SELECT sku, nombre FROM productos;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $items;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['sku'] && $tax[1] == "producto")
+						{
+							$lista.='<option value="'.$rows['sku'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['sku'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function cargar_relaciones_descuentos_editar_controlador($id)
+		{
+			$consulta="SELECT id_descuento, item, tipo FROM descuentos_relaciones WHERE id_descuento = $id;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			return $datos;
+		}
+
+		public function editar_descuento_controlador()
+		{
+			$id=mainModel::limpiar_cadena($_POST['descuento-id-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['descuento-nombre-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['descuento-descripcion-editar']);
+			$tipo=mainModel::limpiar_cadena($_POST['descuento-tipo-editar']);
+			$visitantes=mainModel::limpiar_cadena($_POST['descuento-visitantes-editar']);
+			$usuarios=mainModel::limpiar_cadena($_POST['descuento-usuarios-editar']);
+			$empresas=mainModel::limpiar_cadena($_POST['descuento-empresas-editar']);
+			$inicio=mainModel::limpiar_cadena($_POST['descuento-inicio-editar']);
+			$vencimiento=mainModel::limpiar_cadena($_POST['descuento-vencimiento-editar']);
+			$dataAC=[
+				"Id"=>$id,
+				"Nombre"=>$nombre,
+				"Descripcion"=>$descripcion,
+				"Tipo"=>$tipo,
+				"Visitantes"=>$visitantes,
+				"Usuarios"=>$usuarios,
+				"Empresas"=>$empresas,
+				"Inicio"=>$inicio,
+				"Vencimiento"=>$vencimiento
+			];
+			$actualizarProducto=administradorModelo::editar_descuento_modelo($dataAC);
+			if($actualizarProducto->rowCount()>=1 || $_POST['descuento-productos-editar'] || $_POST['descuento-categorias-editar'] || $_POST['descuento-etiquetas-editar'] || $_POST['descuento-atributos-editar'])
+			{
+				$relaciones_descuentos = array();
+				if(isset($_POST['descuento-productos-editar']))
+				{
+					foreach($_POST['descuento-productos-editar'] as $tax)
+					{
+						array_push($relaciones_descuentos, array("id_descuento"=>$id,"item"=>$tax,"tipo"=>"producto"));
+					}
+				}
+				if(isset($_POST['descuento-categorias-editar']))
+				{
+					foreach($_POST['descuento-categorias-editar'] as $tax)
+					{
+						array_push($relaciones_descuentos, array("id_descuento"=>$id,"item"=>$tax,"tipo"=>"categoria"));
+					}
+				}
+				if(isset($_POST['descuento-etiquetas-editar']))
+				{
+					foreach($_POST['descuento-etiquetas-editar'] as $tax)
+					{
+						array_push($relaciones_descuentos, array("id_descuento"=>$id,"item"=>$tax,"tipo"=>"etiqueta"));
+					}
+				}
+				if(isset($_POST['descuento-atributos-editar']))
+				{
+					foreach($_POST['descuento-atributos-editar'] as $tax)
+					{
+						array_push($relaciones_descuentos, array("id_descuento"=>$id,"item"=>$tax,"tipo"=>"atributo"));
+					}
+				}
+				$relaciones_descuentos_existentes = administradorControlador::cargar_relaciones_descuentos_editar_controlador($id);			
+				$nuevasRelaciones = array();
+				foreach($relaciones_descuentos as $tax)
+				{
+					$agregar = true;
+					foreach($relaciones_descuentos_existentes as $tax2)
+					{
+						if ($tax['item'] == $tax2['item'] && $tax['tipo'] == $tax2['tipo'])
+						{
+							$agregar = false;
+						}
+					}
+					if ($agregar == true) {
+						array_push($nuevasRelaciones, array("id_descuento"=>$id,"item"=>$tax['item'],"tipo"=>$tax['tipo']));
+					}
+				}
+				$viejasRelaciones = array();
+				foreach($relaciones_descuentos_existentes as $tax)
+				{
+					$agregar = true;
+					foreach($relaciones_descuentos as $tax2)
+					{
+						if ($tax['item'] == $tax2['item'] && $tax['tipo'] == $tax2['tipo'])
+						{
+							$agregar = false;
+						}
+					}
+					if ($agregar == true) {
+						array_push($viejasRelaciones, array("id_descuento"=>$id,"item"=>$tax['item'],"tipo"=>$tax['tipo']));
+					}
+				}
+				if(count($nuevasRelaciones)>0)
+				{
+					foreach($nuevasRelaciones as $tax)
+					{
+						$dataTaxonomias=[
+							"Id"=>$id,
+							"Item"=>$tax['item'],
+							"Tipo"=>$tax['tipo']
+						];
+						$guardarRelacion=administradorModelo::agregar_relaciones_descuento_modelo($dataTaxonomias);
+					}
+				}
+				if(count($viejasRelaciones)>0)
+				{
+					foreach($viejasRelaciones as $tax)
+					{
+						$dataTaxonomias=[
+							"Id"=>$id,
+							"Item"=>$tax['item'],
+							"Tipo"=>$tax['tipo']
+						];
+						$eliminarRelacion=administradorModelo::eliminar_relaciones_descuento_modelo($dataTaxonomias);
+					}
+				}
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Producto actualizado",
+					"Texto"=>"El descuento se ha actualizado con éxito en el sistema",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido actualizar el descuento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
 		}
 	}

@@ -4,7 +4,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>TODOS LOS DESCUENTOS</h1>
+                        <h1>EDITAR DESCUENTO</h1>
                     </div>
                 </div>
             </div>
@@ -13,7 +13,8 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="<?php echo SERVERURL; ?>inicio/">Escritorio</a></li>
-                            <li class="active">Descuentos</li>
+                            <li><a href="<?php echo SERVERURL; ?>descuentos/">Descuentos</a></li>
+                            <li class="active">Editar Descuento</li>
                         </ol>
                     </div>
                 </div>
@@ -54,7 +55,7 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<strong class="card-title">Editar usuario</strong>
+						<strong class="card-title">Editar descuento</strong>
 					</div>
 					<div class="card-body">
 						<?php if (isset($_POST['descuento-id-editar'])):
@@ -72,15 +73,84 @@
 								$vencimiento = $datos['vencimiento'];
 								?>
 									<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
-										<input type="hidden" name="producto-sku-original-editar" value="<?php echo $id; ?>">
+										<input type="hidden" name="descuento-id-editar" value="<?php echo $id; ?>">
 										<?php $relaciones =  $insAdmin->cargar_relaciones_descuentos_controlador($id); ?>
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
-													<label for="producto-categoria-editar" class=" form-control-label">Categoría *</label>
-													<select id="producto-categoria-editar" name="producto-categoria-editar" data-placeholder="Elije una categoria..." class="standardSelect" tabindex="1" required="">
+													<label for="descuento-nombre-editar" class="form-control-label">Nombre *</label>
+													<input id="descuento-nombre-editar" type="text" name="descuento-nombre-editar" placeholder="" class="form-control" required="" value="<?php echo $nombre; ?>">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="descuento-descripcion-editar" class=" form-control-label">Descripción</label>
+													<input id="descuento-descripcion-editar" type="text" name="descuento-descripcion-editar" placeholder="" class="form-control" value="<?php echo $descripcion; ?>">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="descuento-tipo-editar" class=" form-control-label">Tipo *</label>
+													<select id="descuento-tipo-editar" name="descuento-tipo-editar" data-placeholder="Elije una opción..." class="standardSelect" tabindex="1" required="">
+														<?php if($tipo_descuento == "porcentaje"): ?>
+															<option value="porcentaje" selected="">Porcentaje</option>
+															<option value="fijo">Descuento fijo</option>
+														<?php else: ?>
+															<option value="porcentaje">Porcentaje</option>
+															<option value="fijo" selected="">Descuento fijo</option>
+														<?php endif; ?>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<p style="margin-top: 10px;"><strong>Descuentos</strong></p>
+											</div>
+											<div class="col-4">
+												<div class="form-group">
+													<label for="descuento-visitantes-editar" class="form-control-label">Para visitantes *</label>
+													<input id="descuento-visitantes-editar" type="number" min="0" value="<?php echo $regla_visitantes; ?>" step="any" name="descuento-visitantes-editar" placeholder="" class="form-control" required="">
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="form-group">
+													<label for="descuento-usuarios-editar" class="form-control-label">Para usuarios *</label>
+													<input id="descuento-usuarios-editar" type="number" min="0" value="<?php echo $regla_usuarios; ?>" step="any" name="descuento-usuarios-editar" placeholder="" class="form-control" required="">
+												</div>
+											</div>
+											<div class="col-4">
+												<div class="form-group">
+													<label for="descuento-empresas-editar" class="form-control-label">Para empresas *</label>
+													<input id="descuento-empresas-editar" type="number" min="0" value="<?php echo $regla_empresas; ?>" step="any" name="descuento-empresas-editar" placeholder="" class="form-control" required="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-6">
+												<div class="form-group">
+													<label for="descuento-inicio-editar" class=" form-control-label">Inicio *</label>
+													<input id="descuento-inicio-editar" type="date" name="descuento-inicio-editar" placeholder="" class="form-control" value="<?php echo $inicio; ?>" min="<?php echo date("Y-m-d"); ?>" required="">
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-group">
+													<label for="descuento-vencimiento-editar" class=" form-control-label">Vencimiento *</label>
+													<input id="descuento-vencimiento-editar" type="date" name="descuento-vencimiento-editar" placeholder="" class="form-control" value="<?php echo $vencimiento; ?>" min="<?php echo date("Y-m-d"); ?>" required="">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="descuento-productos-editar" class=" form-control-label">Productos</label>
+													<select id="descuento-productos-editar" multiple name="descuento-productos-editar[]" data-placeholder="Elije los productos..." class="standardSelect" tabindex="1">
 														<?php
-															echo $insAdmin->cargar_taxonomias_categorias_productos_controlador($relaciones, "categoria");
+															echo $insAdmin->relaciones_productos_descuentos_controlador($relaciones);
 														?>
 													</select>
 												</div>
@@ -89,84 +159,10 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
-													<label for="producto-sku-editar" class=" form-control-label">SKU *</label>
-													<input id="producto-sku-editar" type="text" name="producto-sku-editar" placeholder="" class="form-control" required="" value="<?php echo $id; ?>">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="entrada-titulo" class="form-control-label">Nombre *</label>
-													<input id="entrada-titulo" type="text" name="producto-nombre-editar" placeholder="" class="form-control" required="" value="<?php echo $nombre; ?>">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="entrada-slug" class=" form-control-label">Slug *</label>
-													<input id="entrada-slug" type="text" name="producto-slug-editar" placeholder="" class="form-control" required="" value="<?php echo $slug; ?>">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-12">
-												<div class="form-group">
-													<label for="producto-descripcion-editar" class=" form-control-label">Descripción</label>
-													<input id="producto-descripcion-editar" type="text" name="producto-descripcion-editar" placeholder="" class="form-control" value="<?php echo $descripcion; ?>">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-3">
-												<div class="form-group">
-													<label for="producto-precio-editar" class="form-control-label">Precio *</label>
-													<input id="producto-precio-editar" type="number" min="0" value="<?php echo $precio; ?>" step="any" name="producto-precio-editar" placeholder="" class="form-control" required="">
-												</div>
-											</div>
-											<div class="col-3">
-												<div class="form-group">
-													<label for="regla-visitantes" class="form-control-label">Visitantes</label>
-													<input id="regla-visitantes" type="text" disabled="" class="form-control">
-												</div>
-											</div>
-											<div class="col-3">
-												<div class="form-group">
-													<label for="regla-usuarios" class="form-control-label">Usuarios</label>
-													<input id="regla-usuarios" type="text" disabled="" class="form-control">
-												</div>
-											</div>
-											<div class="col-3">
-												<div class="form-group">
-													<label for="regla-empresas" class="form-control-label">Empresas</label>
-													<input id="regla-empresas" type="text" disabled="" class="form-control">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-9">
-												<div class="form-group">
-													<label for="producto-imagenes-editar" class=" form-control-label">Imágenes para galería</label>
-													<select id="producto-imagenes-editar" multiple name="producto-imagenes-editar[]" data-placeholder="Elije las imágenes..." class="standardSelect" tabindex="1">
-														<option value="" label="default"></option>
+													<label for="descuento-categoria-editar" class=" form-control-label">Categorías</label>
+													<select id="descuento-categoria-editar" multiple name="descuento-categorias-editar[]" data-placeholder="Elije las categorías..." class="standardSelect" tabindex="1">
 														<?php
-															$imagenes =  $insAdmin->cargar_galeria_relaciones_productos_controlador($id);
-															echo $insAdmin->cargar_medios_productos_controlador($imagenes);
-														?>
-													</select>
-												</div>
-											</div>
-											<div class="col-sm-3">
-												<img id="imagen-cambiar" src="" class="sombra">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-12">
-												<div class="form-group">
-													<label for="producto-etiqueta-editar" multiple class=" form-control-label">Etiquetas</label>
-													<select id="producto-etiqueta-editar" multiple name="producto-etiqueta-editar[]" data-placeholder="Elije las etiquetas..." class="standardSelect" tabindex="1">
-														<option value="" label="default"></option>
-														<?php
-															echo $insAdmin->cargar_taxonomias_productos_controlador($relaciones, "etiqueta");
+															echo $insAdmin->relaciones_categorias_descuentos_controlador($relaciones);
 														?>
 													</select>
 												</div>
@@ -175,59 +171,24 @@
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group">
-													<label for="producto-atributo-editar" class=" form-control-label">Atributos</label>
-													<select id="producto-atributo-editar" name="producto-atributo-editar[]" data-placeholder="Elije los atributos..." multiple="" class="standardSelect" tabindex="-1">
-														<option value="" label="default"></option>
-														<?php echo $insAdmin->cargar_atributos_productos_controlador($relaciones); ?>
+													<label for="descuento-etiqueta-editar" class=" form-control-label">Etiquetas</label>
+													<select id="descuento-etiqueta-editar" multiple name="descuento-etiquetas-editar[]" data-placeholder="Elije las etiquetas..." class="standardSelect" tabindex="1">
+														<?php
+															echo $insAdmin->relaciones_etiquetas_descuentos_controlador($relaciones);
+														?>
 													</select>
 												</div>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-6">
+											<div class="col-12">
 												<div class="form-group">
-													<label for="producto-mpn-editar" class=" form-control-label">MPN</label>
-													<input id="producto-mpn-editar" type="text" name="producto-mpn-editar" placeholder="" class="form-control" value="<?php echo $mpn; ?>">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-fabricante-editar" class=" form-control-label">Fabricante</label>
-													<input id="producto-fabricante-editar" type="text" name="producto-fabricante-editar" placeholder="" class="form-control" value="<?php echo $fabricante; ?>">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-tipo-editar" class=" form-control-label">Tipo</label>
-													<input id="producto-tipo-editar" type="text" name="producto-tipo-editar" placeholder="" class="form-control" value="<?php echo $tipo; ?>">
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-stock-editar" class="form-control-label">Stock</label>
-													<input id="producto-stock-editar" type="number" min="0" value="<?php echo $stock; ?>" step="any" name="producto-stock-editar" placeholder="" class="form-control">
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-editar-editar" class=" form-control-label">¿Nuevo?</label>
-													<label class="container">SI
-														<input id="producto-nuevo-editar" name="producto-nuevo-editar" type="checkbox" <?php if($nuevo=="si"){echo 'checked=""';} ?>>
-														<span class="checkmark"></span>
-													</label>
-												</div>
-											</div>
-											<div class="col-6">
-												<div class="form-group">
-													<label for="producto-oferta-editar" class=" form-control-label">¿En oferta?</label>
-													<label class="container">SI
-														<input id="producto-oferta-editar" name="producto-oferta-editar" type="checkbox" <?php if($oferta=="si"){echo 'checked=""';}?>>
-														<span class="checkmark"></span>
-													</label>
+													<label for="descuento-atributo-editar" class=" form-control-label">Atributos</label>
+													<select id="descuento-atributo-editar" name="descuento-atributos-editar[]" data-placeholder="Elije los atributos" multiple="" class="standardSelect" tabindex="-1">
+														<?php
+															echo $insAdmin->relaciones_atributos_descuentos_controlador($relaciones);
+														?>
+													</select>
 												</div>
 											</div>
 										</div>

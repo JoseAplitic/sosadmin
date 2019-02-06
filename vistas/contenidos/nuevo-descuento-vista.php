@@ -4,7 +4,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>TODOS LOS DESCUENTOS</h1>
+                        <h1>NUEVO DESCUENTO</h1>
                     </div>
                 </div>
             </div>
@@ -13,7 +13,8 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="<?php echo SERVERURL; ?>inicio/">Escritorio</a></li>
-                            <li class="active">Descuentos</li>
+                            <li><a href="<?php echo SERVERURL; ?>descuentos/">Descuentos</a></li>
+                            <li class="active">Nuevo descuento</li>
                         </ol>
                     </div>
                 </div>

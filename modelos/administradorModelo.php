@@ -394,7 +394,7 @@
 		}
 
 		protected function editar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta ,fecha = :Fecha WHERE sku = :Original;");
+			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta WHERE sku = :Original;");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
@@ -406,7 +406,6 @@
 			$sql->bindParam(":Precio",$datos['Precio']);
 			$sql->bindParam(":Stock",$datos['Stock']);
 			$sql->bindParam(":Oferta",$datos['Oferta']);
-			$sql->bindParam(":Fecha",$datos['Fecha']);
 			$sql->bindParam(":Original",$datos['Original']);
 			$sql->execute();
 			return $sql;
@@ -424,6 +423,15 @@
 		protected function producto_cambio_slug_relacion_modelo($sku, $sku_original)
 		{
 			$sql=mainModel::conectar()->prepare("UPDATE relaciones SET sku = :Sku WHERE sku = :Original");
+			$sql->bindParam(":Sku",$sku);
+			$sql->bindParam(":Original",$sku_original);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function producto_cambio_slug_relacion_descuento_modelo($sku, $sku_original)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE descuentos_relaciones SET item = :Sku WHERE item = :Original AND tipo = 'producto'");
 			$sql->bindParam(":Sku",$sku);
 			$sql->bindParam(":Original",$sku_original);
 			$sql->execute();
@@ -549,6 +557,30 @@
 			$query->bindParam(":Tipo",$tipo);
 			$query->execute();
 			return $query;
+		}
+
+		protected function editar_descuento_modelo($datos){
+			$sql=mainModel::conectar()->prepare("UPDATE descuentos SET nombre = :Nombre, descripcion = :Descripcion, tipo_descuento = :Tipo, regla_visitantes = :Visitantes, regla_usuarios = :Usuarios, regla_empresas = :Empresas, inicio = :Inicio, vencimiento = :Vencimiento WHERE id = :Id;");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->bindParam(":Visitantes",$datos['Visitantes']);
+			$sql->bindParam(":Usuarios",$datos['Usuarios']);
+			$sql->bindParam(":Empresas",$datos['Empresas']);
+			$sql->bindParam(":Inicio",$datos['Inicio']);
+			$sql->bindParam(":Vencimiento",$datos['Vencimiento']);
+			$sql->bindParam(":Id",$datos['Id']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function eliminar_relaciones_descuento_modelo($datos){
+			$sql=mainModel::conectar()->prepare("DELETE FROM descuentos_relaciones WHERE id_descuento = :Id AND item = :Item AND tipo = :Tipo;");
+			$sql->bindParam(":Id",$datos['Id']);
+			$sql->bindParam(":Item",$datos['Item']);
+			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->execute();
+			return $sql;
 		}
 		
 	}

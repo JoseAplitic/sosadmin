@@ -154,6 +154,12 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_descuento_controlador();
 	}
+	elseif(isset($_POST['descuento-id-editar']) && isset($_POST['descuento-nombre-editar']) && isset($_POST['descuento-descripcion-editar']) && isset($_POST['descuento-tipo-editar']) && isset($_POST['descuento-visitantes-editar']) && isset($_POST['descuento-usuarios-editar']) && isset($_POST['descuento-empresas-editar']) && isset($_POST['descuento-inicio-editar']) && isset($_POST['descuento-vencimiento-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_descuento_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);
