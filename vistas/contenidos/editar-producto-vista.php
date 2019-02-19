@@ -198,6 +198,18 @@
 															</div>
 														</div>
 													</div>
+													<div class="row">
+														<div class="col-12">
+															<div class="form-group">
+																<label for="producto-marca-editar" class=" form-control-label">Marca</label>
+																<select id="producto-marca-editar" name="producto-marca-editar" data-placeholder="Elije una marca..." class="standardSelect" tabindex="1">
+																	<?php
+																		echo $insAdmin->cargar_taxonomias_marcas_productos_controlador($relaciones, "marca");
+																	?>
+																</select>
+															</div>
+														</div>
+													</div>
 												</div>
 												<div class="tab-pane fade" id="custom-nav-detalles" role="tabpanel" aria-labelledby="custom-nav-detalles-tab">
 													<div class="row">

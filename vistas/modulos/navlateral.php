@@ -46,6 +46,14 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
                     </ul>
                 </li>
                 <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon far fa-gem"></i>Marcas</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="far fa-gem"></i><a href="<?php echo SERVERURL; ?>marcas/">Todos los marcas</a></li>
+                        <li><i class="fas fa-plus-circle"></i><a href="<?php echo SERVERURL; ?>nueva-marca/">Agregar marca</a></li>
+                        <li><i class="fas fa-search"></i><a href="<?php echo SERVERURL; ?>buscar-marcas/">Buscar marcas</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fas fa-cart-arrow-down"></i>Descuentos</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fas fa-cart-arrow-down"></i><a href="<?php echo SERVERURL; ?>descuentos/">Todos los descuentos</a></li>

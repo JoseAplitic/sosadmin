@@ -196,11 +196,19 @@ jQuery(document).ready(function($) {
         var url = $('option:selected',this).attr("data-url-image");
         $('#imagen-cambiar').attr("src", url);
     });
+    $('#categoria-icono2-nueva').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar2').attr("src", url);
+    });
 
     //MOSTRAR FOTO EDITAR CATEGORIA
     $('#categoria-icono-editar').on('change', function(){
         var url = $('option:selected',this).attr("data-url-image");
         $('#imagen-cambiar').attr("src", url);
+    });
+    $('#categoria-icono2-editar').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar2').attr("src", url);
     });
 
     //MOSTRAR FOTO NUEVO PRODUCTO
@@ -213,6 +221,32 @@ jQuery(document).ready(function($) {
     $('#producto-imagenes-editar').on('change', function(){
         var url = $('option:selected',this).attr("data-url-image");
         $('#imagen-cambiar').attr("src", url);
+    });
+
+    //MOSTRAR FOTO NUEVA MARCA
+    $('#marca-icono-nueva').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar').attr("src", url);
+    });
+    $('#marca-icono2-nueva').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar2').attr("src", url);
+    });
+
+    //MOSTRAR FOTO EDITAR MARCA
+    $('#marca-icono-editar').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar').attr("src", url);
+    });
+    $('#marca-icono2-editar').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $('#imagen-cambiar2').attr("src", url);
+    });
+
+    //MOSTRAR IMAGEN VISTAS PERSONALIZABLES
+    $('.select-cambio-imagen').on('change', function(){
+        var url = $('option:selected',this).attr("data-url-image");
+        $(this).parent().parent().parent().children().children('#imagen-cambiar-vista').attr("src", url);
     });
     
 });

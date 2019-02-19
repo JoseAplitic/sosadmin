@@ -11,6 +11,7 @@
 				"terminos","nuevo-termino","editar-termino",
 				"etiquetas","buscar-etiquetas","nueva-etiqueta","editar-etiqueta",
 				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento",
+				"marcas","buscar-marcas","nueva-marca","editar-marca",
 				"medios","editar-medio","buscar-medios"
 			];
 			if(in_array($vistas, $listaBlanca)){

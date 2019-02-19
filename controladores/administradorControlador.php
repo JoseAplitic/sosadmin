@@ -398,6 +398,7 @@
 			$usuarios=mainModel::limpiar_cadena($_POST['categoria-usuarios-nueva']);
 			$empresas=mainModel::limpiar_cadena($_POST['categoria-empresas-nueva']);
 			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-nueva']);
+			$icono2=mainModel::limpiar_cadena($_POST['categoria-icono2-nueva']);
 			if($padre>0)
 			{
 				$verificarPadre = administradorModelo::verificar_categoria_nuevo_padre_modelo($padre);
@@ -419,7 +420,8 @@
 							"Slug"=>$slug,
 							"Descripcion"=>$descripcion,
 							"Padre"=>$padre,
-							"Icono"=>$icono
+							"Icono"=>$icono,
+							"Icono2"=>$icono2
 						];
 						$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
 						if($guardarCategoria->rowCount()>=1)
@@ -727,6 +729,7 @@
 			$usuarios=mainModel::limpiar_cadena($_POST['categoria-usuarios-editar']);
 			$empresas=mainModel::limpiar_cadena($_POST['categoria-empresas-editar']);
 			$icono=mainModel::limpiar_cadena($_POST['categoria-icono-editar']);
+			$icono2=mainModel::limpiar_cadena($_POST['categoria-icono2-editar']);
 			$verificar=administradorModelo::verificar_categoria_editar_slug_disponible($codigo, $slug);
 			if ($verificar->rowCount() > 0)
 			{
@@ -746,7 +749,8 @@
 					"Slug"=>$slug,
 					"Descripcion"=>$descripcion,
 					"Padre"=>$padre,
-					"Icono"=>$icono
+					"Icono"=>$icono,
+					"Icono2"=>$icono2
 				];
 				$ActAdmin=administradorModelo::editar_taxonomia_modelo($datosEditar);
 				if($ActAdmin->rowCount()>=1)
@@ -2114,6 +2118,14 @@
 							$guardarAtributo=administradorModelo::agregar_relaciones_modelo($dataAtributo);
 						}
 					}
+					if(isset($_POST['producto-marca-nuevo']) && $_POST['producto-marca-nuevo']>0)
+					{
+						$dataTaxonomia=[
+							"Sku"=>$sku,
+							"Taxonomia"=>$_POST['producto-marca-nuevo']
+						];
+						$guardarTaxonomia=administradorModelo::agregar_relaciones_modelo($dataTaxonomia);
+					}
 					$alerta=[
 						"Alerta"=>"recargar",
 						"Titulo"=>"Producto añadido",
@@ -2450,6 +2462,38 @@
 			return $lista;
 		}
 
+		public function cargar_taxonomias_marcas_productos_controlador($taxonomias, $taxonomia)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = '$taxonomia';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $taxonomias;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['id'])
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
 		public function cargar_atributos_productos_controlador($activos)
 		{
 			$lista="";
@@ -2640,6 +2684,10 @@
 							array_push($relaciones_taxonomias, array("sku"=>$sku,"id_taxonomia"=>$tax));
 						}
 					}
+					if(isset($_POST['producto-marca-editar']) && $_POST['producto-marca-editar']>0)
+					{
+						array_push($relaciones_taxonomias, array("sku"=>$sku,"id_taxonomia"=>$_POST['producto-marca-editar']));
+					}
 				
 					$relaciones_taxonomias_existentes = administradorControlador::cargar_relaciones_editar_productos_controlador($sku);
 								
@@ -2796,6 +2844,19 @@
 							"Tipo"=>"atributo"
 						];
 						$guardarAtributo=administradorModelo::agregar_relaciones_descuento_modelo($dataRelaciones);
+					}
+				}
+				if(isset($_POST['descuento-marca-nuevo']))
+				{
+					$relaciones=$_POST["descuento-marca-nuevo"];
+					foreach($relaciones as $relacion)
+					{
+						$dataRelaciones=[
+							"Id"=>$id_descuento[0],
+							"Item"=>$relacion,
+							"Tipo"=>"marca"
+						];
+						$guardarMarca=administradorModelo::agregar_relaciones_descuento_modelo($dataRelaciones);
 					}
 				}
 				$alerta=[
@@ -3258,6 +3319,255 @@
 					"Texto"=>"No hemos podido actualizar el descuento",
 					"Tipo"=>"error"
 				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		// CONTROLADORES PARA MARCAS
+		public function agregar_marca_controlador()
+		{
+			$nombre=mainModel::limpiar_cadena($_POST['marca-nombre-nueva']);
+			$slug=mainModel::limpiar_cadena($_POST['marca-slug-nueva']);
+			$descripcion=mainModel::limpiar_cadena($_POST['marca-descripcion-nueva']);
+			$icono=mainModel::limpiar_cadena($_POST['marca-icono-nueva']);
+			$icono2=mainModel::limpiar_cadena($_POST['marca-icono2-nueva']);
+			$color=mainModel::limpiar_cadena($_POST['marca-color-nueva']);
+
+			$verificar=administradorModelo::verificar_marca_slug_disponible($slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				$dataAC=[
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Icono"=>$icono,
+					"Icono2"=>$icono2,
+					"Color"=>$color
+				];
+				$guardarMarca=administradorModelo::agregar_marca_modelo($dataAC);
+				if($guardarMarca->rowCount()>=1)
+				{
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Marca añadida",
+						"Texto"=>"Se ha guardado correctamente la marca en la tienda",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se ha podido guardar la marca",
+						"Tipo"=>"error"
+					];
+				}
+			}
+
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function paginador_marcas_controlador($pagina,$registros,$busqueda){
+
+			$pagina=mainModel::limpiar_cadena($pagina);
+			$registros=mainModel::limpiar_cadena($registros);
+			$busqueda=mainModel::limpiar_cadena($busqueda);
+			$tabla="";
+		
+			$pagina= (isset($pagina) && $pagina>0) ? (int) $pagina : 1;
+			$inicio= ($pagina>0) ? (($pagina*$registros)-$registros) : 0;
+		
+			if(isset($busqueda) && $busqueda!=""){
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE (nombre LIKE '%$busqueda%' OR slug LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%') AND taxonomia = 'marca' ORDER BY id ASC LIMIT $inicio,$registros";
+				$paginaurl="buscar-marcas";
+			}else{
+				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM taxonomias WHERE taxonomia = 'marca' ORDER BY id DESC LIMIT $inicio,$registros";
+				$paginaurl="marcas";
+			}
+		
+			$conexion = mainModel::conectar();
+		
+			$datos = $conexion->query($consulta);
+			$datos= $datos->fetchAll();
+		
+			$total= $conexion->query("SELECT FOUND_ROWS()");
+			$total= (int) $total->fetchColumn();
+		
+			$Npaginas= ceil($total/$registros);
+		
+			$tabla.='
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Slug</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+				';
+		
+			if($total>=1 && $pagina<=$Npaginas){
+				$contador=$inicio+1;
+				foreach($datos as $rows){
+					$tabla.='
+						<tr>
+							<td>'.$rows['id'].'</td>
+							<td>'.$rows['nombre'].'</td>
+							<td>'.$rows['slug'].'</td>
+							<td>
+								<form action="'.SERVERURL.'editar-marca/" method="POST"  entype="multipart/form-data" autocomplete="off" style="display: inherit;">
+									<input type="hidden" name="marca-id-editar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-info">
+										<i class="fas fa-pencil-alt"></i>
+									</button>
+								</form>
+							</td>
+							<td>
+								<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off" style="float: right;">
+									<input type="hidden" name="marca-id-eliminar" value="'.$rows['id'].'">
+									<button type="submit" class="btn btn-danger">
+										<i class="fas fa-times"></i>
+									</button>
+									<div class="RespuestaAjax"></div>
+								</form>
+							</td>';
+							$tabla.='</tr>';
+							$contador++;
+						}
+			}else{
+				if($total>=1){
+					$tabla.='<script> window.location="'.SERVERURL.$paginaurl.'/" </script>;';
+				}else{
+					$tabla.='
+						<tr>
+							<td></td>
+							<td>No hay registros en el sistema</td>
+							<td></td>
+							<td></td>
+						</tr>
+					';	
+				}
+			}
+		
+			$tabla.='</tbody></table>';
+		
+			if($total>=1 && $pagina<=$Npaginas){
+				$tabla.='<nav aria-label="Page navigation example"><ul class="pagination justify-content-center">';
+		
+				if($pagina==1){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina-1).'/">Anterior</a></li>';
+				}
+		
+				for($i=1; $i<=$Npaginas; $i++){
+					if($pagina==$i){
+						$tabla.='<li class="page-item active"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}else{
+						$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</a></li>';
+					}
+				}
+		
+				if($pagina==$Npaginas){
+					$tabla.='<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Siguiente</a></li>';
+				}else{
+					$tabla.='<li class="page-item"><a class="page-link" href="'.SERVERURL.$paginaurl.'/'.($pagina+1).'/">Siguiente</a></li>';
+				}
+				$tabla.='</ul></nav>';
+			}
+		
+			return $tabla;
+		}
+
+		public function eliminar_marca_controlador(){
+			$codigo=mainModel::limpiar_cadena($_POST['marca-id-eliminar']);
+			$DelCat=administradorModelo::eliminar_taxonomia_modelo($codigo);
+			if($DelCat->rowCount()>=1)
+			{
+				$limpiarRelaciones=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
+				$limpiar_descuentos=administradorModelo::limpiar_descuentos_relaciones_modelo($codigo, "marca");
+				$alerta=[
+					"Alerta"=>"recargar",
+					"Titulo"=>"Marca eliminada",
+					"Texto"=>"La marca fue eliminada del sistema con éxito",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No se ha podido eliminar esta marca en este momento",
+					"Tipo"=>"error"
+				];
+			}
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function editar_marca_controlador()
+		{
+			$codigo=mainModel::limpiar_cadena($_POST['marca-id-editar']);
+			$nombre=mainModel::limpiar_cadena($_POST['marca-nombre-editar']);
+			$slug=mainModel::limpiar_cadena($_POST['marca-slug-editar']);
+			$descripcion=mainModel::limpiar_cadena($_POST['marca-descripcion-editar']);
+			$icono=mainModel::limpiar_cadena($_POST['marca-icono-editar']);
+			$icono2=mainModel::limpiar_cadena($_POST['marca-icono2-editar']);
+			$color=mainModel::limpiar_cadena($_POST['marca-color-editar']);
+			$verificar=administradorModelo::verificar_marca_editar_slug_disponible($codigo, $slug);
+			if ($verificar->rowCount() > 0)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error",
+					"Texto"=>"El slug que ingresaste no esta disponible, escoge otra por favor.",
+					"Tipo"=>"error"
+				];
+			}
+			else
+			{
+				$datosEditar =
+				[
+					"Codigo"=>$codigo,
+					"Nombre"=>$nombre,
+					"Slug"=>$slug,
+					"Descripcion"=>$descripcion,
+					"Icono"=>$icono,
+					"Icono2"=>$icono2,
+					"Color"=>$color
+				];
+				$ActAdmin=administradorModelo::editar_taxonomia_modelo($datosEditar);
+				if($ActAdmin->rowCount()>=1)
+				{
+					$alerta=[
+						"Alerta"=>"recargar",
+						"Titulo"=>"Datos Actualizados",
+						"Texto"=>"Los datos fueron editados con éxito",
+						"Tipo"=>"success"
+					];
+				}
+				else
+				{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se ha podido actualizar la marca, por favor revisa la información que proporcionaste",
+						"Tipo"=>"error"
+					];
+				}
 			}
 			return mainModel::sweet_alert($alerta);
 		}

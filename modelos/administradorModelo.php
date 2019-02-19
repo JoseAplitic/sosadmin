@@ -57,12 +57,13 @@
 
 		//MODELOS PARA CATEGORIAS
 		protected function agregar_categoria_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre,icono) VALUES(:Nombre,:Slug,'categoria',:Descripcion,:Padre,:Icono)");
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,padre,icono,icono2) VALUES(:Nombre,:Slug,'categoria',:Descripcion,:Padre,:Icono,:Icono2)");
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
 			$sql->bindParam(":Descripcion",$datos['Descripcion']);
 			$sql->bindParam(":Padre",$datos['Padre']);
 			$sql->bindParam(":Icono",$datos['Icono']);
+			$sql->bindParam(":Icono2",$datos['Icono2']);
 			$sql->execute();
 			return $sql;
 		}
@@ -244,12 +245,14 @@
 		//MODELOS PARA TAXONOMIAS
 		protected function editar_taxonomia_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE taxonomias SET nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, padre = :Padre, icono = :Icono WHERE id = :Codigo");
+			$sql=mainModel::conectar()->prepare("UPDATE taxonomias SET nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, padre = :Padre, icono = :Icono, icono2 = :Icono2, color = :Color WHERE id = :Codigo");
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
 			$sql->bindParam(":Descripcion",$datos['Descripcion']);
 			$sql->bindParam(":Padre",$datos['Padre']);
 			$sql->bindParam(":Icono",$datos['Icono']);
+			$sql->bindParam(":Icono2",$datos['Icono2']);
+			$sql->bindParam(":Color",$datos['Color']);
 			$sql->bindParam(":Codigo",$datos['Codigo']);
 			$sql->execute();
 			return $sql;
@@ -579,6 +582,34 @@
 			$sql->bindParam(":Id",$datos['Id']);
 			$sql->bindParam(":Item",$datos['Item']);
 			$sql->bindParam(":Tipo",$datos['Tipo']);
+			$sql->execute();
+			return $sql;
+		}
+
+		//MODELOS PARA MARCAS
+		protected function agregar_marca_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO taxonomias(nombre,slug,taxonomia,descripcion,icono,icono2,color) VALUES(:Nombre,:Slug,'marca',:Descripcion,:Icono,:Icono2,:Color)");
+			$sql->bindParam(":Nombre",$datos['Nombre']);
+			$sql->bindParam(":Slug",$datos['Slug']);
+			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Icono",$datos['Icono']);
+			$sql->bindParam(":Icono2",$datos['Icono2']);
+			$sql->bindParam(":Color",$datos['Color']);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function verificar_marca_slug_disponible($slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'marca' AND slug = :Slug");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+		
+		protected function verificar_marca_editar_slug_disponible($codigo, $slug){
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'marca' AND slug = :Slug AND id != :Codigo");
+			$sql->bindParam(":Slug",$slug);
+			$sql->bindParam(":Codigo",$codigo);
 			$sql->execute();
 			return $sql;
 		}

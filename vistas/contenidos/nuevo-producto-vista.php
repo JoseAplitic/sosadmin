@@ -173,6 +173,17 @@
 												</div>
 											</div>
 										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="producto-marca-nuevo" class=" form-control-label">Marca</label>
+													<select id="producto-marca-nuevo" name="producto-marca-nuevo" data-placeholder="Elije la marca..." class="standardSelect" tabindex="1">
+                        								<option value="0" label="default"></option>
+														<?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+													</select>
+												</div>
+											</div>
+										</div>
 									</div>
 									<div class="tab-pane fade" id="custom-nav-detalles" role="tabpanel" aria-labelledby="custom-nav-detalles-tab">
 										<div class="row">

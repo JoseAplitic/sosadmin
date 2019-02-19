@@ -2661,5 +2661,8 @@ label.container .checkmark:after {
   transform: rotate(45deg);
 }
 
+/* Estilos para h3 */
+h3,.h3{font-size: 1.3rem;}
+
 /*# sourceMappingURL=style.css.map */
 

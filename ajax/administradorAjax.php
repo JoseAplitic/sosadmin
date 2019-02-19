@@ -40,12 +40,31 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->eliminar_categoria_controlador();
 	}
-	elseif(isset($_POST['categoria-id-editar']) && isset($_POST['categoria-nombre-editar']) && isset($_POST['categoria-slug-editar']) && isset($_POST['categoria-descripcion-editar']) && isset($_POST['categoria-padre-editar']) && isset($_POST['categoria-icono-editar']) && isset($_POST['categoria-visitantes-editar']) && isset($_POST['categoria-usuarios-editar']) && isset($_POST['categoria-empresas-editar']))
+	elseif(isset($_POST['categoria-id-editar']) && isset($_POST['categoria-nombre-editar']) && isset($_POST['categoria-slug-editar']) && isset($_POST['categoria-descripcion-editar']) && isset($_POST['categoria-padre-editar']) && isset($_POST['categoria-icono-editar']) && isset($_POST['categoria-icono2-editar']) && isset($_POST['categoria-visitantes-editar']) && isset($_POST['categoria-usuarios-editar']) && isset($_POST['categoria-empresas-editar']))
 	{
 		require_once "../controladores/administradorControlador.php";
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_categoria_controlador();
 	}
+	//AJAX PARA MARCAS
+	elseif(isset($_POST['marca-nombre-nueva']) && isset($_POST['marca-slug-nueva']) && isset($_POST['marca-descripcion-nueva']) && isset($_POST['marca-icono-nueva']) && isset($_POST['marca-icono2-nueva']) && isset($_POST['marca-color-nueva']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->agregar_marca_controlador();
+	}
+	elseif(isset($_POST['marca-id-eliminar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->eliminar_marca_controlador();
+	}
+	elseif(isset($_POST['marca-id-editar']) && isset($_POST['marca-nombre-editar']) && isset($_POST['marca-slug-editar']) && isset($_POST['marca-descripcion-editar']) && isset($_POST['marca-icono-editar']) && isset($_POST['marca-icono2-editar']) && isset($_POST['marca-color-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_marca_controlador();
+    }
 	//AJAX PARA ETIQUETAS
 	elseif(isset($_POST['etiqueta-nombre-nueva']) && isset($_POST['etiqueta-slug-nueva']) && isset($_POST['etiqueta-descripcion-nueva']))
 	{

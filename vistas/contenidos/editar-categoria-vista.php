@@ -68,6 +68,7 @@
 								$descripcion = $datos['descripcion'];
 								$padre = $datos['padre'];
 								$icono = $datos['icono'];
+								$icono2 = $datos['icono2'];
 								$mostrar_imagen = false;
 								$mostrar_url = "";
 								?>
@@ -159,7 +160,7 @@
 							<div class="row">
 								<div class="col-9">
 									<div class="form-group">
-										<label for="categoria-icono-editar" class=" form-control-label">Icono</label>
+										<label for="categoria-icono-editar" class=" form-control-label">Icono para fondos claros</label>
 										<select id="categoria-icono-editar" name="categoria-icono-editar" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
 										<?php if($icono > 0): ?>
 												<?php
@@ -191,6 +192,44 @@
 										<img id="imagen-cambiar" src="<?php echo $mostrar_url; ?>" class="sombra">
 									<?php else: ?>
 										<img id="imagen-cambiar" src="" class="sombra">
+									<?php endif; ?>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-9">
+									<div class="form-group">
+										<label for="categoria-icono2-editar" class=" form-control-label">Icono para fondos oscuros</label>
+										<select id="categoria-icono2-editar" name="categoria-icono2-editar" data-placeholder="Elije un icono2..." class="standardSelect" tabindex="1">
+										<?php if($icono2 > 0): ?>
+												<?php
+												$categoriaIcono2 = $insAdmin->obtener_info_medios_controlador($icono2); 
+												if($categoriaIcono2->rowCount()>=1):
+													$datosCategoriaIcono2=$categoriaIcono2->fetch();
+													$icono2Id = $datosCategoriaIcono2['id'];
+													$icono2Titulo = $datosCategoriaIcono2['titulo'];
+													$icono2Url = $datosCategoriaIcono2['url'];
+													$mostrar_imagen = true;
+													$mostrar_url = $icono2Url;
+												?>
+													<option value="<?php echo $icono2Id; ?>" label="default"  data-url-image="<?php echo $icono2Url; ?>"><?php echo $icono2Titulo;?></option>
+													<option value="" data-url-image="">Ninguno</option>
+													<?php echo $insAdmin->cargar_medios_editar_controlador($icono2); ?>
+												<?php else: ?>
+													<option value="" label="default" data-url-image="">Ninguno</option>
+													<?php echo $insAdmin->cargar_medios_controlador($icono2); ?>
+												<?php endif; ?>
+										<?php else: ?>
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											<?php echo $insAdmin->cargar_medios_controlador($icono2); ?>
+										<?php endif; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<?php if ($mostrar_imagen == true): ?>
+										<img id="imagen-cambiar2" src="<?php echo $mostrar_url; ?>" class="sombra">
+									<?php else: ?>
+										<img id="imagen-cambiar2" src="" class="sombra">
 									<?php endif; ?>
 								</div>
 							</div>

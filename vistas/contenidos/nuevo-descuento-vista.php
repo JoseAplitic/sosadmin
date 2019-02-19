@@ -165,7 +165,18 @@
 									</div>
 								</div>
 							</div>
-							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nuevo producto" style="margin: 20px 0px;">
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="descuento-marca-nuevo" class=" form-control-label">Marcas</label>
+										<select id="descuento-marca-nuevo" multiple name="descuento-marca-nuevo[]" data-placeholder="Elije las marcas..." class="standardSelect" tabindex="1">
+											<option value="" label="default"></option>
+											<?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+										</select>
+									</div>
+								</div>
+							</div>
+							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nuevo descuento" style="margin: 20px 0px;">
 							<div class="RespuestaAjax"></div>
 						</form>
 					</div>
