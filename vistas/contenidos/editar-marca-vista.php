@@ -182,6 +182,60 @@
 												</div>
 											</div>
 										</div>
+										<?php
+											$existeVista = false;
+											$arraySlides = array();
+											$arrayModulos = array();
+											$arrayBanner = array();
+											$datosVista = [
+												"slides"=>json_encode($arraySlides),
+												"columnas"=>json_encode($arrayModulos),
+												"banner"=>json_encode($arrayBanner)
+											];
+											$imprimir = "";
+											$sql = $insAdmin->obtener_vista_controlador($_POST['marca-id-editar']);
+											if($sql->rowCount()>=1)
+											{
+												$datosVista=$sql->fetch();
+												$existeVista = true;
+												$imprimir = 'checked = ""';
+											}
+										?>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="marca-vista-editar" class=" form-control-label">Vista personalizada</label>
+													<label class="container">SI
+														<input id="marca-vista-editar" name="marca-vista-editar" type="checkbox" class="checkbox-vista" <?php echo $imprimir; ?>>
+														<span class="checkmark"></span>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div id="custom-view-content" class="row">
+											<div class="col-12">
+												<div class="custom-tab">
+													<nav style="margin-bottom: 20px;">
+														<div class="nav nav-tabs" id="nav-tab" role="tablist">
+															<a class="nav-item nav-link active show" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="true">Slides</a>
+															<a class="nav-item nav-link" id="custom-nav-columnas-tab" data-toggle="tab" href="#custom-nav-columnas" role="tab" aria-controls="custom-nav-columnas" aria-selected="false">Módulos</a>
+															<a class="nav-item nav-link" id="custom-nav-banner-tab" data-toggle="tab" href="#custom-nav-banner" role="tab" aria-controls="custom-nav-banner" aria-selected="false">Banner publicitario</a>
+														</div>
+													</nav>
+													<div class="tab-content pl-3 pt-2" id="nav-tabContent">
+														<div class="tab-pane fade active show" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
+															<?php echo $insAdmin->cargar_vista_marca_controlador($datosVista, "slides"); ?>
+														</div>
+														<div class="tab-pane fade" id="custom-nav-columnas" role="tabpanel" aria-labelledby="custom-nav-columnas-tab">
+															<?php echo $insAdmin->cargar_vista_marca_controlador($datosVista, "modulos"); ?>
+														</div>
+														<div class="tab-pane fade" id="custom-nav-banner" role="tabpanel" aria-labelledby="custom-nav-banner-tab">
+															<?php echo $insAdmin->cargar_vista_marca_controlador($datosVista, "banner"); ?>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 										<input class="btn btn-outline-info btn-block" type="submit" value="Guardar cambios" style="margin: 20px 0px;">
 										<div class="RespuestaAjax"></div>
 									</form>

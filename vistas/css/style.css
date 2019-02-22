@@ -2664,5 +2664,10 @@ label.container .checkmark:after {
 /* Estilos para h3 */
 h3,.h3{font-size: 1.3rem;}
 
+/* Estilos para vistas personalizadas */
+#custom-view-content{
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */
 

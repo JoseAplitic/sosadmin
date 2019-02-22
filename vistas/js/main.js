@@ -249,4 +249,19 @@ jQuery(document).ready(function($) {
         $(this).parent().parent().parent().children().children('#imagen-cambiar-vista').attr("src", url);
     });
     
+    //OCULTAR Y MOSTRAR VISTA PERSONALIZADAS
+    $('.checkbox-vista').on('change', function(){
+        if ($(this).is(':checked')) {
+            $('#custom-view-content').css("display","block");
+        }
+        else{
+            $('#custom-view-content').css("display","none");
+        }
+    });
+
+    if($('.checkbox-vista').is(':checked'))
+    {
+        $('#custom-view-content').css("display","block");
+    }
+    
 });

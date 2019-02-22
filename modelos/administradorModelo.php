@@ -614,4 +614,79 @@
 			return $sql;
 		}
 		
+		protected function obtener_marca_id_slug_modelo($slug)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM taxonomias WHERE taxonomia = 'marca' AND slug = :Slug;");
+			$sql->bindParam(":Slug",$slug);
+			$sql->execute();
+			return $sql;
+		}
+
+		//MODELOS PARA VISTAS PERSONALIZADAS
+		protected function agregar_vista_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO vistas_personalizadas(id_taxonomia,slides,columnas,banner,marcas) VALUES(:Id,:Slides,:Modulos,:Banner,:Marcas)");
+			$sql->bindParam(":Id",$datos['Id']);
+			$slides = json_encode($datos['Slides']);
+			$sql->bindParam(":Slides",$slides);
+			$modulos = json_encode($datos['Modulos']);
+			$sql->bindParam(":Modulos",$modulos);
+			$banner = json_encode($datos['Banner']);
+			$sql->bindParam(":Banner",$banner);
+			$marcas = json_encode( $datos['Marcas']);
+			$sql->bindParam(":Marcas",$marcas);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function editar_vista_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE vistas_personalizadas SET slides = :Slides, columnas = :Modulos, banner = :Banner, marcas = :Marcas WHERE id_taxonomia = :Id");
+			$sql->bindParam(":Id",$datos['Id']);
+			$slides = json_encode($datos['Slides']);
+			$sql->bindParam(":Slides",$slides);
+			$modulos = json_encode($datos['Modulos']);
+			$sql->bindParam(":Modulos",$modulos);
+			$banner = json_encode($datos['Banner']);
+			$sql->bindParam(":Banner",$banner);
+			$marcas = json_encode( $datos['Marcas']);
+			$sql->bindParam(":Marcas",$marcas);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function editar_vista_marca_modelo($datos)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE vistas_personalizadas SET slides = :Slides, columnas = :Modulos, banner = :Banner WHERE id_taxonomia = :Id");
+			$sql->bindParam(":Id",$datos['Id']);
+			$slides = json_encode($datos['Slides']);
+			$sql->bindParam(":Slides",$slides);
+			$modulos = json_encode($datos['Modulos']);
+			$sql->bindParam(":Modulos",$modulos);
+			$banner = json_encode($datos['Banner']);
+			$sql->bindParam(":Banner",$banner);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function agregar_vista_marca_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO vistas_personalizadas(id_taxonomia,slides,columnas,banner) VALUES(:Id,:Slides,:Modulos,:Banner)");
+			$sql->bindParam(":Id",$datos['Id']);
+			$slides = json_encode($datos['Slides']);
+			$sql->bindParam(":Slides",$slides);
+			$modulos = json_encode($datos['Modulos']);
+			$sql->bindParam(":Modulos",$modulos);
+			$banner = json_encode($datos['Banner']);
+			$sql->bindParam(":Banner",$banner);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function eliminar_vista_modelo($codigo)
+		{
+			$query=mainModel::conectar()->prepare("DELETE FROM vistas_personalizadas WHERE id_taxonomia=:Codigo");
+			$query->bindParam(":Codigo",$codigo);
+			$query->execute();
+			return $query;
+		}
+		
 	}

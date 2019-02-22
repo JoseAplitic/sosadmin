@@ -115,11 +115,19 @@
 								</div>
 							</div>
 							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label for="marca-color-nueva" class="form-control-label">Color *</label>
+										<input id="marca-color-nueva" name="marca-color-nueva" type="text" class="jscolor form-control" value="FFFFFF" requiered="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
-										<label for="marca-vista-nuevo" class=" form-control-label">Vista personalizada</label>
+										<label for="marca-vista-nueva" class=" form-control-label">Vista personalizada</label>
 										<label class="container">SI
-											<input id="marca-vista-nuevo" name="marca-vista-nuevo" type="checkbox">
+											<input id="marca-vista-nueva" name="marca-vista-nueva" type="checkbox" class="checkbox-vista">
 											<span class="checkmark"></span>
 										</label>
 									</div>
@@ -607,14 +615,14 @@
 													</div>
 													<div class="col-sm-5">
 														<div class="form-group">
-															<label for="marca-banner-publicitario-nueva" class=" form-control-label">URL</label>
-															<input id="marca-banner-publicitario-nueva" type="url" name="marca-banner-publicitario-nueva" placeholder="" class="form-control">
+															<label for="marca-banner-publicitario-url-nueva" class=" form-control-label">URL</label>
+															<input id="marca-banner-publicitario-url-nueva" type="url" name="marca-banner-publicitario-url-nueva" placeholder="" class="form-control">
 														</div>
 													</div>
 													<div class="col-sm-5">
 														<div class="form-group">
-															<label for="marca-banner-publicitario-nueva" class="form-control-label">Imagen</label>
-															<select id="marca-banner-publicitario-nueva" name="marca-banner-publicitario-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+															<label for="marca-banner-publicitario-img-nueva" class="form-control-label">Imagen</label>
+															<select id="marca-banner-publicitario-img-nueva" name="marca-banner-publicitario-img-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
 																<option value="" label="default" data-url-image="">Ninguno</option>
 																<?php echo $insAdmin->cargar_medios_controlador(); ?>
 															</select>

@@ -146,9 +146,9 @@
 							<div class="row">
 								<div class="col-12">
 									<div class="form-group">
-										<label for="categoria-vista-nuevo" class=" form-control-label">Vista personalizada</label>
+										<label for="categoria-vista-nueva" class=" form-control-label">Vista personalizada</label>
 										<label class="container">SI
-											<input id="categoria-vista-nuevo" name="categoria-vista-nuevo" type="checkbox">
+											<input id="categoria-vista-nueva" name="categoria-vista-nueva" type="checkbox" class="checkbox-vista">
 											<span class="checkmark"></span>
 										</label>
 									</div>
@@ -632,464 +632,224 @@
 											</div>
 											<div class="tab-pane fade" id="custom-nav-marcas" role="tabpanel" aria-labelledby="custom-nav-marcas-tab">
 												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 1</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-1-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-1-nueva" type="url" name="categoria-marca-url-1-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-1-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-1-nueva" name="categoria-marca-img-1-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-1-nueva" class=" form-control-label">Marca 1</label>
+                                                            <select id="categoria-marca-1-nueva" name="categoria-marca-1-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 2</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-2-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-2-nueva" type="url" name="categoria-marca-url-2-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-2-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-2-nueva" name="categoria-marca-img-2-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-2-nueva" class=" form-control-label">Marca 2</label>
+                                                            <select id="categoria-marca-2-nueva" name="categoria-marca-2-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 3</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-3-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-3-nueva" type="url" name="categoria-marca-url-3-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-3-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-3-nueva" name="categoria-marca-img-3-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-3-nueva" class=" form-control-label">Marca 3</label>
+                                                            <select id="categoria-marca-3-nueva" name="categoria-marca-3-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 4</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-4-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-4-nueva" type="url" name="categoria-marca-url-4-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-4-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-4-nueva" name="categoria-marca-img-4-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-4-nueva" class=" form-control-label">Marca 4</label>
+                                                            <select id="categoria-marca-4-nueva" name="categoria-marca-4-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 5</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-5-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-5-nueva" type="url" name="categoria-marca-url-5-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-5-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-5-nueva" name="categoria-marca-img-5-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-5-nueva" class=" form-control-label">Marca 5</label>
+                                                            <select id="categoria-marca-5-nueva" name="categoria-marca-5-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 6</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-6-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-6-nueva" type="url" name="categoria-marca-url-6-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-6-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-6-nueva" name="categoria-marca-img-6-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-6-nueva" class=" form-control-label">Marca 6</label>
+                                                            <select id="categoria-marca-6-nueva" name="categoria-marca-6-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 7</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-7-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-7-nueva" type="url" name="categoria-marca-url-7-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-7-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-7-nueva" name="categoria-marca-img-7-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-7-nueva" class=" form-control-label">Marca 7</label>
+                                                            <select id="categoria-marca-7-nueva" name="categoria-marca-7-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 8</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-8-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-8-nueva" type="url" name="categoria-marca-url-8-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-8-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-8-nueva" name="categoria-marca-img-8-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-8-nueva" class=" form-control-label">Marca 8</label>
+                                                            <select id="categoria-marca-8-nueva" name="categoria-marca-8-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 9</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-9-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-9-nueva" type="url" name="categoria-marca-url-9-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-9-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-9-nueva" name="categoria-marca-img-9-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-9-nueva" class=" form-control-label">Marca 9</label>
+                                                            <select id="categoria-marca-9-nueva" name="categoria-marca-9-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 10</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-10-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-10-nueva" type="url" name="categoria-marca-url-10-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-10-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-10-nueva" name="categoria-marca-img-10-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-10-nueva" class=" form-control-label">Marca 10</label>
+                                                            <select id="categoria-marca-10-nueva" name="categoria-marca-10-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 11</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-11-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-11-nueva" type="url" name="categoria-marca-url-11-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-11-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-11-nueva" name="categoria-marca-img-11-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-11-nueva" class=" form-control-label">Marca 11</label>
+                                                            <select id="categoria-marca-11-nueva" name="categoria-marca-11-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 12</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-12-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-12-nueva" type="url" name="categoria-marca-url-12-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-12-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-12-nueva" name="categoria-marca-img-12-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-12-nueva" class=" form-control-label">Marca 12</label>
+                                                            <select id="categoria-marca-12-nueva" name="categoria-marca-12-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 13</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-13-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-13-nueva" type="url" name="categoria-marca-url-13-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-13-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-13-nueva" name="categoria-marca-img-13-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-13-nueva" class=" form-control-label">Marca 13</label>
+                                                            <select id="categoria-marca-13-nueva" name="categoria-marca-13-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 14</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-14-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-14-nueva" type="url" name="categoria-marca-url-14-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-14-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-14-nueva" name="categoria-marca-img-14-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-14-nueva" class=" form-control-label">Marca 14</label>
+                                                            <select id="categoria-marca-14-nueva" name="categoria-marca-14-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 15</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-15-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-15-nueva" type="url" name="categoria-marca-url-15-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-15-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-15-nueva" name="categoria-marca-img-15-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-15-nueva" class=" form-control-label">Marca 15</label>
+                                                            <select id="categoria-marca-15-nueva" name="categoria-marca-15-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 16</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-16-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-16-nueva" type="url" name="categoria-marca-url-16-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-16-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-16-nueva" name="categoria-marca-img-16-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-16-nueva" class=" form-control-label">Marca 16</label>
+                                                            <select id="categoria-marca-16-nueva" name="categoria-marca-16-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 17</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-17-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-17-nueva" type="url" name="categoria-marca-url-17-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-17-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-17-nueva" name="categoria-marca-img-17-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-17-nueva" class=" form-control-label">Marca 17</label>
+                                                            <select id="categoria-marca-17-nueva" name="categoria-marca-17-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 18</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-18-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-18-nueva" type="url" name="categoria-marca-url-18-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-18-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-18-nueva" name="categoria-marca-img-18-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-18-nueva" class=" form-control-label">Marca 18</label>
+                                                            <select id="categoria-marca-18-nueva" name="categoria-marca-18-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 19</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-19-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-19-nueva" type="url" name="categoria-marca-url-19-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-19-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-19-nueva" name="categoria-marca-img-19-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-19-nueva" class=" form-control-label">Marca 19</label>
+                                                            <select id="categoria-marca-19-nueva" name="categoria-marca-19-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
-												<div class="row">
-													<div class="col-12">
-														<h3 class="pb-2 display-5">Marca 20</h3>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-url-20-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-marca-url-20-nueva" type="url" name="categoria-marca-url-20-nueva" placeholder="" class="form-control">
-														</div>
-													</div>
-													<div class="col-sm-5">
-														<div class="form-group">
-															<label for="categoria-marca-img-20-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-marca-img-20-nueva" name="categoria-marca-img-20-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
-																<option value="" label="default" data-url-image="">Ninguno</option>
-																<?php echo $insAdmin->cargar_medios_controlador(); ?>
-															</select>
-														</div>
-													</div>
-													<div class="col-sm-2">
-														<img id="imagen-cambiar-vista" src="" class="sombra">
-													</div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="categoria-marca-20-nueva" class=" form-control-label">Marca 20</label>
+                                                            <select id="categoria-marca-20-nueva" name="categoria-marca-20-nueva" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+                                                                <option value="" label="default">Ninguna</option>
+                                                                <?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 												</div>
 											</div>
 											<div class="tab-pane fade" id="custom-nav-banner" role="tabpanel" aria-labelledby="custom-nav-banner-tab">
@@ -1099,14 +859,14 @@
 													</div>
 													<div class="col-sm-5">
 														<div class="form-group">
-															<label for="categoria-banner-publicitario-nueva" class=" form-control-label">URL</label>
-															<input id="categoria-banner-publicitario-nueva" type="url" name="categoria-banner-publicitario-nueva" placeholder="" class="form-control">
+															<label for="categoria-banner-publicitario-url-nueva" class=" form-control-label">URL</label>
+															<input id="categoria-banner-publicitario-url-nueva" type="url" name="categoria-banner-publicitario-url-nueva" placeholder="" class="form-control">
 														</div>
 													</div>
 													<div class="col-sm-5">
 														<div class="form-group">
-															<label for="categoria-banner-publicitario-nueva" class="form-control-label">Imagen</label>
-															<select id="categoria-banner-publicitario-nueva" name="categoria-banner-publicitario-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+															<label for="categoria-banner-publicitario-img-nueva" class="form-control-label">Imagen</label>
+															<select id="categoria-banner-publicitario-img-nueva" name="categoria-banner-publicitario-img-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
 																<option value="" label="default" data-url-image="">Ninguno</option>
 																<?php echo $insAdmin->cargar_medios_controlador(); ?>
 															</select>

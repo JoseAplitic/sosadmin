@@ -436,10 +436,236 @@
 									"Usuarios"=>$usuarios,
 									"Empresas"=>$empresas
 								];
-								echo $datos_categoria['id'];
 								$guardarReglas = administradorModelo::agregar_regla_modelo($dataReglas);
 								if($guardarReglas->rowCount()>=1)
 								{
+									if(isset($_POST['categoria-vista-nueva']))
+									{
+										$agregarVistaSlide = false;
+										$vistaSlide = array();
+										if(isset($_POST['categoria-slide-url-1-nueva']) && isset($_POST['categoria-slide-img-1-nueva']) && $_POST['categoria-slide-img-1-nueva']>0)
+										{
+											array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-1-nueva'],"img"=>$_POST['categoria-slide-img-1-nueva']));
+											$agregarVistaSlide = true;
+										}
+										if(isset($_POST['categoria-slide-url-2-nueva']) && isset($_POST['categoria-slide-img-2-nueva']) && $_POST['categoria-slide-img-2-nueva']>0)
+										{
+											array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-2-nueva'],"img"=>$_POST['categoria-slide-img-2-nueva']));
+											$agregarVistaSlide = true;
+										}
+										if(isset($_POST['categoria-slide-url-3-nueva']) && isset($_POST['categoria-slide-img-3-nueva']) && $_POST['categoria-slide-img-3-nueva']>0)
+										{
+											array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-3-nueva'],"img"=>$_POST['categoria-slide-img-3-nueva']));
+											$agregarVistaSlide = true;
+										}
+										if(isset($_POST['categoria-slide-url-4-nueva']) && isset($_POST['categoria-slide-img-4-nueva']) && $_POST['categoria-slide-img-4-nueva']>0)
+										{
+											array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-4-nueva'],"img"=>$_POST['categoria-slide-img-4-nueva']));
+											$agregarVistaSlide = true;
+										}
+										if(isset($_POST['categoria-slide-url-5-nueva']) && isset($_POST['categoria-slide-img-5-nueva']) && $_POST['categoria-slide-img-5-nueva']>0)
+										{
+											array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-5-nueva'],"img"=>$_POST['categoria-slide-img-5-nueva']));
+											$agregarVistaSlide = true;
+										}
+										$agregarVistaModulos = false;
+										$vistaModulos = array();
+										if(isset($_POST['categoria-modulos-url-1-nueva']) && isset($_POST['categoria-modulos-img-1-nueva']) && $_POST['categoria-modulos-img-1-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-1-nueva'],"img"=>$_POST['categoria-modulos-img-1-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-2-nueva']) && isset($_POST['categoria-modulos-img-2-nueva']) && $_POST['categoria-modulos-img-2-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-2-nueva'],"img"=>$_POST['categoria-modulos-img-2-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-3-nueva']) && isset($_POST['categoria-modulos-img-3-nueva']) && $_POST['categoria-modulos-img-3-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-3-nueva'],"img"=>$_POST['categoria-modulos-img-3-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-4-nueva']) && isset($_POST['categoria-modulos-img-4-nueva']) && $_POST['categoria-modulos-img-4-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-4-nueva'],"img"=>$_POST['categoria-modulos-img-4-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-5-nueva']) && isset($_POST['categoria-modulos-img-5-nueva']) && $_POST['categoria-modulos-img-5-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-5-nueva'],"img"=>$_POST['categoria-modulos-img-5-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-6-nueva']) && isset($_POST['categoria-modulos-img-6-nueva']) && $_POST['categoria-modulos-img-6-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-6-nueva'],"img"=>$_POST['categoria-modulos-img-6-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-7-nueva']) && isset($_POST['categoria-modulos-img-7-nueva']) && $_POST['categoria-modulos-img-7-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-7-nueva'],"img"=>$_POST['categoria-modulos-img-7-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-8-nueva']) && isset($_POST['categoria-modulos-img-8-nueva']) && $_POST['categoria-modulos-img-8-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-8-nueva'],"img"=>$_POST['categoria-modulos-img-8-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-9-nueva']) && isset($_POST['categoria-modulos-img-9-nueva']) && $_POST['categoria-modulos-img-9-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-9-nueva'],"img"=>$_POST['categoria-modulos-img-9-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-10-nueva']) && isset($_POST['categoria-modulos-img-10-nueva']) && $_POST['categoria-modulos-img-10-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-10-nueva'],"img"=>$_POST['categoria-modulos-img-10-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-11-nueva']) && isset($_POST['categoria-modulos-img-11-nueva']) && $_POST['categoria-modulos-img-11-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-11-nueva'],"img"=>$_POST['categoria-modulos-img-11-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-12-nueva']) && isset($_POST['categoria-modulos-img-12-nueva']) && $_POST['categoria-modulos-img-12-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-12-nueva'],"img"=>$_POST['categoria-modulos-img-12-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-13-nueva']) && isset($_POST['categoria-modulos-img-13-nueva']) && $_POST['categoria-modulos-img-13-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-13-nueva'],"img"=>$_POST['categoria-modulos-img-13-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-14-nueva']) && isset($_POST['categoria-modulos-img-14-nueva']) && $_POST['categoria-modulos-img-14-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-14-nueva'],"img"=>$_POST['categoria-modulos-img-14-nueva']));
+											$agregarVistaModulos = true;
+										}
+										if(isset($_POST['categoria-modulos-url-15-nueva']) && isset($_POST['categoria-modulos-img-15-nueva']) && $_POST['categoria-modulos-img-15-nueva']>0)
+										{
+											array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-15-nueva'],"img"=>$_POST['categoria-modulos-img-15-nueva']));
+											$agregarVistaModulos = true;
+										}
+										$agregarVistaMarcas = false;
+										$vistaMarcas = array();
+										if(isset($_POST['categoria-marca-1-nueva']) && $_POST['categoria-marca-1-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-1-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-2-nueva']) && $_POST['categoria-marca-2-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-2-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-3-nueva']) && $_POST['categoria-marca-3-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-3-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-4-nueva']) && $_POST['categoria-marca-4-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-4-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-5-nueva']) && $_POST['categoria-marca-5-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-5-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-6-nueva']) && $_POST['categoria-marca-6-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-6-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-7-nueva']) && $_POST['categoria-marca-7-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-7-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-8-nueva']) && $_POST['categoria-marca-8-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-8-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-9-nueva']) && $_POST['categoria-marca-9-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-9-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-10-nueva']) && $_POST['categoria-marca-10-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-10-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-11-nueva']) && $_POST['categoria-marca-11-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-11-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-12-nueva']) && $_POST['categoria-marca-12-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-12-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-13-nueva']) && $_POST['categoria-marca-13-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-13-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-14-nueva']) && $_POST['categoria-marca-14-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-14-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-15-nueva']) && $_POST['categoria-marca-15-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-15-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-16-nueva']) && $_POST['categoria-marca-16-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-16-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-17-nueva']) && $_POST['categoria-marca-17-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-17-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-18-nueva']) && $_POST['categoria-marca-18-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-18-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-19-nueva']) && $_POST['categoria-marca-19-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-19-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										if(isset($_POST['categoria-marca-20-nueva']) && $_POST['categoria-marca-20-nueva']>0)
+										{
+											array_push($vistaMarcas, $_POST['categoria-marca-20-nueva']);
+											$agregarVistaMarcas = true;
+										}
+										$agregarVistaBanner = false;
+										$vistaBanner = array();
+										if(isset($_POST['categoria-banner-publicitario-url-nueva']) && isset($_POST['categoria-banner-publicitario-img-nueva']) && $_POST['categoria-banner-publicitario-img-nueva']>0)
+										{
+											array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-nueva'],"img"=>$_POST['categoria-banner-publicitario-img-nueva']));
+											$agregarVistaBanner = true;
+										}
+										if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaMarcas == true || $agregarVistaBanner == true)
+										{
+											$dataVistas = [
+												"Id"=>$datos_categoria['id'],
+												"Slides"=>$vistaSlide,
+												"Modulos"=>$vistaModulos,
+												"Marcas"=>$vistaMarcas,
+												"Banner"=>$vistaBanner
+											];
+											$guardarReglas = administradorModelo::agregar_vista_modelo($dataVistas);
+										}
+									}
 									$alerta=[
 										"Alerta"=>"recargar",
 										"Titulo"=>"Categoria añadida",
@@ -506,7 +732,8 @@
 						"Slug"=>$slug,
 						"Descripcion"=>$descripcion,
 						"Padre"=>$padre,
-						"Icono"=>$icono
+						"Icono"=>$icono,
+						"Icono2"=>$icono2
 					];
 					$guardarCategoria=administradorModelo::agregar_categoria_modelo($dataAC);
 					if($guardarCategoria->rowCount()>=1)
@@ -524,6 +751,233 @@
 							$guardarReglas = administradorModelo::agregar_regla_modelo($dataReglas);
 							if($guardarReglas->rowCount()>=1)
 							{
+								if(isset($_POST['categoria-vista-nueva']))
+								{
+									$agregarVistaSlide = false;
+									$vistaSlide = array();
+									if(isset($_POST['categoria-slide-url-1-nueva']) && isset($_POST['categoria-slide-img-1-nueva']) && $_POST['categoria-slide-img-1-nueva']>0)
+									{
+										array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-1-nueva'],"img"=>$_POST['categoria-slide-img-1-nueva']));
+										$agregarVistaSlide = true;
+									}
+									if(isset($_POST['categoria-slide-url-2-nueva']) && isset($_POST['categoria-slide-img-2-nueva']) && $_POST['categoria-slide-img-2-nueva']>0)
+									{
+										array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-2-nueva'],"img"=>$_POST['categoria-slide-img-2-nueva']));
+										$agregarVistaSlide = true;
+									}
+									if(isset($_POST['categoria-slide-url-3-nueva']) && isset($_POST['categoria-slide-img-3-nueva']) && $_POST['categoria-slide-img-3-nueva']>0)
+									{
+										array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-3-nueva'],"img"=>$_POST['categoria-slide-img-3-nueva']));
+										$agregarVistaSlide = true;
+									}
+									if(isset($_POST['categoria-slide-url-4-nueva']) && isset($_POST['categoria-slide-img-4-nueva']) && $_POST['categoria-slide-img-4-nueva']>0)
+									{
+										array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-4-nueva'],"img"=>$_POST['categoria-slide-img-4-nueva']));
+										$agregarVistaSlide = true;
+									}
+									if(isset($_POST['categoria-slide-url-5-nueva']) && isset($_POST['categoria-slide-img-5-nueva']) && $_POST['categoria-slide-img-5-nueva']>0)
+									{
+										array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-5-nueva'],"img"=>$_POST['categoria-slide-img-5-nueva']));
+										$agregarVistaSlide = true;
+									}
+									$agregarVistaModulos = false;
+									$vistaModulos = array();
+									if(isset($_POST['categoria-modulos-url-1-nueva']) && isset($_POST['categoria-modulos-img-1-nueva']) && $_POST['categoria-modulos-img-1-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-1-nueva'],"img"=>$_POST['categoria-modulos-img-1-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-2-nueva']) && isset($_POST['categoria-modulos-img-2-nueva']) && $_POST['categoria-modulos-img-2-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-2-nueva'],"img"=>$_POST['categoria-modulos-img-2-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-3-nueva']) && isset($_POST['categoria-modulos-img-3-nueva']) && $_POST['categoria-modulos-img-3-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-3-nueva'],"img"=>$_POST['categoria-modulos-img-3-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-4-nueva']) && isset($_POST['categoria-modulos-img-4-nueva']) && $_POST['categoria-modulos-img-4-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-4-nueva'],"img"=>$_POST['categoria-modulos-img-4-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-5-nueva']) && isset($_POST['categoria-modulos-img-5-nueva']) && $_POST['categoria-modulos-img-5-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-5-nueva'],"img"=>$_POST['categoria-modulos-img-5-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-6-nueva']) && isset($_POST['categoria-modulos-img-6-nueva']) && $_POST['categoria-modulos-img-6-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-6-nueva'],"img"=>$_POST['categoria-modulos-img-6-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-7-nueva']) && isset($_POST['categoria-modulos-img-7-nueva']) && $_POST['categoria-modulos-img-7-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-7-nueva'],"img"=>$_POST['categoria-modulos-img-7-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-8-nueva']) && isset($_POST['categoria-modulos-img-8-nueva']) && $_POST['categoria-modulos-img-8-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-8-nueva'],"img"=>$_POST['categoria-modulos-img-8-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-9-nueva']) && isset($_POST['categoria-modulos-img-9-nueva']) && $_POST['categoria-modulos-img-9-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-9-nueva'],"img"=>$_POST['categoria-modulos-img-9-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-10-nueva']) && isset($_POST['categoria-modulos-img-10-nueva']) && $_POST['categoria-modulos-img-10-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-10-nueva'],"img"=>$_POST['categoria-modulos-img-10-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-11-nueva']) && isset($_POST['categoria-modulos-img-11-nueva']) && $_POST['categoria-modulos-img-11-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-11-nueva'],"img"=>$_POST['categoria-modulos-img-11-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-12-nueva']) && isset($_POST['categoria-modulos-img-12-nueva']) && $_POST['categoria-modulos-img-12-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-12-nueva'],"img"=>$_POST['categoria-modulos-img-12-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-13-nueva']) && isset($_POST['categoria-modulos-img-13-nueva']) && $_POST['categoria-modulos-img-13-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-13-nueva'],"img"=>$_POST['categoria-modulos-img-13-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-14-nueva']) && isset($_POST['categoria-modulos-img-14-nueva']) && $_POST['categoria-modulos-img-14-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-14-nueva'],"img"=>$_POST['categoria-modulos-img-14-nueva']));
+										$agregarVistaModulos = true;
+									}
+									if(isset($_POST['categoria-modulos-url-15-nueva']) && isset($_POST['categoria-modulos-img-15-nueva']) && $_POST['categoria-modulos-img-15-nueva']>0)
+									{
+										array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-15-nueva'],"img"=>$_POST['categoria-modulos-img-15-nueva']));
+										$agregarVistaModulos = true;
+									}
+									$agregarVistaMarcas = false;
+									$vistaMarcas = array();
+									if(isset($_POST['categoria-marca-1-nueva']) && $_POST['categoria-marca-1-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-1-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-2-nueva']) && $_POST['categoria-marca-2-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-2-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-3-nueva']) && $_POST['categoria-marca-3-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-3-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-4-nueva']) && $_POST['categoria-marca-4-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-4-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-5-nueva']) && $_POST['categoria-marca-5-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-5-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-6-nueva']) && $_POST['categoria-marca-6-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-6-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-7-nueva']) && $_POST['categoria-marca-7-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-7-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-8-nueva']) && $_POST['categoria-marca-8-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-8-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-9-nueva']) && $_POST['categoria-marca-9-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-9-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-10-nueva']) && $_POST['categoria-marca-10-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-10-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-11-nueva']) && $_POST['categoria-marca-11-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-11-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-12-nueva']) && $_POST['categoria-marca-12-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-12-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-13-nueva']) && $_POST['categoria-marca-13-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-13-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-14-nueva']) && $_POST['categoria-marca-14-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-14-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-15-nueva']) && $_POST['categoria-marca-15-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-15-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-16-nueva']) && $_POST['categoria-marca-16-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-16-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-17-nueva']) && $_POST['categoria-marca-17-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-17-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-18-nueva']) && $_POST['categoria-marca-18-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-18-nueva']);
+										$agregarVistaMarcas = true;
+                                    }
+                                    if(isset($_POST['categoria-marca-19-nueva']) && $_POST['categoria-marca-19-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-19-nueva']);
+										$agregarVistaMarcas = true;
+									}
+                                    if(isset($_POST['categoria-marca-20-nueva']) && $_POST['categoria-marca-20-nueva']>0)
+									{
+										array_push($vistaMarcas, $_POST['categoria-marca-20-nueva']);
+										$agregarVistaMarcas = true;
+									}
+									$agregarVistaBanner = false;
+									$vistaBanner = array();
+									if(isset($_POST['categoria-banner-publicitario-url-nueva']) && isset($_POST['categoria-banner-publicitario-img-nueva']) && $_POST['categoria-banner-publicitario-img-nueva']>0)
+									{
+										array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-nueva'],"img"=>$_POST['categoria-banner-publicitario-img-nueva']));
+										$agregarVistaBanner = true;
+									}
+									if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaMarcas == true ||$agregarVistaBanner == true)
+									{
+										$dataVistas = [
+											"Id"=>$datos_categoria['id'],
+											"Slides"=>$vistaSlide,
+											"Modulos"=>$vistaModulos,
+											"Marcas"=>$vistaMarcas,
+											"Banner"=>$vistaBanner
+										];
+										$guardarReglas = administradorModelo::agregar_vista_modelo($dataVistas);
+									}
+								}
 								$alerta=[
 									"Alerta"=>"recargar",
 									"Titulo"=>"Categoria añadida",
@@ -720,6 +1174,12 @@
 
 		public function editar_categoria_controlador()
 		{
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error",
+				"Texto"=>"Ha ocurrido un error inesperado, revisa la información que haz proporcionado por favor.",
+				"Tipo"=>"error"
+			];
 			$codigo=mainModel::limpiar_cadena($_POST['categoria-id-editar']);
 			$nombre=mainModel::limpiar_cadena($_POST['categoria-nombre-editar']);
 			$slug=mainModel::limpiar_cadena($_POST['categoria-slug-editar']);
@@ -777,6 +1237,492 @@
 						"Texto"=>"Los datos fueron editados con éxito",
 						"Tipo"=>"success"
 					];
+				}
+				
+				$vistaPersonalizada = administradorControlador::obtener_vista_controlador($codigo);
+				if($vistaPersonalizada->rowCount()>=1)
+				{
+					if(isset($_POST['categoria-vista-editar'])) {
+						$editarVistaSlide = false;
+						$vistaSlide = array();
+						if(isset($_POST['categoria-slide-url-1-editar']) && isset($_POST['categoria-slide-img-1-editar']) && $_POST['categoria-slide-img-1-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-1-editar'],"img"=>$_POST['categoria-slide-img-1-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-2-editar']) && isset($_POST['categoria-slide-img-2-editar']) && $_POST['categoria-slide-img-2-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-2-editar'],"img"=>$_POST['categoria-slide-img-2-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-3-editar']) && isset($_POST['categoria-slide-img-3-editar']) && $_POST['categoria-slide-img-3-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-3-editar'],"img"=>$_POST['categoria-slide-img-3-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-4-editar']) && isset($_POST['categoria-slide-img-4-editar']) && $_POST['categoria-slide-img-4-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-4-editar'],"img"=>$_POST['categoria-slide-img-4-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-5-editar']) && isset($_POST['categoria-slide-img-5-editar']) && $_POST['categoria-slide-img-5-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-5-editar'],"img"=>$_POST['categoria-slide-img-5-editar']));
+							$editarVistaSlide = true;
+						}
+						$editarVistaModulos = false;
+						$vistaModulos = array();
+						if(isset($_POST['categoria-modulos-url-1-editar']) && isset($_POST['categoria-modulos-img-1-editar']) && $_POST['categoria-modulos-img-1-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-1-editar'],"img"=>$_POST['categoria-modulos-img-1-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-2-editar']) && isset($_POST['categoria-modulos-img-2-editar']) && $_POST['categoria-modulos-img-2-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-2-editar'],"img"=>$_POST['categoria-modulos-img-2-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-3-editar']) && isset($_POST['categoria-modulos-img-3-editar']) && $_POST['categoria-modulos-img-3-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-3-editar'],"img"=>$_POST['categoria-modulos-img-3-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-4-editar']) && isset($_POST['categoria-modulos-img-4-editar']) && $_POST['categoria-modulos-img-4-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-4-editar'],"img"=>$_POST['categoria-modulos-img-4-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-5-editar']) && isset($_POST['categoria-modulos-img-5-editar']) && $_POST['categoria-modulos-img-5-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-5-editar'],"img"=>$_POST['categoria-modulos-img-5-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-6-editar']) && isset($_POST['categoria-modulos-img-6-editar']) && $_POST['categoria-modulos-img-6-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-6-editar'],"img"=>$_POST['categoria-modulos-img-6-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-7-editar']) && isset($_POST['categoria-modulos-img-7-editar']) && $_POST['categoria-modulos-img-7-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-7-editar'],"img"=>$_POST['categoria-modulos-img-7-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-8-editar']) && isset($_POST['categoria-modulos-img-8-editar']) && $_POST['categoria-modulos-img-8-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-8-editar'],"img"=>$_POST['categoria-modulos-img-8-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-9-editar']) && isset($_POST['categoria-modulos-img-9-editar']) && $_POST['categoria-modulos-img-9-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-9-editar'],"img"=>$_POST['categoria-modulos-img-9-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-10-editar']) && isset($_POST['categoria-modulos-img-10-editar']) && $_POST['categoria-modulos-img-10-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-10-editar'],"img"=>$_POST['categoria-modulos-img-10-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-11-editar']) && isset($_POST['categoria-modulos-img-11-editar']) && $_POST['categoria-modulos-img-11-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-11-editar'],"img"=>$_POST['categoria-modulos-img-11-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-12-editar']) && isset($_POST['categoria-modulos-img-12-editar']) && $_POST['categoria-modulos-img-12-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-12-editar'],"img"=>$_POST['categoria-modulos-img-12-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-13-editar']) && isset($_POST['categoria-modulos-img-13-editar']) && $_POST['categoria-modulos-img-13-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-13-editar'],"img"=>$_POST['categoria-modulos-img-13-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-14-editar']) && isset($_POST['categoria-modulos-img-14-editar']) && $_POST['categoria-modulos-img-14-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-14-editar'],"img"=>$_POST['categoria-modulos-img-14-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-15-editar']) && isset($_POST['categoria-modulos-img-15-editar']) && $_POST['categoria-modulos-img-15-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-15-editar'],"img"=>$_POST['categoria-modulos-img-15-editar']));
+							$editarVistaModulos = true;
+						}
+						$editarVistaMarcas = false;
+						$vistaMarcas = array();
+						if(isset($_POST['categoria-marca-1-editar']) && $_POST['categoria-marca-1-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-1-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-2-editar']) && $_POST['categoria-marca-2-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-2-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-3-editar']) && $_POST['categoria-marca-3-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-3-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-4-editar']) && $_POST['categoria-marca-4-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-4-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-5-editar']) && $_POST['categoria-marca-5-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-5-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-6-editar']) && $_POST['categoria-marca-6-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-6-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-7-editar']) && $_POST['categoria-marca-7-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-7-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-8-editar']) && $_POST['categoria-marca-8-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-8-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-9-editar']) && $_POST['categoria-marca-9-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-9-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-10-editar']) && $_POST['categoria-marca-10-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-10-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-11-editar']) && $_POST['categoria-marca-11-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-11-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-12-editar']) && $_POST['categoria-marca-12-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-12-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-13-editar']) && $_POST['categoria-marca-13-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-13-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-14-editar']) && $_POST['categoria-marca-14-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-14-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-15-editar']) && $_POST['categoria-marca-15-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-15-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-16-editar']) && $_POST['categoria-marca-16-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-16-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-17-editar']) && $_POST['categoria-marca-17-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-17-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-18-editar']) && $_POST['categoria-marca-18-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-18-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-19-editar']) && $_POST['categoria-marca-19-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-19-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-20-editar']) && $_POST['categoria-marca-20-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-20-editar']);
+							$editarVistaMarcas = true;
+						}
+						$editarVistaBanner = false;
+						$vistaBanner = array();
+						if(isset($_POST['categoria-banner-publicitario-url-editar']) && isset($_POST['categoria-banner-publicitario-img-editar']) && $_POST['categoria-banner-publicitario-img-editar']>0)
+						{
+							array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-editar'],"img"=>$_POST['categoria-banner-publicitario-img-editar']));
+							$editarVistaBanner = true;
+						}
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaMarcas == true || $editarVistaBanner == true)
+						{
+							$dataVistas = [
+								"Id"=>$codigo,
+								"Slides"=>$vistaSlide,
+								"Modulos"=>$vistaModulos,
+								"Marcas"=>$vistaMarcas,
+								"Banner"=>$vistaBanner
+							];
+							$guardarReglas = administradorModelo::editar_vista_modelo($dataVistas);
+							if ($guardarReglas->rowCount()>0){					
+								$alerta=[
+									"Alerta"=>"recargar",
+									"Titulo"=>"Datos Actualizados",
+									"Texto"=>"Los datos fueron editados con éxito",
+									"Tipo"=>"success"
+								];
+							}
+						}
+					}
+					else {
+						$borrarVista = administradorModelo::eliminar_vista_modelo($codigo);
+						if ($borrarVista->rowCount()>0) {
+							$alerta=[
+								"Alerta"=>"recargar",
+								"Titulo"=>"Datos Actualizados",
+								"Texto"=>"Los datos fueron editados con éxito",
+								"Tipo"=>"success"
+							];
+						}
+					}
+				}
+				else {
+					if(isset($_POST['categoria-vista-editar'])) {
+						$editarVistaSlide = false;
+						$vistaSlide = array();
+						if(isset($_POST['categoria-slide-url-1-editar']) && isset($_POST['categoria-slide-img-1-editar']) && $_POST['categoria-slide-img-1-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-1-editar'],"img"=>$_POST['categoria-slide-img-1-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-2-editar']) && isset($_POST['categoria-slide-img-2-editar']) && $_POST['categoria-slide-img-2-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-2-editar'],"img"=>$_POST['categoria-slide-img-2-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-3-editar']) && isset($_POST['categoria-slide-img-3-editar']) && $_POST['categoria-slide-img-3-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-3-editar'],"img"=>$_POST['categoria-slide-img-3-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-4-editar']) && isset($_POST['categoria-slide-img-4-editar']) && $_POST['categoria-slide-img-4-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-4-editar'],"img"=>$_POST['categoria-slide-img-4-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['categoria-slide-url-5-editar']) && isset($_POST['categoria-slide-img-5-editar']) && $_POST['categoria-slide-img-5-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['categoria-slide-url-5-editar'],"img"=>$_POST['categoria-slide-img-5-editar']));
+							$editarVistaSlide = true;
+						}
+						$editarVistaModulos = false;
+						$vistaModulos = array();
+						if(isset($_POST['categoria-modulos-url-1-editar']) && isset($_POST['categoria-modulos-img-1-editar']) && $_POST['categoria-modulos-img-1-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-1-editar'],"img"=>$_POST['categoria-modulos-img-1-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-2-editar']) && isset($_POST['categoria-modulos-img-2-editar']) && $_POST['categoria-modulos-img-2-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-2-editar'],"img"=>$_POST['categoria-modulos-img-2-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-3-editar']) && isset($_POST['categoria-modulos-img-3-editar']) && $_POST['categoria-modulos-img-3-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-3-editar'],"img"=>$_POST['categoria-modulos-img-3-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-4-editar']) && isset($_POST['categoria-modulos-img-4-editar']) && $_POST['categoria-modulos-img-4-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-4-editar'],"img"=>$_POST['categoria-modulos-img-4-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-5-editar']) && isset($_POST['categoria-modulos-img-5-editar']) && $_POST['categoria-modulos-img-5-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-5-editar'],"img"=>$_POST['categoria-modulos-img-5-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-6-editar']) && isset($_POST['categoria-modulos-img-6-editar']) && $_POST['categoria-modulos-img-6-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-6-editar'],"img"=>$_POST['categoria-modulos-img-6-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-7-editar']) && isset($_POST['categoria-modulos-img-7-editar']) && $_POST['categoria-modulos-img-7-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-7-editar'],"img"=>$_POST['categoria-modulos-img-7-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-8-editar']) && isset($_POST['categoria-modulos-img-8-editar']) && $_POST['categoria-modulos-img-8-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-8-editar'],"img"=>$_POST['categoria-modulos-img-8-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-9-editar']) && isset($_POST['categoria-modulos-img-9-editar']) && $_POST['categoria-modulos-img-9-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-9-editar'],"img"=>$_POST['categoria-modulos-img-9-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-10-editar']) && isset($_POST['categoria-modulos-img-10-editar']) && $_POST['categoria-modulos-img-10-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-10-editar'],"img"=>$_POST['categoria-modulos-img-10-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-11-editar']) && isset($_POST['categoria-modulos-img-11-editar']) && $_POST['categoria-modulos-img-11-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-11-editar'],"img"=>$_POST['categoria-modulos-img-11-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-12-editar']) && isset($_POST['categoria-modulos-img-12-editar']) && $_POST['categoria-modulos-img-12-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-12-editar'],"img"=>$_POST['categoria-modulos-img-12-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-13-editar']) && isset($_POST['categoria-modulos-img-13-editar']) && $_POST['categoria-modulos-img-13-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-13-editar'],"img"=>$_POST['categoria-modulos-img-13-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-14-editar']) && isset($_POST['categoria-modulos-img-14-editar']) && $_POST['categoria-modulos-img-14-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-14-editar'],"img"=>$_POST['categoria-modulos-img-14-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['categoria-modulos-url-15-editar']) && isset($_POST['categoria-modulos-img-15-editar']) && $_POST['categoria-modulos-img-15-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['categoria-modulos-url-15-editar'],"img"=>$_POST['categoria-modulos-img-15-editar']));
+							$editarVistaModulos = true;
+						}
+						$editarVistaMarcas = false;
+						$vistaMarcas = array();
+						if(isset($_POST['categoria-marca-1-editar']) && $_POST['categoria-marca-1-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-1-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-2-editar']) && $_POST['categoria-marca-2-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-2-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-3-editar']) && $_POST['categoria-marca-3-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-3-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-4-editar']) && $_POST['categoria-marca-4-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-4-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-5-editar']) && $_POST['categoria-marca-5-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-5-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-6-editar']) && $_POST['categoria-marca-6-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-6-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-7-editar']) && $_POST['categoria-marca-7-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-7-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-8-editar']) && $_POST['categoria-marca-8-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-8-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-9-editar']) && $_POST['categoria-marca-9-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-9-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-10-editar']) && $_POST['categoria-marca-10-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-10-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-11-editar']) && $_POST['categoria-marca-11-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-11-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-12-editar']) && $_POST['categoria-marca-12-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-12-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-13-editar']) && $_POST['categoria-marca-13-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-13-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-14-editar']) && $_POST['categoria-marca-14-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-14-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-15-editar']) && $_POST['categoria-marca-15-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-15-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-16-editar']) && $_POST['categoria-marca-16-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-16-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-17-editar']) && $_POST['categoria-marca-17-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-17-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-18-editar']) && $_POST['categoria-marca-18-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-18-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-19-editar']) && $_POST['categoria-marca-19-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-19-editar']);
+							$editarVistaMarcas = true;
+						}
+						if(isset($_POST['categoria-marca-20-editar']) && $_POST['categoria-marca-20-editar']>0)
+						{
+							array_push($vistaMarcas, $_POST['categoria-marca-20-editar']);
+							$editarVistaMarcas = true;
+						}
+						$editarVistaBanner = false;
+						$vistaBanner = array();
+						if(isset($_POST['categoria-banner-publicitario-url-editar']) && isset($_POST['categoria-banner-publicitario-img-editar']) && $_POST['categoria-banner-publicitario-img-editar']>0)
+						{
+							array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-editar'],"img"=>$_POST['categoria-banner-publicitario-img-editar']));
+							$editarVistaBanner = true;
+						}
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaMarcas == true || $editarVistaBanner == true)
+						{
+							$dataVistas = [
+								"Id"=>$codigo,
+								"Slides"=>$vistaSlide,
+								"Modulos"=>$vistaModulos,
+								"Marcas"=>$vistaMarcas,
+								"Banner"=>$vistaBanner
+							];
+							$guardarReglas = administradorModelo::agregar_vista_modelo($dataVistas);
+							if ($guardarReglas->rowCount()>0){					
+								$alerta=[
+									"Alerta"=>"recargar",
+									"Titulo"=>"Datos Actualizados",
+									"Texto"=>"Los datos fueron editados con éxito",
+									"Tipo"=>"success"
+								];
+							}
+						}
+					}
 				}
 			}
 			return mainModel::sweet_alert($alerta);
@@ -3356,6 +4302,132 @@
 				$guardarMarca=administradorModelo::agregar_marca_modelo($dataAC);
 				if($guardarMarca->rowCount()>=1)
 				{
+					if(isset($_POST['marca-vista-nueva']))
+					{
+						$agregarVistaSlide = false;
+						$vistaSlide = array();
+						if(isset($_POST['marca-slide-url-1-nueva']) && isset($_POST['marca-slide-img-1-nueva']) && $_POST['marca-slide-img-1-nueva']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-1-nueva'],"img"=>$_POST['marca-slide-img-1-nueva']));
+							$agregarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-2-nueva']) && isset($_POST['marca-slide-img-2-nueva']) && $_POST['marca-slide-img-2-nueva']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-2-nueva'],"img"=>$_POST['marca-slide-img-2-nueva']));
+							$agregarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-3-nueva']) && isset($_POST['marca-slide-img-3-nueva']) && $_POST['marca-slide-img-3-nueva']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-3-nueva'],"img"=>$_POST['marca-slide-img-3-nueva']));
+							$agregarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-4-nueva']) && isset($_POST['marca-slide-img-4-nueva']) && $_POST['marca-slide-img-4-nueva']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-4-nueva'],"img"=>$_POST['marca-slide-img-4-nueva']));
+							$agregarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-5-nueva']) && isset($_POST['marca-slide-img-5-nueva']) && $_POST['marca-slide-img-5-nueva']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-5-nueva'],"img"=>$_POST['marca-slide-img-5-nueva']));
+							$agregarVistaSlide = true;
+						}
+						$agregarVistaModulos = false;
+						$vistaModulos = array();
+						if(isset($_POST['marca-modulos-url-1-nueva']) && isset($_POST['marca-modulos-img-1-nueva']) && $_POST['marca-modulos-img-1-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-1-nueva'],"img"=>$_POST['marca-modulos-img-1-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-2-nueva']) && isset($_POST['marca-modulos-img-2-nueva']) && $_POST['marca-modulos-img-2-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-2-nueva'],"img"=>$_POST['marca-modulos-img-2-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-3-nueva']) && isset($_POST['marca-modulos-img-3-nueva']) && $_POST['marca-modulos-img-3-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-3-nueva'],"img"=>$_POST['marca-modulos-img-3-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-4-nueva']) && isset($_POST['marca-modulos-img-4-nueva']) && $_POST['marca-modulos-img-4-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-4-nueva'],"img"=>$_POST['marca-modulos-img-4-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-5-nueva']) && isset($_POST['marca-modulos-img-5-nueva']) && $_POST['marca-modulos-img-5-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-5-nueva'],"img"=>$_POST['marca-modulos-img-5-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-6-nueva']) && isset($_POST['marca-modulos-img-6-nueva']) && $_POST['marca-modulos-img-6-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-6-nueva'],"img"=>$_POST['marca-modulos-img-6-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-7-nueva']) && isset($_POST['marca-modulos-img-7-nueva']) && $_POST['marca-modulos-img-7-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-7-nueva'],"img"=>$_POST['marca-modulos-img-7-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-8-nueva']) && isset($_POST['marca-modulos-img-8-nueva']) && $_POST['marca-modulos-img-8-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-8-nueva'],"img"=>$_POST['marca-modulos-img-8-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-9-nueva']) && isset($_POST['marca-modulos-img-9-nueva']) && $_POST['marca-modulos-img-9-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-9-nueva'],"img"=>$_POST['marca-modulos-img-9-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-10-nueva']) && isset($_POST['marca-modulos-img-10-nueva']) && $_POST['marca-modulos-img-10-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-10-nueva'],"img"=>$_POST['marca-modulos-img-10-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-11-nueva']) && isset($_POST['marca-modulos-img-11-nueva']) && $_POST['marca-modulos-img-11-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-11-nueva'],"img"=>$_POST['marca-modulos-img-11-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-12-nueva']) && isset($_POST['marca-modulos-img-12-nueva']) && $_POST['marca-modulos-img-12-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-12-nueva'],"img"=>$_POST['marca-modulos-img-12-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-13-nueva']) && isset($_POST['marca-modulos-img-13-nueva']) && $_POST['marca-modulos-img-13-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-13-nueva'],"img"=>$_POST['marca-modulos-img-13-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-14-nueva']) && isset($_POST['marca-modulos-img-14-nueva']) && $_POST['marca-modulos-img-14-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-14-nueva'],"img"=>$_POST['marca-modulos-img-14-nueva']));
+							$agregarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-15-nueva']) && isset($_POST['marca-modulos-img-15-nueva']) && $_POST['marca-modulos-img-15-nueva']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-15-nueva'],"img"=>$_POST['marca-modulos-img-15-nueva']));
+							$agregarVistaModulos = true;
+						}
+						$agregarVistaBanner = false;
+						$vistaBanner = array();
+						if(isset($_POST['marca-banner-publicitario-url-nueva']) && isset($_POST['marca-banner-publicitario-img-nueva']) && $_POST['marca-banner-publicitario-img-nueva']>0)
+						{
+							array_push($vistaBanner, array("url"=>$_POST['marca-banner-publicitario-url-nueva'],"img"=>$_POST['marca-banner-publicitario-img-nueva']));
+							$agregarVistaBanner = true;
+						}
+						if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaBanner==true)
+						{
+							$id_marca = administradorModelo::obtener_marca_id_slug_modelo($slug);
+							$datos_marca=$id_marca->fetch();
+							$dataVistas = [
+								"Id"=>$datos_marca['id'],
+								"Slides"=>$vistaSlide,
+								"Modulos"=>$vistaModulos,
+								"Banner"=>$vistaBanner
+							];
+							$guardarReglas = administradorModelo::agregar_vista_marca_modelo($dataVistas);
+						}
+					}
 					$alerta=[
 						"Alerta"=>"recargar",
 						"Titulo"=>"Marca añadida",
@@ -3520,6 +4592,12 @@
 
 		public function editar_marca_controlador()
 		{
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error",
+				"Texto"=>"Ha ocurrido un error inesperado, revisa la información que haz proporcionado por favor.",
+				"Tipo"=>"error"
+			];
 			$codigo=mainModel::limpiar_cadena($_POST['marca-id-editar']);
 			$nombre=mainModel::limpiar_cadena($_POST['marca-nombre-editar']);
 			$slug=mainModel::limpiar_cadena($_POST['marca-slug-editar']);
@@ -3568,7 +4646,753 @@
 						"Tipo"=>"error"
 					];
 				}
+				
+				$vistaPersonalizada = administradorControlador::obtener_vista_controlador($codigo);
+				if($vistaPersonalizada->rowCount()>=1)
+				{
+					if(isset($_POST['marca-vista-editar'])) {
+						$editarVistaSlide = false;
+						$vistaSlide = array();
+						if(isset($_POST['marca-slide-url-1-editar']) && isset($_POST['marca-slide-img-1-editar']) && $_POST['marca-slide-img-1-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-1-editar'],"img"=>$_POST['marca-slide-img-1-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-2-editar']) && isset($_POST['marca-slide-img-2-editar']) && $_POST['marca-slide-img-2-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-2-editar'],"img"=>$_POST['marca-slide-img-2-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-3-editar']) && isset($_POST['marca-slide-img-3-editar']) && $_POST['marca-slide-img-3-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-3-editar'],"img"=>$_POST['marca-slide-img-3-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-4-editar']) && isset($_POST['marca-slide-img-4-editar']) && $_POST['marca-slide-img-4-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-4-editar'],"img"=>$_POST['marca-slide-img-4-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-5-editar']) && isset($_POST['marca-slide-img-5-editar']) && $_POST['marca-slide-img-5-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-5-editar'],"img"=>$_POST['marca-slide-img-5-editar']));
+							$editarVistaSlide = true;
+						}
+						$editarVistaModulos = false;
+						$vistaModulos = array();
+						if(isset($_POST['marca-modulos-url-1-editar']) && isset($_POST['marca-modulos-img-1-editar']) && $_POST['marca-modulos-img-1-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-1-editar'],"img"=>$_POST['marca-modulos-img-1-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-2-editar']) && isset($_POST['marca-modulos-img-2-editar']) && $_POST['marca-modulos-img-2-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-2-editar'],"img"=>$_POST['marca-modulos-img-2-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-3-editar']) && isset($_POST['marca-modulos-img-3-editar']) && $_POST['marca-modulos-img-3-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-3-editar'],"img"=>$_POST['marca-modulos-img-3-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-4-editar']) && isset($_POST['marca-modulos-img-4-editar']) && $_POST['marca-modulos-img-4-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-4-editar'],"img"=>$_POST['marca-modulos-img-4-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-5-editar']) && isset($_POST['marca-modulos-img-5-editar']) && $_POST['marca-modulos-img-5-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-5-editar'],"img"=>$_POST['marca-modulos-img-5-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-6-editar']) && isset($_POST['marca-modulos-img-6-editar']) && $_POST['marca-modulos-img-6-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-6-editar'],"img"=>$_POST['marca-modulos-img-6-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-7-editar']) && isset($_POST['marca-modulos-img-7-editar']) && $_POST['marca-modulos-img-7-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-7-editar'],"img"=>$_POST['marca-modulos-img-7-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-8-editar']) && isset($_POST['marca-modulos-img-8-editar']) && $_POST['marca-modulos-img-8-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-8-editar'],"img"=>$_POST['marca-modulos-img-8-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-9-editar']) && isset($_POST['marca-modulos-img-9-editar']) && $_POST['marca-modulos-img-9-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-9-editar'],"img"=>$_POST['marca-modulos-img-9-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-10-editar']) && isset($_POST['marca-modulos-img-10-editar']) && $_POST['marca-modulos-img-10-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-10-editar'],"img"=>$_POST['marca-modulos-img-10-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-11-editar']) && isset($_POST['marca-modulos-img-11-editar']) && $_POST['marca-modulos-img-11-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-11-editar'],"img"=>$_POST['marca-modulos-img-11-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-12-editar']) && isset($_POST['marca-modulos-img-12-editar']) && $_POST['marca-modulos-img-12-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-12-editar'],"img"=>$_POST['marca-modulos-img-12-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-13-editar']) && isset($_POST['marca-modulos-img-13-editar']) && $_POST['marca-modulos-img-13-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-13-editar'],"img"=>$_POST['marca-modulos-img-13-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-14-editar']) && isset($_POST['marca-modulos-img-14-editar']) && $_POST['marca-modulos-img-14-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-14-editar'],"img"=>$_POST['marca-modulos-img-14-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-15-editar']) && isset($_POST['marca-modulos-img-15-editar']) && $_POST['marca-modulos-img-15-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-15-editar'],"img"=>$_POST['marca-modulos-img-15-editar']));
+							$editarVistaModulos = true;
+						}
+						$editarVistaBanner = false;
+						$vistaBanner = array();
+						if(isset($_POST['marca-banner-publicitario-url-editar']) && isset($_POST['marca-banner-publicitario-img-editar']) && $_POST['marca-banner-publicitario-img-editar']>0)
+						{
+							array_push($vistaBanner, array("url"=>$_POST['marca-banner-publicitario-url-editar'],"img"=>$_POST['marca-banner-publicitario-img-editar']));
+							$editarVistaBanner = true;
+						}
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaBanner == true)
+						{
+							$dataVistas = [
+								"Id"=>$codigo,
+								"Slides"=>$vistaSlide,
+								"Modulos"=>$vistaModulos,
+								"Banner"=>$vistaBanner
+							];
+							$guardarReglas = administradorModelo::editar_vista_marca_modelo($dataVistas);
+							if ($guardarReglas->rowCount()>0){					
+								$alerta=[
+									"Alerta"=>"recargar",
+									"Titulo"=>"Datos Actualizados",
+									"Texto"=>"Los datos fueron editados con éxito",
+									"Tipo"=>"success"
+								];
+							}
+						}
+					}
+					else {
+						$borrarVista = administradorModelo::eliminar_vista_modelo($codigo);
+						if ($borrarVista->rowCount()>0) {
+							$alerta=[
+								"Alerta"=>"recargar",
+								"Titulo"=>"Datos Actualizados",
+								"Texto"=>"Los datos fueron editados con éxito",
+								"Tipo"=>"success"
+							];
+						}
+					}
+				}
+				else {
+					if(isset($_POST['marca-vista-editar'])) {
+						$editarVistaSlide = false;
+						$vistaSlide = array();
+						if(isset($_POST['marca-slide-url-1-editar']) && isset($_POST['marca-slide-img-1-editar']) && $_POST['marca-slide-img-1-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-1-editar'],"img"=>$_POST['marca-slide-img-1-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-2-editar']) && isset($_POST['marca-slide-img-2-editar']) && $_POST['marca-slide-img-2-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-2-editar'],"img"=>$_POST['marca-slide-img-2-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-3-editar']) && isset($_POST['marca-slide-img-3-editar']) && $_POST['marca-slide-img-3-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-3-editar'],"img"=>$_POST['marca-slide-img-3-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-4-editar']) && isset($_POST['marca-slide-img-4-editar']) && $_POST['marca-slide-img-4-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-4-editar'],"img"=>$_POST['marca-slide-img-4-editar']));
+							$editarVistaSlide = true;
+						}
+						if(isset($_POST['marca-slide-url-5-editar']) && isset($_POST['marca-slide-img-5-editar']) && $_POST['marca-slide-img-5-editar']>0)
+						{
+							array_push($vistaSlide, array("url"=>$_POST['marca-slide-url-5-editar'],"img"=>$_POST['marca-slide-img-5-editar']));
+							$editarVistaSlide = true;
+						}
+						$editarVistaModulos = false;
+						$vistaModulos = array();
+						if(isset($_POST['marca-modulos-url-1-editar']) && isset($_POST['marca-modulos-img-1-editar']) && $_POST['marca-modulos-img-1-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-1-editar'],"img"=>$_POST['marca-modulos-img-1-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-2-editar']) && isset($_POST['marca-modulos-img-2-editar']) && $_POST['marca-modulos-img-2-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-2-editar'],"img"=>$_POST['marca-modulos-img-2-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-3-editar']) && isset($_POST['marca-modulos-img-3-editar']) && $_POST['marca-modulos-img-3-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-3-editar'],"img"=>$_POST['marca-modulos-img-3-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-4-editar']) && isset($_POST['marca-modulos-img-4-editar']) && $_POST['marca-modulos-img-4-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-4-editar'],"img"=>$_POST['marca-modulos-img-4-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-5-editar']) && isset($_POST['marca-modulos-img-5-editar']) && $_POST['marca-modulos-img-5-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-5-editar'],"img"=>$_POST['marca-modulos-img-5-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-6-editar']) && isset($_POST['marca-modulos-img-6-editar']) && $_POST['marca-modulos-img-6-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-6-editar'],"img"=>$_POST['marca-modulos-img-6-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-7-editar']) && isset($_POST['marca-modulos-img-7-editar']) && $_POST['marca-modulos-img-7-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-7-editar'],"img"=>$_POST['marca-modulos-img-7-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-8-editar']) && isset($_POST['marca-modulos-img-8-editar']) && $_POST['marca-modulos-img-8-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-8-editar'],"img"=>$_POST['marca-modulos-img-8-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-9-editar']) && isset($_POST['marca-modulos-img-9-editar']) && $_POST['marca-modulos-img-9-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-9-editar'],"img"=>$_POST['marca-modulos-img-9-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-10-editar']) && isset($_POST['marca-modulos-img-10-editar']) && $_POST['marca-modulos-img-10-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-10-editar'],"img"=>$_POST['marca-modulos-img-10-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-11-editar']) && isset($_POST['marca-modulos-img-11-editar']) && $_POST['marca-modulos-img-11-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-11-editar'],"img"=>$_POST['marca-modulos-img-11-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-12-editar']) && isset($_POST['marca-modulos-img-12-editar']) && $_POST['marca-modulos-img-12-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-12-editar'],"img"=>$_POST['marca-modulos-img-12-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-13-editar']) && isset($_POST['marca-modulos-img-13-editar']) && $_POST['marca-modulos-img-13-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-13-editar'],"img"=>$_POST['marca-modulos-img-13-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-14-editar']) && isset($_POST['marca-modulos-img-14-editar']) && $_POST['marca-modulos-img-14-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-14-editar'],"img"=>$_POST['marca-modulos-img-14-editar']));
+							$editarVistaModulos = true;
+						}
+						if(isset($_POST['marca-modulos-url-15-editar']) && isset($_POST['marca-modulos-img-15-editar']) && $_POST['marca-modulos-img-15-editar']>0)
+						{
+							array_push($vistaModulos, array("url"=>$_POST['marca-modulos-url-15-editar'],"img"=>$_POST['marca-modulos-img-15-editar']));
+							$editarVistaModulos = true;
+						}
+						$editarVistaBanner = false;
+						$vistaBanner = array();
+						if(isset($_POST['marca-banner-publicitario-url-editar']) && isset($_POST['marca-banner-publicitario-img-editar']) && $_POST['marca-banner-publicitario-img-editar']>0)
+						{
+							array_push($vistaBanner, array("url"=>$_POST['marca-banner-publicitario-url-editar'],"img"=>$_POST['marca-banner-publicitario-img-editar']));
+							$editarVistaBanner = true;
+						}
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaBanner == true)
+						{
+							$dataVistas = [
+								"Id"=>$codigo,
+								"Slides"=>$vistaSlide,
+								"Modulos"=>$vistaModulos,
+								"Banner"=>$vistaBanner
+							];
+							$guardarReglas = administradorModelo::agregar_vista_marca_modelo($dataVistas);
+							if ($guardarReglas->rowCount()>0){					
+								$alerta=[
+									"Alerta"=>"recargar",
+									"Titulo"=>"Datos Actualizados",
+									"Texto"=>"Los datos fueron editados con éxito",
+									"Tipo"=>"success"
+								];
+							}
+						}
+					}
+				}
 			}
 			return mainModel::sweet_alert($alerta);
+		}
+
+		//CONTROLADORES PARA VISTAS PERSONALIZADAS
+
+		public function obtener_vista_controlador($codigo)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM vistas_personalizadas WHERE id_taxonomia=:Codigo");
+			$sql->bindParam(":Codigo",$codigo);
+			$sql->execute();
+			return $sql;
+		}
+
+		public function cargar_vista_marca_controlador($datosVista, $items)
+		{
+			if ($items == "slides") {
+				$mostrar = json_decode($datosVista['slides'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<h3 class="pb-2 display-5">Slide '.$numeroVista.'</h3>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="marca-slide-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+										<input id="marca-slide-url-'.$numeroVista.'-editar" type="url" name="marca-slide-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="marca-slide-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+										<select id="marca-slide-img-'.$numeroVista.'-editar" name="marca-slide-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 5; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-12">
+								<h3 class="pb-2 display-5">Slide '.$numeroVista.'</h3>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="marca-slide-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+									<input id="marca-slide-url-'.$numeroVista.'-editar" type="url" name="marca-slide-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="marca-slide-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+									<select id="marca-slide-img-'.$numeroVista.'-editar" name="marca-slide-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+			elseif ($items == "modulos") {
+				$mostrar = json_decode($datosVista['columnas'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<h3 class="pb-2 display-5">Módulo '.$numeroVista.'</h3>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="marca-modulos-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+										<input id="marca-modulos-url-'.$numeroVista.'-editar" type="url" name="marca-modulos-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="marca-modulos-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+										<select id="marca-modulos-img-'.$numeroVista.'-editar" name="marca-modulos-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 15; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-12">
+								<h3 class="pb-2 display-5">Módulo '.$numeroVista.'</h3>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="marca-modulos-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+									<input id="marca-modulos-url-'.$numeroVista.'-editar" type="url" name="marca-modulos-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="marca-modulos-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+									<select id="marca-modulos-img-'.$numeroVista.'-editar" name="marca-modulos-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+			elseif ($items == "banner") {
+				$mostrar = json_decode($datosVista['banner'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<h3 class="pb-2 display-5">Banner</h3>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="marca-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+										<input id="marca-banner-url-'.$numeroVista.'-editar" type="url" name="marca-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="marca-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+										<select id="marca-banner-img-'.$numeroVista.'-editar" name="marca-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 1; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-12">
+								<h3 class="pb-2 display-5">Banner</h3>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="marca-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+									<input id="marca-banner-url-'.$numeroVista.'-editar" type="url" name="marca-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="marca-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+									<select id="marca-banner-img-'.$numeroVista.'-editar" name="marca-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+		}
+		
+		public function cargar_medios_vista_controlador($imagen)
+		{
+			$lista="";
+			$consulta="SELECT id, titulo, url FROM medios;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				if ($imagen == $rows['id'])
+				{
+					$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'" selected="">'.$rows['titulo'].'</option>';
+				}
+				else
+				{
+					$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
+				}
+			}
+			return $lista;
+		}
+
+		public function cargar_categorias_vista_controlador($id)
+		{
+			$lista="";
+			$consulta="SELECT * FROM taxonomias WHERE taxonomia = 'marca' ORDER BY nombre;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				if ($id == $rows['id'])
+				{
+					$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+				}
+				else
+				{
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+			}
+			return $lista;
+		}
+
+		public function cargar_vista_categoria_controlador($datosVista, $items)
+		{
+			if ($items == "slides") {
+				$mostrar = json_decode($datosVista['slides'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<h3 class="pb-2 display-5">Slide '.$numeroVista.'</h3>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="categoria-slide-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+										<input id="categoria-slide-url-'.$numeroVista.'-editar" type="url" name="categoria-slide-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="categoria-slide-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+										<select id="categoria-slide-img-'.$numeroVista.'-editar" name="categoria-slide-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 5; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-12">
+								<h3 class="pb-2 display-5">Slide '.$numeroVista.'</h3>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="categoria-slide-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+									<input id="categoria-slide-url-'.$numeroVista.'-editar" type="url" name="categoria-slide-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="categoria-slide-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+									<select id="categoria-slide-img-'.$numeroVista.'-editar" name="categoria-slide-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+			elseif ($items == "modulos") {
+				$mostrar = json_decode($datosVista['columnas'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<h3 class="pb-2 display-5">Módulo '.$numeroVista.'</h3>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="categoria-modulos-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+										<input id="categoria-modulos-url-'.$numeroVista.'-editar" type="url" name="categoria-modulos-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="categoria-modulos-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+										<select id="categoria-modulos-img-'.$numeroVista.'-editar" name="categoria-modulos-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 15; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-12">
+								<h3 class="pb-2 display-5">Módulo '.$numeroVista.'</h3>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="categoria-modulos-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+									<input id="categoria-modulos-url-'.$numeroVista.'-editar" type="url" name="categoria-modulos-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="categoria-modulos-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+									<select id="categoria-modulos-img-'.$numeroVista.'-editar" name="categoria-modulos-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+			elseif ($items == "marcas") {
+				$mostrar = json_decode($datosVista['marcas'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<label for="categoria-marca-'.$numeroVista.'-editar" class=" form-control-label">Marca '.$numeroVista.'</label>
+										<select id="categoria-marca-'.$numeroVista.'-editar" name="categoria-marca-'.$numeroVista.'-editar" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+											<option value="" label="default">Ninguna</option>'.administradorControlador::cargar_categorias_vista_controlador($vista).'
+										</select>
+									</div>
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 20; $numeroVista++) { 
+					echo '
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<label for="categoria-marca-'.$numeroVista.'-editar" class=" form-control-label">Marca '.$numeroVista.'</label>
+								<select id="categoria-marca-'.$numeroVista.'-editar" name="categoria-marca-'.$numeroVista.'-editar" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
+									<option value="" label="default">Ninguna</option>'.administradorControlador::cargar_taxonomias_controlador("marca").'
+								</select>
+							</div>
+						</div>
+					</div>';
+				}
+			}
+			elseif ($items == "banner") {
+				$mostrar = json_decode($datosVista['banner'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-12">
+									<h3 class="pb-2 display-5">Banner</h3>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="categoria-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+										<input id="categoria-banner-url-'.$numeroVista.'-editar" type="url" name="categoria-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+									</div>
+								</div>
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label for="categoria-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+										<select id="categoria-banner-img-'.$numeroVista.'-editar" name="categoria-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-2">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 1; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-12">
+								<h3 class="pb-2 display-5">Banner</h3>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="categoria-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
+									<input id="categoria-banner-url-'.$numeroVista.'-editar" type="url" name="categoria-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="categoria-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
+									<select id="categoria-banner-img-'.$numeroVista.'-editar" name="categoria-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
 		}
 	}
