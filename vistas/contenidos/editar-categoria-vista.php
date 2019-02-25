@@ -239,11 +239,13 @@
 								$arrayModulos = array();
 								$arrayMarcas = array();
 								$arrayBanner = array();
+								$arrayCabecera = array();
 								$datosVista = [
 									"slides"=>json_encode($arraySlides),
 									"columnas"=>json_encode($arrayModulos),
 									"marcas"=>json_encode($arrayMarcas),
-									"banner"=>json_encode($arrayBanner)
+									"banner"=>json_encode($arrayBanner),
+									"cabecera"=>json_encode($arrayCabecera)
 								];
 								$imprimir = "";
 								$sql = $insAdmin->obtener_vista_controlador($_POST['categoria-id-editar']);
@@ -270,14 +272,18 @@
 									<div class="custom-tab">
 										<nav style="margin-bottom: 20px;">
 											<div class="nav nav-tabs" id="nav-tab" role="tablist">
-												<a class="nav-item nav-link active show" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="true">Slides</a>
+												<a class="nav-item nav-link active show" id="custom-nav-cabecera-tab" data-toggle="tab" href="#custom-nav-cabecera" role="tab" aria-controls="custom-nav-cabecera" aria-selected="true">Cabecera</a>
+												<a class="nav-item nav-link" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="true">Slides</a>
 												<a class="nav-item nav-link" id="custom-nav-columnas-tab" data-toggle="tab" href="#custom-nav-columnas" role="tab" aria-controls="custom-nav-columnas" aria-selected="false">Módulos</a>
 												<a class="nav-item nav-link" id="custom-nav-marcas-tab" data-toggle="tab" href="#custom-nav-marcas" role="tab" aria-controls="custom-nav-marcas" aria-selected="false">Marcas</a>
 												<a class="nav-item nav-link" id="custom-nav-banner-tab" data-toggle="tab" href="#custom-nav-banner" role="tab" aria-controls="custom-nav-banner" aria-selected="false">Banner publicitario</a>
 											</div>
 										</nav>
 										<div class="tab-content pl-3 pt-2" id="nav-tabContent">
-											<div class="tab-pane fade active show" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
+											<div class="tab-pane fade active show" id="custom-nav-cabecera" role="tabpanel" aria-labelledby="custom-nav-cabecera-tab">
+												<?php echo $insAdmin->cargar_vista_categoria_controlador($datosVista, "cabecera"); ?>
+											</div>
+											<div class="tab-pane fade" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
 												<?php echo $insAdmin->cargar_vista_categoria_controlador($datosVista, "slides"); ?>
 											</div>
 											<div class="tab-pane fade" id="custom-nav-columnas" role="tabpanel" aria-labelledby="custom-nav-columnas-tab">

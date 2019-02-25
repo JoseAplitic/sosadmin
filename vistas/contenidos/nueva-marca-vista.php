@@ -138,13 +138,30 @@
 									<div class="custom-tab">
 										<nav style="margin-bottom: 20px;">
 											<div class="nav nav-tabs" id="nav-tab" role="tablist">
-												<a class="nav-item nav-link active show" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="true">Slides</a>
+												<a class="nav-item nav-link active show" id="custom-nav-cabecera-tab" data-toggle="tab" href="#custom-nav-cabecera" role="tab" aria-controls="custom-nav-cabecera" aria-selected="true">Cabecera</a>
+												<a class="nav-item nav-link" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="false">Slides</a>
 												<a class="nav-item nav-link" id="custom-nav-columnas-tab" data-toggle="tab" href="#custom-nav-columnas" role="tab" aria-controls="custom-nav-columnas" aria-selected="false">Módulos</a>
 												<a class="nav-item nav-link" id="custom-nav-banner-tab" data-toggle="tab" href="#custom-nav-banner" role="tab" aria-controls="custom-nav-banner" aria-selected="false">Banner publicitario</a>
 											</div>
 										</nav>
 										<div class="tab-content pl-3 pt-2" id="nav-tabContent">
-											<div class="tab-pane fade active show" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
+											<div class="tab-pane fade active show" id="custom-nav-cabecera" role="tabpanel" aria-labelledby="custom-nav-cabecera-tab">
+												<div class="row">
+													<div class="col-sm-9">
+														<div class="form-group">
+															<label for="marca-cabecera-nueva" class="form-control-label">Cabecera</label>
+															<select id="marca-cabecera-nueva" name="marca-cabecera-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+																<option value="" label="default" data-url-image="">Ninguno</option>
+																<?php echo $insAdmin->cargar_medios_controlador(); ?>
+															</select>
+														</div>
+													</div>
+													<div class="col-sm-3">
+														<img id="imagen-cambiar-vista" src="" class="sombra">
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane fade" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
 												<div class="row">
 													<div class="col-12">
 														<h3 class="pb-2 display-5">Slide 1</h3>

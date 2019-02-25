@@ -440,7 +440,14 @@
 								if($guardarReglas->rowCount()>=1)
 								{
 									if(isset($_POST['categoria-vista-nueva']))
-									{
+									{							
+										$agregarVistaCabecera = false;
+										$vistaCabecera = array();
+										if(isset($_POST['categoria-cabecera-nueva']) && $_POST['categoria-cabecera-nueva']>0)
+										{
+											array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['categoria-cabecera-nueva']));
+											$agregarVistaCabecera = true;
+										}
 										$agregarVistaSlide = false;
 										$vistaSlide = array();
 										if(isset($_POST['categoria-slide-url-1-nueva']) && isset($_POST['categoria-slide-img-1-nueva']) && $_POST['categoria-slide-img-1-nueva']>0)
@@ -654,14 +661,15 @@
 											array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-nueva'],"img"=>$_POST['categoria-banner-publicitario-img-nueva']));
 											$agregarVistaBanner = true;
 										}
-										if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaMarcas == true || $agregarVistaBanner == true)
+										if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaMarcas == true || $agregarVistaBanner == true || $agregarVistaCabecera == true)
 										{
 											$dataVistas = [
 												"Id"=>$datos_categoria['id'],
 												"Slides"=>$vistaSlide,
 												"Modulos"=>$vistaModulos,
 												"Marcas"=>$vistaMarcas,
-												"Banner"=>$vistaBanner
+												"Banner"=>$vistaBanner,
+												"Cabecera"=>$vistaCabecera
 											];
 											$guardarReglas = administradorModelo::agregar_vista_modelo($dataVistas);
 										}
@@ -752,7 +760,14 @@
 							if($guardarReglas->rowCount()>=1)
 							{
 								if(isset($_POST['categoria-vista-nueva']))
-								{
+								{				
+									$agregarVistaCabecera = false;
+									$vistaCabecera = array();
+									if(isset($_POST['categoria-cabecera-nueva']) && $_POST['categoria-cabecera-nueva']>0)
+									{
+										array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['categoria-cabecera-nueva']));
+										$agregarVistaCabecera = true;
+									}
 									$agregarVistaSlide = false;
 									$vistaSlide = array();
 									if(isset($_POST['categoria-slide-url-1-nueva']) && isset($_POST['categoria-slide-img-1-nueva']) && $_POST['categoria-slide-img-1-nueva']>0)
@@ -966,14 +981,15 @@
 										array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-nueva'],"img"=>$_POST['categoria-banner-publicitario-img-nueva']));
 										$agregarVistaBanner = true;
 									}
-									if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaMarcas == true ||$agregarVistaBanner == true)
+									if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaMarcas == true ||$agregarVistaBanner == true || $agregarVistaCabecera == true)
 									{
 										$dataVistas = [
 											"Id"=>$datos_categoria['id'],
 											"Slides"=>$vistaSlide,
 											"Modulos"=>$vistaModulos,
 											"Marcas"=>$vistaMarcas,
-											"Banner"=>$vistaBanner
+											"Banner"=>$vistaBanner,
+											"Cabecera"=>$vistaCabecera
 										];
 										$guardarReglas = administradorModelo::agregar_vista_modelo($dataVistas);
 									}
@@ -1153,6 +1169,7 @@
 				$limpiarRelaciones=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
 				$limpiarReglas=administradorModelo::limpiar_reglas_modelo($codigo);
 				$limpiar_descuentos=administradorModelo::limpiar_descuentos_relaciones_modelo($codigo, "categoria");
+				$limpiarVistas=administradorModelo::eliminar_vista_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Categoría eliminada",
@@ -1243,6 +1260,13 @@
 				if($vistaPersonalizada->rowCount()>=1)
 				{
 					if(isset($_POST['categoria-vista-editar'])) {
+						$editarVistaCabecera = false;
+						$vistaCabecera = array();
+						if(isset($_POST['categoria-cabecera-editar']) && $_POST['categoria-cabecera-editar']>0)
+						{
+							array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['categoria-cabecera-editar']));
+							$editarVistaCabecera = true;
+						}
 						$editarVistaSlide = false;
 						$vistaSlide = array();
 						if(isset($_POST['categoria-slide-url-1-editar']) && isset($_POST['categoria-slide-img-1-editar']) && $_POST['categoria-slide-img-1-editar']>0)
@@ -1456,14 +1480,15 @@
 							array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-editar'],"img"=>$_POST['categoria-banner-publicitario-img-editar']));
 							$editarVistaBanner = true;
 						}
-						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaMarcas == true || $editarVistaBanner == true)
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaMarcas == true || $editarVistaBanner == true || $editarVistaCabecera == true)
 						{
 							$dataVistas = [
 								"Id"=>$codigo,
 								"Slides"=>$vistaSlide,
 								"Modulos"=>$vistaModulos,
 								"Marcas"=>$vistaMarcas,
-								"Banner"=>$vistaBanner
+								"Banner"=>$vistaBanner,
+								"Cabecera"=>$vistaCabecera
 							];
 							$guardarReglas = administradorModelo::editar_vista_modelo($dataVistas);
 							if ($guardarReglas->rowCount()>0){					
@@ -1490,6 +1515,13 @@
 				}
 				else {
 					if(isset($_POST['categoria-vista-editar'])) {
+						$editarVistaCabecera = false;
+						$vistaCabecera = array();
+						if(isset($_POST['categoria-cabecera-editar']) && $_POST['categoria-cabecera-editar']>0)
+						{
+							array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['categoria-cabecera-editar']));
+							$editarVistaCabecera = true;
+						}
 						$editarVistaSlide = false;
 						$vistaSlide = array();
 						if(isset($_POST['categoria-slide-url-1-editar']) && isset($_POST['categoria-slide-img-1-editar']) && $_POST['categoria-slide-img-1-editar']>0)
@@ -1703,14 +1735,15 @@
 							array_push($vistaBanner, array("url"=>$_POST['categoria-banner-publicitario-url-editar'],"img"=>$_POST['categoria-banner-publicitario-img-editar']));
 							$editarVistaBanner = true;
 						}
-						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaMarcas == true || $editarVistaBanner == true)
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaMarcas == true || $editarVistaBanner == true || $editarVistaCabecera == true)
 						{
 							$dataVistas = [
 								"Id"=>$codigo,
 								"Slides"=>$vistaSlide,
 								"Modulos"=>$vistaModulos,
 								"Marcas"=>$vistaMarcas,
-								"Banner"=>$vistaBanner
+								"Banner"=>$vistaBanner,
+								"Cabecera"=>$vistaCabecera
 							];
 							$guardarReglas = administradorModelo::agregar_vista_modelo($dataVistas);
 							if ($guardarReglas->rowCount()>0){					
@@ -4304,6 +4337,13 @@
 				{
 					if(isset($_POST['marca-vista-nueva']))
 					{
+						$agregarVistaCabecera = false;
+						$vistaCabecera = array();
+						if(isset($_POST['marca-cabecera-nueva']) && $_POST['marca-cabecera-nueva']>0)
+						{
+							array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['marca-cabecera-nueva']));
+							$agregarVistaCabecera = true;
+						}
 						$agregarVistaSlide = false;
 						$vistaSlide = array();
 						if(isset($_POST['marca-slide-url-1-nueva']) && isset($_POST['marca-slide-img-1-nueva']) && $_POST['marca-slide-img-1-nueva']>0)
@@ -4415,7 +4455,7 @@
 							array_push($vistaBanner, array("url"=>$_POST['marca-banner-publicitario-url-nueva'],"img"=>$_POST['marca-banner-publicitario-img-nueva']));
 							$agregarVistaBanner = true;
 						}
-						if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaBanner==true)
+						if($agregarVistaSlide == true || $agregarVistaModulos == true || $agregarVistaBanner==true || $agregarVistaCabecera==true)
 						{
 							$id_marca = administradorModelo::obtener_marca_id_slug_modelo($slug);
 							$datos_marca=$id_marca->fetch();
@@ -4423,7 +4463,8 @@
 								"Id"=>$datos_marca['id'],
 								"Slides"=>$vistaSlide,
 								"Modulos"=>$vistaModulos,
-								"Banner"=>$vistaBanner
+								"Banner"=>$vistaBanner,
+								"Cabecera"=>$vistaCabecera
 							];
 							$guardarReglas = administradorModelo::agregar_vista_marca_modelo($dataVistas);
 						}
@@ -4571,6 +4612,7 @@
 			{
 				$limpiarRelaciones=administradorModelo::limpiar_relaciones_taxonomias_modelo($codigo);
 				$limpiar_descuentos=administradorModelo::limpiar_descuentos_relaciones_modelo($codigo, "marca");
+				$limpiarVistas=administradorModelo::eliminar_vista_modelo($codigo);
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Marca eliminada",
@@ -4651,6 +4693,13 @@
 				if($vistaPersonalizada->rowCount()>=1)
 				{
 					if(isset($_POST['marca-vista-editar'])) {
+						$editarVistaCabecera = false;
+						$vistaCabecera = array();
+						if(isset($_POST['marca-cabecera-editar']) && $_POST['marca-cabecera-editar']>0)
+						{
+							array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['marca-cabecera-editar']));
+							$editarVistaCabecera = true;
+						}
 						$editarVistaSlide = false;
 						$vistaSlide = array();
 						if(isset($_POST['marca-slide-url-1-editar']) && isset($_POST['marca-slide-img-1-editar']) && $_POST['marca-slide-img-1-editar']>0)
@@ -4762,13 +4811,14 @@
 							array_push($vistaBanner, array("url"=>$_POST['marca-banner-publicitario-url-editar'],"img"=>$_POST['marca-banner-publicitario-img-editar']));
 							$editarVistaBanner = true;
 						}
-						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaBanner == true)
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaBanner == true || $editarVistaCabecera == true)
 						{
 							$dataVistas = [
 								"Id"=>$codigo,
 								"Slides"=>$vistaSlide,
 								"Modulos"=>$vistaModulos,
-								"Banner"=>$vistaBanner
+								"Banner"=>$vistaBanner,
+								"Cabecera"=>$vistaCabecera
 							];
 							$guardarReglas = administradorModelo::editar_vista_marca_modelo($dataVistas);
 							if ($guardarReglas->rowCount()>0){					
@@ -4795,6 +4845,13 @@
 				}
 				else {
 					if(isset($_POST['marca-vista-editar'])) {
+						$editarVistaCabecera = false;
+						$vistaCabecera = array();
+						if(isset($_POST['marca-cabecera-editar']) && $_POST['marca-cabecera-editar']>0)
+						{
+							array_push($vistaCabecera, array("cabecera"=>"cabecera","img"=>$_POST['marca-cabecera-editar']));
+							$editarVistaCabecera = true;
+						}
 						$editarVistaSlide = false;
 						$vistaSlide = array();
 						if(isset($_POST['marca-slide-url-1-editar']) && isset($_POST['marca-slide-img-1-editar']) && $_POST['marca-slide-img-1-editar']>0)
@@ -4906,13 +4963,14 @@
 							array_push($vistaBanner, array("url"=>$_POST['marca-banner-publicitario-url-editar'],"img"=>$_POST['marca-banner-publicitario-img-editar']));
 							$editarVistaBanner = true;
 						}
-						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaBanner == true)
+						if($editarVistaSlide == true || $editarVistaModulos == true || $editarVistaBanner == true || $editarVistaCabecera == true)
 						{
 							$dataVistas = [
 								"Id"=>$codigo,
 								"Slides"=>$vistaSlide,
 								"Modulos"=>$vistaModulos,
-								"Banner"=>$vistaBanner
+								"Banner"=>$vistaBanner,
+								"Cabecera"=>$vistaCabecera
 							];
 							$guardarReglas = administradorModelo::agregar_vista_marca_modelo($dataVistas);
 							if ($guardarReglas->rowCount()>0){					
@@ -4942,7 +5000,51 @@
 
 		public function cargar_vista_marca_controlador($datosVista, $items)
 		{
-			if ($items == "slides") {
+			if ($items == "cabecera") {
+				$mostrar = json_decode($datosVista['cabecera'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-sm-9">
+									<div class="form-group">
+										<label for="marca-cabecera-editar" class="form-control-label">Cabecera</label>
+										<select id="marca-cabecera-editar" name="marca-cabecera-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 1; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-sm-9">
+								<div class="form-group">
+									<label for="marca-cabecera-editar" class="form-control-label">Cabecera</label>
+									<select id="marca-cabecera-editar" name="marca-cabecera-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+			elseif ($items == "slides") {
 				$mostrar = json_decode($datosVista['slides'], true);
 				$numeroVista = 1;
 				if (count($mostrar)>0) {
@@ -5174,7 +5276,51 @@
 
 		public function cargar_vista_categoria_controlador($datosVista, $items)
 		{
-			if ($items == "slides") {
+			if ($items == "cabecera") {
+				$mostrar = json_decode($datosVista['cabecera'], true);
+				$numeroVista = 1;
+				if (count($mostrar)>0) {
+					foreach($mostrar as $vista)
+					{
+						$infoMedio = administradorControlador::obtener_info_medios_controlador($vista['img']);
+						$infoMedio = $infoMedio->fetch();
+						echo '
+							<div class="row">
+								<div class="col-sm-9">
+									<div class="form-group">
+										<label for="categoria-cabecera-editar" class="form-control-label">Cabecera</label>
+										<select id="categoria-cabecera-editar" name="categoria-cabecera-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+											<option value="" label="default" data-url-image="">Ninguno</option>
+											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<img id="imagen-cambiar-vista" src="'.$infoMedio['url'].'" class="sombra">
+								</div>
+							</div>';
+						$numeroVista += 1;
+					}
+				}
+				for ($numeroVista; $numeroVista <= 1; $numeroVista++) { 
+					echo '
+						<div class="row">
+							<div class="col-sm-9">
+								<div class="form-group">
+									<label for="categoria-cabecera-editar" class="form-control-label">Cabecera</label>
+									<select id="categoria-cabecera-editar" name="categoria-cabecera-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<option value="" label="default" data-url-image="">Ninguno</option>
+										'.administradorControlador::cargar_medios_controlador().'
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<img id="imagen-cambiar-vista" src="" class="sombra">
+							</div>
+						</div>';
+				}
+			}
+			elseif ($items == "slides") {
 				$mostrar = json_decode($datosVista['slides'], true);
 				$numeroVista = 1;
 				if (count($mostrar)>0) {

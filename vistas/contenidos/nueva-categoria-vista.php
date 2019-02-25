@@ -166,7 +166,23 @@
 											</div>
 										</nav>
 										<div class="tab-content pl-3 pt-2" id="nav-tabContent">
-											<div class="tab-pane fade active show" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
+											<div class="tab-pane fade active show" id="custom-nav-cabecera" role="tabpanel" aria-labelledby="custom-nav-cabecera-tab">
+												<div class="row">
+													<div class="col-sm-9">
+														<div class="form-group">
+															<label for="categoria-cabecera-nueva" class="form-control-label">Cabecera</label>
+															<select id="categoria-cabecera-nueva" name="categoria-cabecera-nueva" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+																<option value="" label="default" data-url-image="">Ninguno</option>
+																<?php echo $insAdmin->cargar_medios_controlador(); ?>
+															</select>
+														</div>
+													</div>
+													<div class="col-sm-3">
+														<img id="imagen-cambiar-vista" src="" class="sombra">
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane fade" id="custom-nav-slides" role="tabpanel" aria-labelledby="custom-nav-slides-tab">
 												<div class="row">
 													<div class="col-12">
 														<h3 class="pb-2 display-5">Slide 1</h3>
