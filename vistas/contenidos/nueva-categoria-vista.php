@@ -159,7 +159,8 @@
 									<div class="custom-tab">
 										<nav style="margin-bottom: 20px;">
 											<div class="nav nav-tabs" id="nav-tab" role="tablist">
-												<a class="nav-item nav-link active show" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="true">Slides</a>
+												<a class="nav-item nav-link active show" id="custom-nav-cabecera-tab" data-toggle="tab" href="#custom-nav-cabecera" role="tab" aria-controls="custom-nav-cabecera" aria-selected="true">Cabecera</a>
+												<a class="nav-item nav-link" id="custom-nav-slides-tab" data-toggle="tab" href="#custom-nav-slides" role="tab" aria-controls="custom-nav-slides" aria-selected="true">Slides</a>
 												<a class="nav-item nav-link" id="custom-nav-columnas-tab" data-toggle="tab" href="#custom-nav-columnas" role="tab" aria-controls="custom-nav-columnas" aria-selected="false">Módulos</a>
 												<a class="nav-item nav-link" id="custom-nav-marcas-tab" data-toggle="tab" href="#custom-nav-marcas" role="tab" aria-controls="custom-nav-marcas" aria-selected="false">Marcas</a>
 												<a class="nav-item nav-link" id="custom-nav-banner-tab" data-toggle="tab" href="#custom-nav-banner" role="tab" aria-controls="custom-nav-banner" aria-selected="false">Banner publicitario</a>
