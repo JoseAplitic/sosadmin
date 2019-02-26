@@ -101,7 +101,7 @@
 										<div class="row">
 											<div class="col-9">
 												<div class="form-group">
-													<label for="marca-icono-editar" class=" form-control-label">Icono</label>
+													<label for="marca-icono-editar" class=" form-control-label">Logo para fondos claros</label>
 													<select id="marca-icono-editar" name="marca-icono-editar" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
 													<?php if($icono > 0): ?>
 															<?php
@@ -139,7 +139,7 @@
                                         <div class="row">
 											<div class="col-9">
 												<div class="form-group">
-													<label for="marca-icono2-editar" class=" form-control-label">Icono</label>
+													<label for="marca-icono2-editar" class=" form-control-label">Logo para fondos oscuros</label>
 													<select id="marca-icono2-editar" name="marca-icono2-editar" data-placeholder="Elije un icono..." class="standardSelect" tabindex="1">
 													<?php if($icono2 > 0): ?>
 															<?php

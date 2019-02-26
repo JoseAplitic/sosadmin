@@ -5183,14 +5183,14 @@
 								</div>
 								<div class="col-sm-5">
 									<div class="form-group">
-										<label for="marca-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
-										<input id="marca-banner-url-'.$numeroVista.'-editar" type="url" name="marca-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+										<label for="marca-banner-publicitario-url-editar" class=" form-control-label">URL</label>
+										<input id="marca-banner-publicitario-url-editar" type="url" name="marca-banner-publicitario-url-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
 									</div>
 								</div>
 								<div class="col-sm-5">
 									<div class="form-group">
-										<label for="marca-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
-										<select id="marca-banner-img-'.$numeroVista.'-editar" name="marca-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<label for="marca-banner-publicitario-img-editar" class="form-control-label">Imagen</label>
+										<select id="marca-banner-publicitario-img-editar" name="marca-banner-publicitario-img-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
 											<option value="" label="default" data-url-image="">Ninguno</option>
 											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
 										</select>
@@ -5211,14 +5211,14 @@
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
-									<label for="marca-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
-									<input id="marca-banner-url-'.$numeroVista.'-editar" type="url" name="marca-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+									<label for="marca-banner-publicitario-url-editar" class=" form-control-label">URL</label>
+									<input id="marca-banner-publicitario-url-editar" type="url" name="marca-banner-publicitario-url-editar" placeholder="" class="form-control">
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
-									<label for="marca-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
-									<select id="marca-banner-img-'.$numeroVista.'-editar" name="marca-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+									<label for="marca-banner-publicitario-img-editar" class="form-control-label">Imagen</label>
+									<select id="marca-banner-publicitario-img-editar" name="marca-banner-publicitario-img-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
 										<option value="" label="default" data-url-image="">Ninguno</option>
 										'.administradorControlador::cargar_medios_controlador().'
 									</select>
@@ -5493,14 +5493,14 @@
 								</div>
 								<div class="col-sm-5">
 									<div class="form-group">
-										<label for="categoria-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
-										<input id="categoria-banner-url-'.$numeroVista.'-editar" type="url" name="categoria-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
+										<label for="categoria-banner-publicitario-url-editar" class=" form-control-label">URL</label>
+										<input id="categoria-banner-publicitario-url-editar" type="url" name="categoria-banner-publicitario-url-editar" placeholder="" class="form-control" value="'.$vista['url'].'">
 									</div>
 								</div>
 								<div class="col-sm-5">
 									<div class="form-group">
-										<label for="categoria-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
-										<select id="categoria-banner-img-'.$numeroVista.'-editar" name="categoria-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+										<label for="categoria-banner-publicitario-img-editar" class="form-control-label">Imagen</label>
+										<select id="categoria-banner-publicitario-img-editar" name="categoria-banner-publicitario-img-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
 											<option value="" label="default" data-url-image="">Ninguno</option>
 											'.administradorControlador::cargar_medios_vista_controlador($vista['img']).'
 										</select>
@@ -5521,14 +5521,14 @@
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
-									<label for="categoria-banner-url-'.$numeroVista.'-editar" class=" form-control-label">URL</label>
-									<input id="categoria-banner-url-'.$numeroVista.'-editar" type="url" name="categoria-banner-url-'.$numeroVista.'-editar" placeholder="" class="form-control">
+									<label for="categoria-banner-publicitario-url-editar" class=" form-control-label">URL</label>
+									<input id="categoria-banner-publicitario-url-editar" type="url" name="categoria-banner-publicitario-url-editar" placeholder="" class="form-control">
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
-									<label for="categoria-banner-img-'.$numeroVista.'-editar" class="form-control-label">Imagen</label>
-									<select id="categoria-banner-img-'.$numeroVista.'-editar" name="categoria-banner-img-'.$numeroVista.'-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
+									<label for="categoria-banner-publicitario-img-editar" class="form-control-label">Imagen</label>
+									<select id="categoria-banner-publicitario-img-editar" name="categoria-banner-publicitario-img-editar" data-placeholder="Elije una imagen..." class="standardSelect select-cambio-imagen" tabindex="1">
 										<option value="" label="default" data-url-image="">Ninguno</option>
 										'.administradorControlador::cargar_medios_controlador().'
 									</select>
