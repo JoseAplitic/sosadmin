@@ -179,6 +179,19 @@
 		$insAdmin = new administradorControlador();
 		echo $insAdmin->editar_descuento_controlador();
 	}
+	//AJAX PARA VISTAS
+	elseif (isset($_POST['vista-header-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_vista_header_controlador();
+	}
+	elseif (isset($_POST['vista-home-editar']))
+	{
+		require_once "../controladores/administradorControlador.php";
+		$insAdmin = new administradorControlador();
+		echo $insAdmin->editar_vista_home_controlador();
+	}
 	else
 	{
 		session_start(['name'=>'adminsoswebstore']);

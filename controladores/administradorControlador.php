@@ -4090,6 +4090,38 @@
 			return $lista;
 		}
 
+		public function relaciones_marcas_descuentos_controlador($items)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = 'marca';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $items;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax[0] == $rows['id'] && $tax[1] == "marca")
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
 		public function relaciones_atributos_descuentos_controlador($activos)
 		{
 			$lista="";
@@ -4228,6 +4260,13 @@
 						array_push($relaciones_descuentos, array("id_descuento"=>$id,"item"=>$tax,"tipo"=>"atributo"));
 					}
 				}
+				if(isset($_POST['descuento-marcas-editar']))
+				{
+					foreach($_POST['descuento-marcas-editar'] as $tax)
+					{
+						array_push($relaciones_descuentos, array("id_descuento"=>$id,"item"=>$tax,"tipo"=>"marca"));
+					}
+				}
 				$relaciones_descuentos_existentes = administradorControlador::cargar_relaciones_descuentos_editar_controlador($id);			
 				$nuevasRelaciones = array();
 				foreach($relaciones_descuentos as $tax)
@@ -4285,7 +4324,7 @@
 				}
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Producto actualizado",
+					"Titulo"=>"Descuento actualizado",
 					"Texto"=>"El descuento se ha actualizado con éxito en el sistema",
 					"Tipo"=>"success"
 				];
@@ -5540,5 +5579,335 @@
 						</div>';
 				}
 			}
+		}
+
+		//CONTROLADORES PARA VISTAS PREDETERMINADAS
+
+		public function obtener_datos_vistas($vista)
+		{
+			$sql=mainModel::conectar()->prepare("SELECT * FROM vistas WHERE vista=:Vista");
+			$sql->bindParam(":Vista",$vista);
+			$sql->execute();
+			return $sql;
+		}
+
+		public function relaciones_marcas_vista_controlador($items)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = 'marca';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $items;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax == $rows['id'])
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function relaciones_categorias_vista_controlador($items)
+		{
+			$lista="";
+			$consulta="SELECT id, nombre FROM taxonomias WHERE taxonomia = 'categoria';";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			$seleccionar = $items;
+			$activo = false;
+			foreach($datos as $rows)
+			{
+				if (!empty($seleccionar))
+				{
+					foreach($seleccionar as $tax)
+					{
+						if ($tax == $rows['id'])
+						{
+							$lista.='<option value="'.$rows['id'].'" selected="">'.$rows['nombre'].'</option>';
+							$activo = true;
+						}
+					}
+				}
+				if($activo == false){
+					$lista.='<option value="'.$rows['id'].'">'.$rows['nombre'].'</option>';
+				}
+				else{
+					$activo = false;
+				}
+			}
+			return $lista;
+		}
+
+		public function editar_vista_header_controlador()
+		{
+			
+			$relacionesMarcas = array();
+			$relacionesCategorias = array();
+
+			if(isset($_POST['vista-header-categorias-editar']))
+			{
+				$relacionesCategorias = $_POST['vista-header-categorias-editar'];
+			}
+
+			if(isset($_POST['vista-header-marcas-editar']))
+			{
+				$relacionesMarcas = $_POST['vista-header-marcas-editar'];
+			}
+
+			$dataRelaciones = [
+				"marcas"=>$relacionesMarcas,
+				"categorias"=>$relacionesCategorias
+			];
+
+			$datosHeader = json_encode($dataRelaciones);
+
+			$actualizarVista=administradorModelo::actualizar_vista_header_modelo($datosHeader);
+
+			if($actualizarVista->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Información actulizada",
+					"Texto"=>"Se ha actualizado la información de la vista cabecera.",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido actualizar la vista, por favor revisa la información que proporcionaste.",
+					"Tipo"=>"error"
+				];
+			}
+
+			return mainModel::sweet_alert($alerta);
+		}
+
+		public function editar_vista_home_controlador()
+		{
+			$relaciones = array();
+
+			if(isset($_POST['home-slide-url-1-editar']) && isset($_POST['home-slide-img-1-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-1-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-1-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide1"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide1"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-2-editar']) && isset($_POST['home-slide-img-2-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-2-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-2-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide2"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide2"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-3-editar']) && isset($_POST['home-slide-img-3-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-3-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-3-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide3"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide3"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-4-editar']) && isset($_POST['home-slide-img-4-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-4-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-4-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide4"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide4"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-5-editar']) && isset($_POST['home-slide-img-5-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-5-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-5-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide5"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide5"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-6-editar']) && isset($_POST['home-slide-img-6-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-6-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-6-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide6"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide6"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-7-editar']) && isset($_POST['home-slide-img-7-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-7-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-7-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide7"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide7"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-8-editar']) && isset($_POST['home-slide-img-8-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-8-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-8-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide8"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide8"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-9-editar']) && isset($_POST['home-slide-img-9-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-9-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-9-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide9"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide9"=>$insertar));
+			}
+
+			if(isset($_POST['home-slide-url-10-editar']) && isset($_POST['home-slide-img-10-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-slide-url-10-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-slide-img-10-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("slide10"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("slide10"=>$insertar));
+			}
+
+			if(isset($_POST['home-banner-publicitario-url-1-editar']) && isset($_POST['home-banner-publicitario-img-1-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-banner-publicitario-url-1-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-banner-publicitario-img-1-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("banner1"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("banner1"=>$insertar));
+			}
+
+			if(isset($_POST['home-banner-publicitario-url-2-editar']) && isset($_POST['home-banner-publicitario-img-2-editar']))
+			{
+				$url = mainModel::limpiar_cadena($_POST['home-banner-publicitario-url-2-editar']);
+				$img = mainModel::limpiar_cadena($_POST['home-banner-publicitario-img-2-editar']);
+				$insertar = [$url, $img];
+				array_push($relaciones, array("banner2"=>$insertar));
+			}
+			else
+			{
+				$insertar = ["", ""];
+				array_push($relaciones, array("banner2"=>$insertar));
+			}
+
+			$datosHome = json_encode($relaciones);
+
+			$actualizarVista=administradorModelo::actualizar_vista_home_modelo($datosHome);
+
+			if($actualizarVista->rowCount()>=1)
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Información actulizada",
+					"Texto"=>"Se ha actualizado la información de la vista cabecera.",
+					"Tipo"=>"success"
+				];
+			}
+			else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido actualizar la vista, por favor revisa la información que proporcionaste.",
+					"Tipo"=>"error"
+				];
+			}
+
+			return mainModel::sweet_alert($alerta);
+
+		}
+
+		//VERIFICAR MEDIOS DE VISTAS
+		public function verificar_medios_controlador($img)
+		{
+			$lista="";
+			$consulta="SELECT id, titulo, url FROM medios;";
+			$conexion = mainModel::conectar();
+			$datos = $conexion->query($consulta);
+			$datos = $datos->fetchAll();
+			foreach($datos as $rows)
+			{
+				if ($img == $rows['id'])
+				{
+					$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'" selected="">'.$rows['titulo'].'</option>';
+				}
+				else
+				{
+					$lista.='<option value="'.$rows['id'].'" data-url-image="'.$rows['url'].'">'.$rows['titulo'].'</option>';
+				}
+			}
+			return $lista;
 		}
 	}

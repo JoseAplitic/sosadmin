@@ -696,5 +696,23 @@
 			$query->execute();
 			return $query;
 		}
+
+		//MODELOS PARA VISTAS
+
+		protected function actualizar_vista_header_modelo($datosHeader)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE vistas SET contenido = :DatosHeader WHERE vista = 'header';");
+			$sql->bindParam(":DatosHeader",$datosHeader);
+			$sql->execute();
+			return $sql;
+		}
+
+		protected function actualizar_vista_home_modelo($datosHome)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE vistas SET contenido = :DatosHome WHERE vista = 'home';");
+			$sql->bindParam(":DatosHome",$datosHome);
+			$sql->execute();
+			return $sql;
+		}
 		
 	}

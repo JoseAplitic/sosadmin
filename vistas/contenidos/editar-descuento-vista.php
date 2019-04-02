@@ -192,6 +192,18 @@
 												</div>
 											</div>
 										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="descuento-marca-editar" class=" form-control-label">Marcas</label>
+													<select id="descuento-marca-editar" name="descuento-marcas-editar[]" data-placeholder="Elije las marcas" multiple="" class="standardSelect" tabindex="-1">
+														<?php
+															echo $insAdmin->relaciones_marcas_descuentos_controlador($relaciones);
+														?>
+													</select>
+												</div>
+											</div>
+										</div>
 										<input class="btn btn-outline-info btn-block" type="submit" value="Guardar cambios" style="margin: 20px 0px;">
 										<div class="RespuestaAjax"></div>
 									</form>

@@ -12,7 +12,8 @@
 				"etiquetas","buscar-etiquetas","nueva-etiqueta","editar-etiqueta",
 				"descuentos","buscar-descuentos","nuevo-descuento","editar-descuento",
 				"marcas","buscar-marcas","nueva-marca","editar-marca",
-				"medios","editar-medio","buscar-medios"
+				"medios","editar-medio","buscar-medios",
+				"home-vista", "header-vista"
 			];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-vista.php")){

@@ -66,6 +66,13 @@ if(!isset($_SESSION['id']) || !isset($_SESSION['nombre']) || !isset($_SESSION['a
                     <a href="<?php echo SERVERURL; ?>medios/"> <i class="menu-icon far fa-images"></i>Medios</a>
                     <a href="<?php echo SERVERURL; ?>buscar-medios/"> <i class="menu-icon fas fa-search"></i>Buscar medios</a>
                 </li>
+                <li class="menu-title">Vistas</li>
+                <li>
+                    <a href="<?php echo SERVERURL; ?>home-vista/"> <i class="menu-icon fas fa-home"></i>Home</a>
+                </li>
+                <li>
+                    <a href="<?php echo SERVERURL; ?>header-vista/"> <i class="menu-icon fas fa-window-maximize"></i>Header</a>
+                </li>
                 <?php if ($_SESSION['id'] == 1): ?>
                 <li class="menu-title">Usuarios</li>
                 <li>
