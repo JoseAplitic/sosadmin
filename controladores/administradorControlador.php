@@ -3008,6 +3008,7 @@
 			$nombre=mainModel::limpiar_cadena($_POST['producto-nombre-nuevo']);
 			$slug=mainModel::limpiar_cadena($_POST['producto-slug-nuevo']);
 			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-nuevo']);
+			$especificaciones=mainModel::limpiar_cadena($_POST['producto-especificaciones-nuevo']);
 			$precio=mainModel::limpiar_cadena($_POST['producto-precio-nuevo']);
 			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-nuevo']);
 			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-nuevo']);
@@ -3041,6 +3042,7 @@
 					"Nombre"=>$nombre,
 					"Slug"=>$slug,
 					"Descripcion"=>$descripcion,
+					"Especificaciones"=>$especificaciones,
 					"Precio"=>$precio,
 					"Mpn"=>$mpn,
 					"Fabricante"=>$fabricante,
@@ -3523,6 +3525,7 @@
 			$nombre=mainModel::limpiar_cadena($_POST['producto-nombre-editar']);
 			$slug=mainModel::limpiar_cadena($_POST['producto-slug-editar']);
 			$descripcion=mainModel::limpiar_cadena($_POST['producto-descripcion-editar']);
+			$especificaciones=mainModel::limpiar_cadena($_POST['producto-especificaciones-editar']);
 			$precio=mainModel::limpiar_cadena($_POST['producto-precio-editar']);
 			$mpn=mainModel::limpiar_cadena($_POST['producto-mpn-editar']);
 			$fabricante=mainModel::limpiar_cadena($_POST['producto-fabricante-editar']);
@@ -3556,6 +3559,7 @@
 					"Nombre"=>$nombre,
 					"Slug"=>$slug,
 					"Descripcion"=>$descripcion,
+					"Especificaciones"=>$especificaciones,
 					"Precio"=>$precio,
 					"Mpn"=>$mpn,
 					"Fabricante"=>$fabricante,

@@ -317,11 +317,12 @@
 		
 		//MODELOS PARA PRODUCTOS
 		protected function agregar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,mpn,fabricante,tipo,nuevo,precio,stock,oferta,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Stock,:Oferta,:Fecha);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,especificaciones,mpn,fabricante,tipo,nuevo,precio,stock,oferta,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Especificaciones,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Stock,:Oferta,:Fecha);");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
 			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Especificaciones",$datos['Especificaciones']);
 			$sql->bindParam(":Mpn",$datos['Mpn']);
 			$sql->bindParam(":Fabricante",$datos['Fabricante']);
 			$sql->bindParam(":Tipo",$datos['Tipo']);
@@ -397,11 +398,12 @@
 		}
 
 		protected function editar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta WHERE sku = :Original;");
+			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, especificaciones = :Especificaciones, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta WHERE sku = :Original;");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
 			$sql->bindParam(":Descripcion",$datos['Descripcion']);
+			$sql->bindParam(":Especificaciones",$datos['Especificaciones']);
 			$sql->bindParam(":Mpn",$datos['Mpn']);
 			$sql->bindParam(":Fabricante",$datos['Fabricante']);
 			$sql->bindParam(":Tipo",$datos['Tipo']);

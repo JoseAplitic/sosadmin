@@ -110,6 +110,14 @@
 											</div>
 										</div>
 										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="producto-especificaciones-nuevo" class=" form-control-label">Especificaciones</label>
+													<input id="producto-especificaciones-nuevo" type="text" name="producto-especificaciones-nuevo" placeholder="" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="row">
 											<div class="col-3">
 												<div class="form-group">
 													<label for="producto-precio-nuevo" class="form-control-label">Precio *</label>

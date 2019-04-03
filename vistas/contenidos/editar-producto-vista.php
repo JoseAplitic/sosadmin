@@ -65,6 +65,7 @@
 								$nombre = $datos['nombre'];
 								$slug = $datos['slug'];
 								$descripcion = $datos['descripcion'];
+								$especificaciones = $datos['especificaciones'];
 								$precio = $datos['precio'];
 								$mpn = $datos['mpn'];
 								$fabricante = $datos['fabricante'];
@@ -126,6 +127,14 @@
 															<div class="form-group">
 																<label for="producto-descripcion-editar" class=" form-control-label">Descripción</label>
 																<input id="producto-descripcion-editar" type="text" name="producto-descripcion-editar" placeholder="" class="form-control" value="<?php echo $descripcion; ?>">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12">
+															<div class="form-group">
+																<label for="producto-especificaciones-editar" class=" form-control-label">Especificaciones</label>
+																<input id="producto-especificaciones-editar" type="text" name="producto-especificaciones-editar" placeholder="" class="form-control" value="<?php echo $especificaciones; ?>">
 															</div>
 														</div>
 													</div>
