@@ -126,7 +126,7 @@
 														<div class="col-12">
 															<div class="form-group">
 																<label for="producto-descripcion-editar" class=" form-control-label">Descripción</label>
-																<input id="producto-descripcion-editar" type="text" name="producto-descripcion-editar" placeholder="" class="form-control" value="<?php echo $descripcion; ?>">
+																<textarea id="producto-descripcion-editar" name="producto-descripcion-editar"><?php echo $descripcion; ?></textarea>
 															</div>
 														</div>
 													</div>
@@ -134,7 +134,7 @@
 														<div class="col-12">
 															<div class="form-group">
 																<label for="producto-especificaciones-editar" class=" form-control-label">Especificaciones</label>
-																<input id="producto-especificaciones-editar" type="text" name="producto-especificaciones-editar" placeholder="" class="form-control" value="<?php echo $especificaciones; ?>">
+																<textarea id="producto-especificaciones-editar" name="producto-especificaciones-editar"><?php echo $especificaciones; ?></textarea>
 															</div>
 														</div>
 													</div>
@@ -322,4 +322,24 @@
         jQuery('#imagen-cambiar').attr("src", url);
 
 	});
+</script>
+
+<script src="../vistas/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+var descripcion = CKEDITOR.replace( 'producto-descripcion-editar', {
+	language: 'es'
+});
+descripcion.on( 'change', function( evt ) {
+	document.getElementById('producto-descripcion-editar').value = descripcion.getData();
+});
+
+var especificaciones = CKEDITOR.replace( 'producto-especificaciones-editar', {
+	language: 'es'
+});
+especificaciones.on( 'change', function( evt ) {
+	document.getElementById('producto-especificaciones-editar').value = especificaciones.getData();
+});
+
 </script>

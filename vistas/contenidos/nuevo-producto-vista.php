@@ -105,7 +105,7 @@
 											<div class="col-12">
 												<div class="form-group">
 													<label for="producto-descripcion-nuevo" class=" form-control-label">Descripción</label>
-													<input id="producto-descripcion-nuevo" type="text" name="producto-descripcion-nuevo" placeholder="" class="form-control">
+													<textarea id="producto-descripcion-nuevo" name="producto-descripcion-nuevo"></textarea>
 												</div>
 											</div>
 										</div>
@@ -113,7 +113,7 @@
 											<div class="col-12">
 												<div class="form-group">
 													<label for="producto-especificaciones-nuevo" class=" form-control-label">Especificaciones</label>
-													<input id="producto-especificaciones-nuevo" type="text" name="producto-especificaciones-nuevo" placeholder="" class="form-control">
+													<textarea id="producto-especificaciones-nuevo" name="producto-especificaciones-nuevo"></textarea>
 												</div>
 											</div>
 										</div>
@@ -284,3 +284,24 @@
 		cargarPreciosAgregar();
     });
 </script>
+
+<script src="../vistas/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+var descripcion = CKEDITOR.replace( 'producto-descripcion-nuevo', {
+	language: 'es'
+});
+descripcion.on( 'change', function( evt ) {
+	document.getElementById('producto-descripcion-nuevo').value = descripcion.getData();
+});
+
+var especificaciones = CKEDITOR.replace( 'producto-especificaciones-nuevo', {
+	language: 'es'
+});
+especificaciones.on( 'change', function( evt ) {
+	document.getElementById('producto-especificaciones-nuevo').value = especificaciones.getData();
+});
+
+</script>
+
