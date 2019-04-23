@@ -218,7 +218,7 @@
 													<option value="" label="default" data-url-image="">Ninguno</option>
 													<?php echo $insAdmin->cargar_medios_controlador($icono2); ?>
 												<?php endif; ?>
-										<?php else: ?>
+											<?php else:  $mostrar_url = ""; ?>
 											<option value="" label="default" data-url-image="">Ninguno</option>
 											<?php echo $insAdmin->cargar_medios_controlador($icono2); ?>
 										<?php endif; ?>
