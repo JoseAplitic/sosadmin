@@ -2608,13 +2608,13 @@
 				$permitidos = array("image/jpg", "image/jpeg", "image/gif", "image/png", "image/PNG");
 				if (in_array($imagen['type'], $permitidos))
 				{
-                    $ruta = "../productos/".$imagen['name'];
+                    $ruta = "../medios/".$imagen['name'];
                     if (!file_exists($ruta))
                     {
                         $resultado = @move_uploaded_file($imagen["tmp_name"], $ruta);
                         if ($resultado)
                         {
-							$ruta = SERVERURL."productos/".$imagen['name'];
+							$ruta = SERVERURL."medios/".$imagen['name'];
                             $fecha  = date("d/m/Y");
                             $dataAC=[
                                 "Titulo"=>$titulo,
