@@ -60,7 +60,7 @@
 										}
 										foreach($arrayVista['categorias'] as $datoVista)
 										{
-											array_push($relaciones, $datoVista);
+											($relaciones, $datoVista);
 										}
 									}
 
