@@ -3144,18 +3144,16 @@
 		
 			if(isset($busqueda) && $busqueda!=""){
 				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM productos WHERE 
+				sku LIKE '%$busqueda%' OR 
 				nombre LIKE '%$busqueda%' OR 
 				slug LIKE '%$busqueda%' OR 
 				descripcion LIKE '%$busqueda%' OR 
-				sku LIKE '%$busqueda%' OR 
+				especificaciones LIKE '%$busqueda%' OR 
 				mpn LIKE '%$busqueda%' OR 
 				fabricante LIKE '%$busqueda%' OR 
 				tipo LIKE '%$busqueda%' OR 
 				nuevo LIKE '%$busqueda%' OR 
 				precio LIKE '%$busqueda%' OR 
-				precio_visitantes LIKE '%$busqueda%' OR 
-				precio_usuarios LIKE '%$busqueda%' OR 
-				precio_empresas LIKE '%$busqueda%' OR 
 				stock LIKE '%$busqueda%' OR 
 				oferta LIKE '%$busqueda%' OR 
 				fecha LIKE '%$busqueda%' 

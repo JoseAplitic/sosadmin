@@ -187,7 +187,7 @@
 												<div class="form-group">
 													<label for="producto-marca-nuevo" class=" form-control-label">Marca</label>
 													<select id="producto-marca-nuevo" name="producto-marca-nuevo" data-placeholder="Elije la marca..." class="standardSelect" tabindex="1">
-                        								<option value="0" label="default"></option>
+                        								<option value="0" label="default">Ninguno</option>
 														<?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
 													</select>
 												</div>

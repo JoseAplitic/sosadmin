@@ -4,7 +4,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>TODOS LOS PRODUCTOS</h1>
+                        <h1>EDITAR PRODUCTO</h1>
                     </div>
                 </div>
             </div>
@@ -215,6 +215,7 @@
 															<div class="form-group">
 																<label for="producto-marca-editar" class=" form-control-label">Marca</label>
 																<select id="producto-marca-editar" name="producto-marca-editar" data-placeholder="Elije una marca..." class="standardSelect" tabindex="1">
+																	<option value="0" label="default">Ninguno</option>
 																	<?php
 																		echo $insAdmin->cargar_taxonomias_marcas_productos_controlador($relaciones, "marca");
 																	?>
