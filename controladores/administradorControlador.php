@@ -2882,7 +2882,7 @@
 		public function cargar_productos_controlador()
 		{
 			$lista="";
-			$consulta="SELECT * FROM productos ORDER BY nombre;";
+			$consulta="SELECT nombre, sku FROM productos ORDER BY nombre;";
 			$conexion = mainModel::conectar();
 			$datos = $conexion->query($consulta);
 			$datos = $datos->fetchAll();
@@ -3016,6 +3016,8 @@
 			$stock=mainModel::limpiar_cadena($_POST['producto-stock-nuevo']);
 			$nuevo = "no";
 			$oferta = "no";
+			$calificacion=mainModel::limpiar_cadena($_POST['producto-calificacion-nuevo']);
+			$justificacion=mainModel::limpiar_cadena($_POST['producto-justificacion-nuevo']);
 			$verificar=administradorModelo::verificar_producto_slug_disponible($slug);
 			if ($verificar->rowCount() > 0)
 			{
@@ -3050,6 +3052,8 @@
 					"Stock"=>$stock,
 					"Nuevo"=>$nuevo,
 					"Oferta"=>$oferta,
+					"Calificacion"=>$calificacion,
+					"Justificacion"=>$justificacion,
 					"Fecha"=>$fecha
 				];
 				$guardarProducto=administradorModelo::agregar_producto_modelo($dataAC);
@@ -3140,18 +3144,16 @@
 		
 			if(isset($busqueda) && $busqueda!=""){
 				$consulta="SELECT SQL_CALC_FOUND_ROWS * FROM productos WHERE 
+				sku LIKE '%$busqueda%' OR 
 				nombre LIKE '%$busqueda%' OR 
 				slug LIKE '%$busqueda%' OR 
 				descripcion LIKE '%$busqueda%' OR 
-				sku LIKE '%$busqueda%' OR 
+				especificaciones LIKE '%$busqueda%' OR 
 				mpn LIKE '%$busqueda%' OR 
 				fabricante LIKE '%$busqueda%' OR 
 				tipo LIKE '%$busqueda%' OR 
 				nuevo LIKE '%$busqueda%' OR 
 				precio LIKE '%$busqueda%' OR 
-				precio_visitantes LIKE '%$busqueda%' OR 
-				precio_usuarios LIKE '%$busqueda%' OR 
-				precio_empresas LIKE '%$busqueda%' OR 
 				stock LIKE '%$busqueda%' OR 
 				oferta LIKE '%$busqueda%' OR 
 				fecha LIKE '%$busqueda%' 
@@ -3533,6 +3535,8 @@
 			$stock=mainModel::limpiar_cadena($_POST['producto-stock-editar']);
 			$nuevo = "no";
 			$oferta = "no";
+			$calificacion=mainModel::limpiar_cadena($_POST['producto-calificacion-editar']);
+			$justificacion=mainModel::limpiar_cadena($_POST['producto-justificacion-editar']);
 			$verificar=administradorModelo::verificar_producto_editar_slug_disponible($slug, $sku_original);
 			if ($verificar->rowCount() > 0)
 			{
@@ -3566,7 +3570,9 @@
 					"Tipo"=>$tipo,
 					"Stock"=>$stock,
 					"Nuevo"=>$nuevo,
-					"Oferta"=>$oferta
+					"Oferta"=>$oferta,
+					"Calificacion"=>$calificacion,
+					"Justificacion"=>$justificacion
 				];
 				$actualizarProducto=administradorModelo::editar_producto_modelo($dataAC);
 				if($actualizarProducto->rowCount()>=1 || isset($_POST['producto-imagenes-editar']) || isset($_POST['producto-categoria-editar']) || isset($_POST['producto-etiqueta-editar']) || isset($_POST['producto-atributo-editar']))
@@ -4233,7 +4239,7 @@
 				"Vencimiento"=>$vencimiento
 			];
 			$actualizarProducto=administradorModelo::editar_descuento_modelo($dataAC);
-			if($actualizarProducto->rowCount()>=1 || $_POST['descuento-productos-editar'] || $_POST['descuento-categorias-editar'] || $_POST['descuento-etiquetas-editar'] || $_POST['descuento-atributos-editar'])
+			if($actualizarProducto->rowCount()>=1 || isset($_POST['descuento-categorias-editar']) || isset($_POST['descuento-productos-editar']) || isset($_POST['descuento-etiquetas-editar']) || isset($_POST['descuento-atributos-editar']))
 			{
 				$relaciones_descuentos = array();
 				if(isset($_POST['descuento-productos-editar']))

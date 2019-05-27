@@ -317,7 +317,7 @@
 		
 		//MODELOS PARA PRODUCTOS
 		protected function agregar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,especificaciones,mpn,fabricante,tipo,nuevo,precio,stock,oferta,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Especificaciones,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Stock,:Oferta,:Fecha);");
+			$sql=mainModel::conectar()->prepare("INSERT INTO productos(sku,nombre,slug,descripcion,especificaciones,mpn,fabricante,tipo,nuevo,precio,stock,oferta,calificacion,justificacion,fecha) VALUES (:Sku,:Nombre,:Slug,:Descripcion,:Especificaciones,:Mpn,:Fabricante,:Tipo,:Nuevo,:Precio,:Stock,:Oferta,:Calificacion,:Justificacion,:Fecha);");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
@@ -330,6 +330,8 @@
 			$sql->bindParam(":Precio",$datos['Precio']);
 			$sql->bindParam(":Stock",$datos['Stock']);
 			$sql->bindParam(":Oferta",$datos['Oferta']);
+			$sql->bindParam(":Calificacion",$datos['Calificacion']);
+			$sql->bindParam(":Justificacion",$datos['Justificacion']);
 			$sql->bindParam(":Fecha",$datos['Fecha']);
 			$sql->execute();
 			return $sql;
@@ -398,7 +400,7 @@
 		}
 
 		protected function editar_producto_modelo($datos){
-			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, especificaciones = :Especificaciones, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta WHERE sku = :Original;");
+			$sql=mainModel::conectar()->prepare("UPDATE productos SET sku = :Sku, nombre = :Nombre, slug = :Slug, descripcion = :Descripcion, especificaciones = :Especificaciones, mpn = :Mpn, fabricante = :Fabricante, tipo = :Tipo, nuevo = :Nuevo ,precio = :Precio, stock = :Stock, oferta = :Oferta, calificacion = :Calificacion, justificacion = :Justificacion WHERE sku = :Original;");
 			$sql->bindParam(":Sku",$datos['Sku']);
 			$sql->bindParam(":Nombre",$datos['Nombre']);
 			$sql->bindParam(":Slug",$datos['Slug']);
@@ -411,6 +413,8 @@
 			$sql->bindParam(":Precio",$datos['Precio']);
 			$sql->bindParam(":Stock",$datos['Stock']);
 			$sql->bindParam(":Oferta",$datos['Oferta']);
+			$sql->bindParam(":Calificacion",$datos['Calificacion']);
+			$sql->bindParam(":Justificacion",$datos['Justificacion']);
 			$sql->bindParam(":Original",$datos['Original']);
 			$sql->execute();
 			return $sql;

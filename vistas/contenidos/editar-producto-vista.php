@@ -4,7 +4,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>TODOS LOS PRODUCTOS</h1>
+                        <h1>EDITAR PRODUCTO</h1>
                     </div>
                 </div>
             </div>
@@ -73,6 +73,8 @@
 								$stock = $datos['stock'];
 								$nuevo = $datos['nuevo'];
 								$oferta = $datos['oferta'];
+								$calificacion = $datos['calificacion'];
+								$justificacion = $datos['justificacion'];
 								$fecha = $datos['fecha'];
 								?>
 									<form action="<?php echo SERVERURL; ?>ajax/administradorAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
@@ -83,6 +85,7 @@
 													<a class="nav-item nav-link active show" id="custom-nav-principal-tab" data-toggle="tab" href="#custom-nav-principal" role="tab" aria-controls="custom-nav-principal" aria-selected="true">Principal</a>
 													<a class="nav-item nav-link" id="custom-nav-taxonomias-tab" data-toggle="tab" href="#custom-nav-taxonomias" role="tab" aria-controls="custom-nav-taxonomias" aria-selected="false">Taxonomías</a>
 													<a class="nav-item nav-link" id="custom-nav-detalles-tab" data-toggle="tab" href="#custom-nav-detalles" role="tab" aria-controls="custom-nav-detalles" aria-selected="false">Más detalles</a>
+													<a class="nav-item nav-link" id="custom-nav-evaluacion-tab" data-toggle="tab" href="#custom-nav-evaluacion" role="tab" aria-controls="custom-nav-evaluacion" aria-selected="false">Evaluación SMART</a>
 												</div>
 											</nav>
 											<div class="tab-content pl-3 pt-2" id="nav-tabContent">
@@ -212,6 +215,7 @@
 															<div class="form-group">
 																<label for="producto-marca-editar" class=" form-control-label">Marca</label>
 																<select id="producto-marca-editar" name="producto-marca-editar" data-placeholder="Elije una marca..." class="standardSelect" tabindex="1">
+																	<option value="0" label="default">Ninguno</option>
 																	<?php
 																		echo $insAdmin->cargar_taxonomias_marcas_productos_controlador($relaciones, "marca");
 																	?>
@@ -254,7 +258,7 @@
 															<div class="form-group">
 																<label for="producto-editar-editar" class=" form-control-label">¿Nuevo?</label>
 																<label class="container">SI
-																	<input id="producto-nuevo-editar" name="producto-nuevo-editar" type="checkbox" <?php if($nuevo=="si"){echo 'checked=""';} ?>>
+																	<input id="producto-editar-editar" name="producto-editar-editar" type="checkbox" <?php if($nuevo=="si"){echo 'checked=""';} ?>>
 																	<span class="checkmark"></span>
 																</label>
 															</div>
@@ -266,6 +270,23 @@
 																	<input id="producto-oferta-editar" name="producto-oferta-editar" type="checkbox" <?php if($oferta=="si"){echo 'checked=""';}?>>
 																	<span class="checkmark"></span>
 																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane fade" id="custom-nav-evaluacion" role="tabpanel" aria-labelledby="custom-nav-calificacion-tab">
+													<div class="row">
+														<div class="col-12">
+															<div class="form-group">
+																<label for="producto-calificacion-editar" class=" form-control-label">Evaluación</label><br>
+																<input id="producto-calificacion-editar" data-slider-id='evaluacionSlider' type="text" name="producto-calificacion-editar" data-slider-min="0" data-slider-max="5" data-slider-step="1" data-slider-value="<?php echo $calificacion; ?>"/>
+																<span style="margin-left:20px;"> <span id="evaluacionValor"><?php echo $calificacion; ?></span> Estrellas</span>
+															</div>
+														</div>
+														<div class="col-12">
+															<div class="form-group">
+																<label for="producto-justificacion-editar" class=" form-control-label">Justificación</label>
+																<textarea id="producto-justificacion-editar" name="producto-justificacion-editar"><?php echo $justificacion; ?></textarea>
 															</div>
 														</div>
 													</div>
@@ -325,6 +346,8 @@
 </script>
 
 <script src="../vistas/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="../vistas/js/bootstrap-slider.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../vistas/css/bootstrap-slider.min.css">
 
 <script type="text/javascript">
 
@@ -340,6 +363,20 @@ var especificaciones = CKEDITOR.replace( 'producto-especificaciones-editar', {
 });
 especificaciones.on( 'change', function( evt ) {
 	document.getElementById('producto-especificaciones-editar').value = especificaciones.getData();
+});
+
+var justificacion = CKEDITOR.replace( 'producto-justificacion-editar', {
+	language: 'es'
+});
+justificacion.on( 'change', function( evt ) {
+	document.getElementById('producto-justificacion-editar').value = justificacion.getData();
+});
+
+
+
+var slider = new Slider('#producto-calificacion-editar');
+slider.on("change", function(sliderValue) {
+	document.getElementById("evaluacionValor").textContent = document.getElementById("producto-calificacion-editar").value;
 });
 
 </script>

@@ -65,6 +65,7 @@
 										<a class="nav-item nav-link active show" id="custom-nav-principal-tab" data-toggle="tab" href="#custom-nav-principal" role="tab" aria-controls="custom-nav-principal" aria-selected="true">Principal</a>
 										<a class="nav-item nav-link" id="custom-nav-taxonomias-tab" data-toggle="tab" href="#custom-nav-taxonomias" role="tab" aria-controls="custom-nav-taxonomias" aria-selected="false">Taxonomías</a>
 										<a class="nav-item nav-link" id="custom-nav-detalles-tab" data-toggle="tab" href="#custom-nav-detalles" role="tab" aria-controls="custom-nav-detalles" aria-selected="false">Más detalles</a>
+										<a class="nav-item nav-link" id="custom-nav-calificacion-tab" data-toggle="tab" href="#custom-nav-evaluacion" role="tab" aria-controls="custom-nav-evaluacion" aria-selected="false">Evaluación Smart</a>
 									</div>
 								</nav>
 								<div class="tab-content pl-3 pt-2" id="nav-tabContent">
@@ -186,7 +187,7 @@
 												<div class="form-group">
 													<label for="producto-marca-nuevo" class=" form-control-label">Marca</label>
 													<select id="producto-marca-nuevo" name="producto-marca-nuevo" data-placeholder="Elije la marca..." class="standardSelect" tabindex="1">
-                        								<option value="0" label="default"></option>
+                        								<option value="0" label="default">Ninguno</option>
 														<?php echo $insAdmin->cargar_taxonomias_controlador("marca"); ?>
 													</select>
 												</div>
@@ -243,6 +244,23 @@
 											</div>
 										</div>
 									</div>
+									<div class="tab-pane fade" id="custom-nav-evaluacion" role="tabpanel" aria-labelledby="custom-nav-calificacion-tab">
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<label for="producto-calificacion-nuevo" class=" form-control-label">Evaluación</label><br>
+													<input id="producto-calificacion-nuevo" data-slider-id='evaluacionSlider' type="text" name="producto-calificacion-nuevo" data-slider-min="0" data-slider-max="5" data-slider-step="1" data-slider-value="0"/>
+													<span style="margin-left:20px;"> <span id="evaluacionValor">0</span> Estrellas</span>
+												</div>
+											</div>
+											<div class="col-12">
+												<div class="form-group">
+													<label for="producto-justificacion-nuevo" class=" form-control-label">Justificación</label>
+													<textarea id="producto-justificacion-nuevo" name="producto-justificacion-nuevo"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<input class="btn btn-outline-success btn-block" type="submit" value="Agregar nuevo producto" style="margin: 20px 0px;">
@@ -286,6 +304,8 @@
 </script>
 
 <script src="../vistas/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="../vistas/js/bootstrap-slider.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../vistas/css/bootstrap-slider.min.css">
 
 <script type="text/javascript">
 
@@ -301,6 +321,19 @@ var especificaciones = CKEDITOR.replace( 'producto-especificaciones-nuevo', {
 });
 especificaciones.on( 'change', function( evt ) {
 	document.getElementById('producto-especificaciones-nuevo').value = especificaciones.getData();
+});
+
+var justificacion = CKEDITOR.replace( 'producto-justificacion-nuevo', {
+	language: 'es'
+});
+
+justificacion.on( 'change', function( evt ) {
+	document.getElementById('producto-justificacion-nuevo').value = justificacion.getData();
+});
+
+var slider = new Slider('#producto-calificacion-nuevo');
+slider.on("change", function(sliderValue) {
+	document.getElementById("evaluacionValor").textContent = document.getElementById("producto-calificacion-nuevo").value;
 });
 
 </script>
