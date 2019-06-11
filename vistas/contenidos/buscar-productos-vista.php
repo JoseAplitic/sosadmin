@@ -97,7 +97,7 @@
 					<div class="table-stats order-table ov-h">
 						<?php 
 							$pagina = explode("/", $_GET['views']);
-							echo $insAdmin->paginador_productos_controlador($pagina[1],20,$_SESSION['busqueda_producto_cache']);
+							echo $insAdmin->paginador_productos_controlador($pagina[1],250,$_SESSION['busqueda_producto_cache']);
 						?>
 					</div>
 				</div>

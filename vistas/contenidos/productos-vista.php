@@ -57,10 +57,10 @@
 						<strong class="card-title">Todos los productos</strong>
 					</div>
 					<div class="card-body">
-						<div class="table-stats order-table ov-h">
+						<div class="table-stats order-table ov-h" style="max-width:100%;">
 							<?php 
 								$pagina = explode("/", $_GET['views']);
-								echo $insAdmin->paginador_productos_controlador($pagina[1],20,"");
+								echo $insAdmin->paginador_productos_controlador($pagina[1],250,"");
 							?>
 						</div>
 					</div>
